@@ -4,6 +4,7 @@ deploy:
 
 install: vendor/autoload.php .env public/storage
 	php artisan vendor:publish --provider="Webkul\Store\Providers\StoreServiceProvider" --force
+	php artisan optimize
 	php artisan cache:clear
 
 public/storage:
