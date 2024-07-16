@@ -71,11 +71,6 @@ php artisan optimize
 http://localhost:8000/admin/configuration/sales/payment_methods
 ```
 
-- To use the demo API key, paste the key into the Stripe Client Secret section.
-```
-sk_test_4eC39HqLyjWDarjtT1zdp7dc
-```
-
 > That's it, now just execute the project on your specified domain.
 
 ## How to contribute
