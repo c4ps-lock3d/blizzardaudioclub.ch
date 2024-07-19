@@ -27,5 +27,4 @@ package-lock.json
 yarn.lock
 yarn-error.log
 
-products.csv
 .DS_Store
