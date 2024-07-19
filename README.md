@@ -1,3 +1,12 @@
-<p align="center">
-    <a href="http://www.bagisto.com"><img src="https://bagisto.com/wp-content/themes/bagisto/images/logo.png" alt="Total Downloads"></a>
+<h1>About</h1>
+<p>
+    Blizzard Audio Club is a Swiss music Label. The website have a store part implemented with Bagisto 2.2.1 mixed with a Laravel-Blade front-end part which display a presentation of each artists.
 </p>
+
+<h1>Powered by</h1>
+<div>
+    <img height="45px" src="https://camo.githubusercontent.com/ad8f055a5a0b165343cc59c48cbb402cf7f198f50e39707c913f8d1547bdf36b/68747470733a2f2f6261676973746f2e636f6d2f77702d636f6e74656e742f7468656d65732f6261676973746f2f696d616765732f6c6f676f2e706e67">
+    <img height="45px" src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg">
+    <img height="35px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/2219px-Vue.js_Logo_2.svg.png">
+    <img height="45px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/1024px-Stripe_Logo%2C_revised_2016.svg.png">
+</div>
