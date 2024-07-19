@@ -403,18 +403,6 @@
                                     @if (core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
                                         <!-- Add To Cart Button -->
                                         {!! view_render_event('bagisto.shop.products.view.add_to_cart.before', ['product' => $product]) !!}
-
-                                        @if ($product->featured == 1)
-                                        <x-shop::button
-                                            type="submit"
-                                            class="secondary-button w-full max-w-full max-md:py-3 max-sm:rounded-lg max-sm:py-1.5"
-                                            button-type="secondary-button"
-                                            :loading="false"
-                                            :title="trans('store::app.products.view.preorder')"
-                                            :disabled="! $product->isSaleable(1)"
-                                            ::loading="isStoring.addToCart"
-                                        />
-                                        @else
                                         <x-shop::button
                                             type="submit"
                                             class="secondary-button w-full max-w-full max-md:py-3 max-sm:rounded-lg max-sm:py-1.5"
@@ -424,7 +412,6 @@
                                             :disabled="! $product->isSaleable(1)"
                                             ::loading="isStoring.addToCart"
                                         />
-                                        @endif
                                         {!! view_render_event('bagisto.shop.products.view.add_to_cart.after', ['product' => $product]) !!}
                                     @endif
                                 </div>
