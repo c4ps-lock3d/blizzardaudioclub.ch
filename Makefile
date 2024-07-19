@@ -16,6 +16,7 @@ public/storage:
 
 vendor/autoload.php: composer.lock
 	composer install
+	composer dunp-autoload
 	touch vendor/autoload.php
 
 public/build/manifest.json: package.json
