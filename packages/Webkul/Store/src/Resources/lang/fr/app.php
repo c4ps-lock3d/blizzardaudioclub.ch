@@ -622,7 +622,6 @@ return [
             'review'                 => 'Avis',
             'tax-inclusive'          => 'Taxes incluses',
             'up-sell-title'          => 'Nous avons trouvé d\'autres produits qui pourraient vous plaire !',
-            'preorder'               => 'Précommander',
         ],
 
         'type' => [
