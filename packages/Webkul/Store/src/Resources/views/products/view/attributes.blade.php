@@ -22,6 +22,7 @@
                         @else
                             <td>{{ $attribute['admin_name'] }}</td>
                         @endif
+                        
 
                         @if (
                             $attribute['type'] == 'file'
