@@ -145,14 +145,7 @@
                 @endif
 
                 <!-- Reviews Tab -->
-                <x-shop::tabs.item
-                    id="review-tab"
-                    class="container mt-[60px] !p-0"
-                    :title="trans('shop::app.products.view.review')"
-                    :is-selected="false"
-                >
-                    @include('shop::products.view.reviews')
-                </x-shop::tabs.item>
+
             </x-shop::tabs>
         </div>
     </div>
@@ -350,11 +343,11 @@
                                     {!! $product->getTypeInstance()->getPriceHtml() !!}
                                 </p>
 
-                                @if (\Webkul\Tax\Facades\Tax::isInclusiveTaxProductPrices())
+         <!--                        @if (\Webkul\Tax\Facades\Tax::isInclusiveTaxProductPrices())
                                     <span class="text-sm font-normal text-zinc-500 max-sm:text-xs">
                                         (@lang('shop::app.products.view.tax-inclusive'))
                                     </span>
-                                @endif
+                                @endif -->
 
                                 @if (count($product->getTypeInstance()->getCustomerGroupPricingOffers()))
                                     <div class="mt-2.5 grid gap-1.5">
