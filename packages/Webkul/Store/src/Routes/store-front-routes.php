@@ -35,6 +35,18 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
         ->name('shop.home.contact_us')
         ->middleware('cacheResponse');
 
+    Route::get('artistes', [HomeController::class, 'artistesList'])
+        ->name('store.artistes.artistes-list')
+        ->middleware('cacheResponse');
+
+    Route::get('artistes/{slug}-{artistes}', [HomeController::class, 'artisteView'])
+        ->where([
+            'artistes'=>'[0-9]+',
+            'slug'=>'[a-z0-9\-]+'
+        ])
+        ->name('store.artistes.artiste-view')
+        ->middleware('cacheResponse');
+
     Route::post('contact-us/send-mail', [HomeController::class, 'sendContactUsMail'])
         ->name('shop.home.contact_us.send_mail')
         ->middleware('cacheResponse');

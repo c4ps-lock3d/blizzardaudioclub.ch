@@ -17,14 +17,14 @@
                 src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
                 width="131"
                 height="29"
-                alt="{{ config('app.name') }}"
+                alt="{{ config('app.name') }}"      
             >
         </a>
 
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.logo.after') !!}
 
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.category.before') !!}
-
+        
         <v-desktop-category>
             <div class="flex items-center gap-5">
                 <span
@@ -278,6 +278,19 @@
             class="flex items-center"
             v-else
         >
+
+            <div 
+                class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue"
+            >
+                <span>
+                    <a href="http://blizzardaudioclub.ch.test/artistes"
+                       class="inline-block px-5 uppercase"
+                    >
+                        ARTISTES
+                    </a>
+                </span>
+            </div>
+
             <div
                 class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue"
                 v-for="category in categories"
