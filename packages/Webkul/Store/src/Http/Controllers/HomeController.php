@@ -7,6 +7,7 @@ use Webkul\Store\Http\Requests\ContactRequest;
 use Webkul\Store\Mail\ContactUs;
 use Webkul\Theme\Repositories\ThemeCustomizationRepository;
 use Illuminate\Http\Request;
+use App\Models\Artiste;
 
 class HomeController extends Controller
 {
