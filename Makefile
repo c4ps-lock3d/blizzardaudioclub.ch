@@ -23,6 +23,3 @@ vendor/autoload.php: composer.lock
 	composer dunp-autoload
 	touch vendor/autoload.php
 
-public/build/manifest.json: package.json
-	npm i
-	npm run build
