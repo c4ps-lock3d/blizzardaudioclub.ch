@@ -2,7 +2,6 @@
 
 namespace Webkul\Store\Http\Controllers;
 
-use App\Models\Artiste;
 use Illuminate\Support\Facades\Mail;
 use Webkul\Store\Http\Requests\ContactRequest;
 use Webkul\Store\Mail\ContactUs;
@@ -61,14 +60,10 @@ class HomeController extends Controller
         return view('shop::home.contact-us');
     }
 
-    public function artistesList()
+    public function artisteslist()
     {
-        $artistes = Artiste::get();
-        return view('store::artistes.artistes-list', [
-            'artistes' => $artistes->all()
-        ]);
+        return view('store::artistes.artistes-list');
     }
-
     public function artisteView(string $slug, Artiste $artistes){
         // Inutile grâce au Model Binding --> $post = Post::findOrFail($post);
         if($artistes->slug != $slug){

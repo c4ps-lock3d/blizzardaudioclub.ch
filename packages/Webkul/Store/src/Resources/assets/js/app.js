@@ -6,7 +6,8 @@ import.meta.glob(["../images/**", "../fonts/**"]);
 /**
  * Main vue bundler.
  */
-import { createApp } from "vue/dist/vue.esm-bundler";
+import { createApp } from "vue";
+import ArtistesIndex from './components/Artistes/Index.vue' 
 
 /**
  * Main root application registry.
@@ -47,7 +48,7 @@ window.app = createApp({
             });
         },
     },
-});
+}).component('ArtistesIndex', ArtistesIndex);
 
 /**
  * Global plugins registration.

@@ -32,8 +32,20 @@ export default defineConfig(({ mode }) => {
                 ],
                 refresh: true,
             }),
+            vue({ 
+                template: {
+                    transformAssetUrls: {
+                        base: null,
+                        includeAbsolute: false,
+                    },
+                },
+            }),
         ],
-
+        resolve: {
+            alias: {
+                vue: 'vue/dist/vue.esm-bundler.js',
+            },
+        }, 
         experimental: {
             renderBuiltUrl(filename, { hostId, hostType, type }) {
                 if (hostType === "css") {

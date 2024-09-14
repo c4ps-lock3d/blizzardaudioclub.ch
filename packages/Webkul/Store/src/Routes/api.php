@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Webkul\Store\Http\Controllers\API\AddressController;
+use Webkul\Store\Http\Controllers\API\ArtisteController;
 use Webkul\Store\Http\Controllers\API\CartController;
 use Webkul\Store\Http\Controllers\API\CategoryController;
 use Webkul\Store\Http\Controllers\API\CompareController;
@@ -12,7 +13,10 @@ use Webkul\Store\Http\Controllers\API\ProductController;
 use Webkul\Store\Http\Controllers\API\ReviewController;
 use Webkul\Store\Http\Controllers\API\WishlistController;
 
+
 Route::group(['middleware' => ['locale', 'theme', 'currency'], 'prefix' => 'api'], function () {
+    Route::get('artisteslist', [ArtisteController::class, 'index']);
+
     Route::controller(CoreController::class)->prefix('core')->group(function () {
         Route::get('countries', 'getCountries')->name('shop.api.core.countries');
 
@@ -88,6 +92,7 @@ Route::group(['middleware' => ['locale', 'theme', 'currency'], 'prefix' => 'api'
 
         Route::post('orders', 'storeOrder')->name('shop.checkout.onepage.orders.store');
     });
+    
 
     /**
      * Login routes.
