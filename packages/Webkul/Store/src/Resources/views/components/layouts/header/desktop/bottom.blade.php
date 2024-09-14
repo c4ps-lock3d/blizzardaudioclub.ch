@@ -283,7 +283,7 @@
                 class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue"
             >
                 <span>
-                    <a href="http://blizzardaudioclub.ch.test/artistes"
+                    <a href="{{ route('shop.home.artisteslist') }}"
                        class="inline-block px-5 uppercase"
                     >
                         ARTISTES
