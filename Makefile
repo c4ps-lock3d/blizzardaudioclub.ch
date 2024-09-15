@@ -22,3 +22,7 @@ vendor/autoload.php: composer.lock
 	composer install
 	composer dump-autoload
 	touch vendor/autoload.php
+
+public/themes/shop/store/build/manifest.json: package.json
+	npm i
+	npm run build
