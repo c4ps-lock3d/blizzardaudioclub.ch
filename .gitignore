@@ -26,5 +26,6 @@ package-lock.json
 /vendor
 yarn.lock
 yarn-error.log
+/public/themes/shop
 
 .DS_Store
