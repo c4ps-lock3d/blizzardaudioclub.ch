@@ -1,7 +1,7 @@
 <template>
     <div v-for="artiste in artistes">
         <a v-bind:href="'/artistes/'+artiste.slug+'-'+artiste.id">
-            {{ artiste.id }}
+            {{ artiste.name }}
         </a>
     </div>
 </template>
