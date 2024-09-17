@@ -3,8 +3,9 @@ deploy:
 	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && git pull origin master && make install'
 
 install: vendor/autoload.php .env public/storage
-	php artisan vendor:publish --provider="Webkul\ZAddArtist\Providers\ZAddArtistServiceProvider" --force
+	composer dump-autoload
 	php artisan optimize
+	php artisan vendor:publish --provider=Webkul\ZAddArtist\Providers\ZAddArtistServiceProvider
 	php artisan migrate
 	php artisan vendor:publish --provider="Webkul\Store\Providers\StoreServiceProvider" --force
 	php artisan optimize
