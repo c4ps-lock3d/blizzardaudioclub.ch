@@ -99,8 +99,8 @@
             
             "Webkul\\RateRules\\": "packages/Webkul/RateRules/src",
             "Webkul\\Store\\": "packages/Webkul/Store/src",
-
-            "Webkul\\Stripe\\": "packages/Webkul/Stripe/src"
+            "Webkul\\Stripe\\": "packages/Webkul/Stripe/src",
+            "Webkul\\ZAddArtist\\": "packages/Webkul/ZAddArtist/src"
         }
     },
     "autoload-dev": {

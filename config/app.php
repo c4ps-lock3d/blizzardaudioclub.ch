@@ -241,6 +241,7 @@ return [
         Webkul\RateRules\Providers\RateRulesServiceProvider::class,
         Webkul\Store\Providers\StoreServiceProvider::class,
         Webkul\Stripe\Providers\StripeServiceProvider::class,
+        Webkul\ZAddArtist\Providers\ZAddArtistServiceProvider::class,
     ])->toArray(),
 
     /*
