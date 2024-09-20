@@ -370,6 +370,7 @@ img.lazy {
 
     * {
         @apply box-border font-poppins;
+        /*background-color: #1d2124 !important;*/
     }
 
     .scrollbar-hide::-webkit-scrollbar {

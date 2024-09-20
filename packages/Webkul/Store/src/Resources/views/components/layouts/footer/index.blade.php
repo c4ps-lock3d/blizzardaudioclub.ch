@@ -19,7 +19,7 @@
 @endphp
 
 <footer class="mt-9 bg-lightOrange max-sm:mt-10">
-    <div class="flex justify-between gap-x-6 gap-y-8 p-[60px] max-1060:flex-col-reverse max-md:gap-5 max-md:p-8 max-sm:px-4 max-sm:py-5">
+    <div class="flex justify-between gap-x-4 gap-y-8 p-[60px] max-1060:flex-col-reverse max-md:gap-5 max-md:p-8 max-sm:px-4 max-sm:py-5">
         <!-- For Desktop View -->
         <div class="flex flex-wrap items-start gap-24 max-1180:gap-6 max-1060:hidden">
             @if ($customization?->options)
@@ -81,17 +81,17 @@
 
         <!-- News Letter subscription -->
         @if (core()->getConfigData('customer.settings.newsletter.subscription'))
-            <div class="grid gap-2.5">
+            <div class="">
                 <p
-                    class="max-w-[288px] text-3xl italic leading-[45px] text-navyBlue max-md:text-2xl max-sm:text-lg"
+                    class="max-w-[288px] text-3xl italic text-navyBlue max-md:text-2xl max-sm:text-lg"
                     role="heading"
                     aria-level="2"
                 >
-                    @lang('shop::app.components.layouts.footer.newsletter-text')
+                    Newsletter
                 </p>
 
                 <p class="text-xs">
-                    @lang('shop::app.components.layouts.footer.subscribe-stay-touch')
+                    
                 </p>
 
                 <div>
@@ -102,7 +102,7 @@
                         <div class="relative w-full">
                             <x-shop::form.control-group.control
                                 type="email"
-                                class="block w-[420px] max-w-full rounded-xl border-2 border-[#e9decc] bg-[#F1EADF] px-5 py-4 text-base max-1060:w-full max-md:p-3.5 max-sm:mb-0 max-sm:rounded-lg max-sm:border-2 max-sm:p-2 max-sm:text-sm"
+                                class="block w-[425px] max-w-full rounded-xl border-2 border-[#e9decc] bg-[#F1EADF] px-5 py-4 text-base max-1060:w-full max-md:p-3.5 max-sm:mb-0 max-sm:rounded-lg max-sm:border-2 max-sm:p-2 max-sm:text-sm"
                                 name="email"
                                 rules="required|email"
                                 label="Email"
@@ -114,7 +114,7 @@
     
                             <button
                                 type="submit"
-                                class="absolute top-1.5 flex w-max items-center rounded-xl bg-white px-7 py-2.5 font-medium hover:bg-zinc-100 max-md:top-1 max-md:px-5 max-md:text-xs max-sm:mt-0 max-sm:rounded-lg max-sm:px-4 max-sm:py-2 ltr:right-2 rtl:left-2"
+                                class="absolute top-1.5 flex w-max items-center rounded-xl bg-white px-3 py-2.5 font-medium hover:bg-zinc-100 max-md:top-1 max-md:px-5 max-md:text-xs max-sm:mt-0 max-sm:rounded-lg max-sm:px-4 max-sm:py-2 ltr:right-2 rtl:left-2"
                             >
                                 @lang('shop::app.components.layouts.footer.subscribe')
                             </button>
@@ -127,11 +127,11 @@
         {!! view_render_event('bagisto.shop.layout.footer.newsletter_subscription.after') !!}
     </div>
 
-    <div class="flex justify-between bg-[#F1EADF] px-[60px] py-3.5 max-md:justify-center max-sm:px-5">
+    <div class="flex justify-center bg-[#F1EADF] px-[60px] py-3.5 max-md:justify-center max-sm:px-5">
         {!! view_render_event('bagisto.shop.layout.footer.footer_text.before') !!}
 
         <p class="text-sm text-zinc-600 max-md:text-center">
-            @lang('shop::app.components.layouts.footer.footer-text', ['current_year'=> date('Y') ])
+            © 2019 - {{date('Y')}} Blizzard Audio Club. Tous droits réservés.
         </p>
 
         {!! view_render_event('bagisto.shop.layout.footer.footer_text.after') !!}

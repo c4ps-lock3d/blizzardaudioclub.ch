@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => {
             vue(),
 
             laravel({
-                hotFile: "../../../public/zaddartist-default-vite.hot",
+                hotFile: "../../../public/ZAddArtist-vite.hot",
                 publicDirectory: "../../../public",
                 buildDirectory: "themes/zaddartist/default/build",
                 input: [

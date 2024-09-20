@@ -3,9 +3,9 @@
 return [
     [
         'key'   => 'zaddartist',
-        'name'  => 'ZAddArtist',
+        'name'  => 'Gestion des artistes',
         'route' => 'admin.zaddartist.index',
-        'sort'  => 2,
+        'sort'  => 10,
         'icon'  => 'temp-icon',
     ]
 ];

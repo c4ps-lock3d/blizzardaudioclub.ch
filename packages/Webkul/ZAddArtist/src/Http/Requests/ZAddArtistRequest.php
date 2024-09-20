@@ -25,7 +25,7 @@ class ZAddArtistRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'slug' => ['required', 'regex:/^[0-9a-z\-]+$/'],
+            'slug' => ['required', 'regex:/^[0-9a-z\-]+$/', 'unique:artistes'],
             'content' => ['nullable'],
             'facebook' => ['nullable'],
             'instagram' => ['nullable'],
@@ -33,7 +33,15 @@ class ZAddArtistRequest extends FormRequest
             'soundcloud' => ['nullable'],
             'youtube' => ['nullable'],
             'visible' => ['nullable'],
-            'image' => ['nullable']
+            'image' => ['nullable', 'image']
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'slug' => $this->input('slug') ?: Str::slug($this->input('name')),
+        ]);
+    
     }
 }

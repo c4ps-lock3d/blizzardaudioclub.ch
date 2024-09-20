@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\Artiste;
 use Webkul\ZAddArtist\Http\Requests\ZAddArtistRequest;
+use Illuminate\Http\UploadedFile;
 
 
 class ZAddArtistController extends Controller
@@ -42,10 +43,19 @@ class ZAddArtistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(ZAddArtistRequest $request)
+    public function store(Artiste $artiste, ZAddArtistRequest $request)
     {
-        Artiste::create($request->validated());
-        return view('zaddartist::admin.create');
+        $artiste = new Artiste();
+        /** @var UploadedFile $image */
+        $image = $request->validated('image');
+        $data['image'] = $image->store('artiste', 'public');
+        $datavalidated = [
+            'image' => $data['image'],
+            'slug' => $request->validated('slug'),
+            'name' => $request->validated('name'),
+        ];
+        $artiste->create($datavalidated);
+        return redirect()->back();
     }
 
     /**

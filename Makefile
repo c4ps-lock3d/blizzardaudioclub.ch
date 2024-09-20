@@ -5,7 +5,7 @@ deploy:
 install: vendor/autoload.php .env public/storage
 	composer dump-autoload
 	php artisan optimize
-	php artisan vendor:publish --provider=Webkul\ZAddArtist\Providers\ZAddArtistServiceProvider
+	php artisan vendor:publish --provider=Webkul\ZAddArtist\Providers\ZAddArtistServiceProvider --force
 	php artisan migrate
 	php artisan vendor:publish --provider="Webkul\Store\Providers\StoreServiceProvider" --force
 	php artisan optimize

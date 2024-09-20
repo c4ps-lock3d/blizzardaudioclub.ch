@@ -30,15 +30,14 @@ module.exports = {
         extend: {
             colors: {
                 navyBlue: "#060C3B",
-                //lightOrange: "#F6F2EB",
-                lightOrange: "#bbbbbb",
+                lightOrange: "#F6F2EB",
                 darkGreen: '#40994A',
                 darkBlue: '#0044F2',
                 darkPink: '#F85156',
             },
 
             fontFamily: {
-                poppins: ["Poppins"],
+                poppins: ["Lora"],
                 dmserif: ["DM Serif Display"],
             },
         }
