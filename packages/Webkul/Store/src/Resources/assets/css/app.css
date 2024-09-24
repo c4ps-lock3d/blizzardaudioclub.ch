@@ -15,6 +15,55 @@ img.lazy {
 }
 
 @layer components {
+    #main, #backgroundFilter, body, #backgroundDrawer, #backgroundShimmer, #backgroundCheckout, #backgroundTableRows {
+        background-color: #1d2124 !important;
+    }
+
+   header, footer, #backgroundCard, #backgroundProductWishlistButton, #backgroundLoginWindow, #backgroundTableHeaderFooter {
+        background-color: #343a40 !important;
+    }
+
+    #backgroundHover:hover {
+        background-color: #343a40 !important;
+    }
+
+    #itemHover:hover, #backgroundCurrentPage {
+        background-color: #1d2124 !important;
+    }
+
+    button, button.secondary-button, a.secondary-button, #backgroundDropdown, #backgroundProductTab {
+        background-color: #343a40 !important;
+        color: #dcdcdc !important;
+        border-color: #000000!important;
+    }
+
+    #backgroundModal {
+        background-color: #1d2124 !important;
+        color: #dcdcdc !important;
+    }
+
+    .primary-button {
+        background-color: #FADA00 !important;
+        color: #1d2124 !important;
+        border-color: #000000!important;
+    }
+
+    #colorTextCommand{
+        color: #dcdcdc !important;
+    }
+
+    #textColorFlashMessage {
+        color: #1d2124 !important;
+    }
+
+    #formNewsletter {
+        background-color: #dcdcdc !important;
+    }
+
+    p, a, h1, h2, label, #textColorCartMassAction {
+        color: #dcdcdc !important;
+    }
+
     ::selection {
         background-color: rgba(6, 12, 59, .2);
     }
@@ -49,10 +98,12 @@ img.lazy {
 
     .icon-checkout-address:before {
         content: "\e944";
+        color: #dcdcdc;
     }
 
     .icon-edit:before {
         content: "\e943";
+        color: #dcdcdc;
     }
 
     .icon-add-new:before {
@@ -61,26 +112,32 @@ img.lazy {
 
     .icon-arrow-down:before {
         content: "\e901";
+        color: #dcdcdc;
     }
 
     .icon-arrow-left-stylish:before {
         content: "\e902";
+        color: #dcdcdc;
     }
 
     .icon-arrow-left:before {
         content: "\e903";
+        color: #dcdcdc;
     }
 
     .icon-arrow-right-stylish:before {
         content: "\e904";
+        color: #dcdcdc;
     }
 
     .icon-arrow-right:before {
         content: "\e905";
+        color: #dcdcdc;
     }
 
     .icon-arrow-up:before {
         content: "\e906";
+        color: #dcdcdc;
     }
 
     .icon-astreisk:before {
@@ -113,6 +170,7 @@ img.lazy {
 
     .icon-cart:before {
         content: "\e90e";
+        color: #dcdcdc;
     }
 
     .icon-check-box:before {
@@ -169,6 +227,7 @@ img.lazy {
 
     .icon-flate-rate:before {
         content: "\e91c";
+        color: #dcdcdc;
     }
 
     .icon-Free-Shipping:before {
@@ -177,30 +236,37 @@ img.lazy {
 
     .icon-grid-view-fill:before {
         content: "\e91e";
+        color: #dcdcdc;
     }
 
     .icon-grid-view:before {
         content: "\e91f";
+        color: #dcdcdc;
     }
 
     .icon-hamburger:before {
         content: "\e920";
+        color: #dcdcdc;
     }
 
     .icon-heart-1:before {
         content: "\e921";
+        color: #dcdcdc;
     }
 
     .icon-heart-2:before {
         content: "\e922";
+        color: #dcdcdc;
     }
 
     .icon-heart-fill:before {
         content: "\e923";
+        color: #dcdcdc;
     }
 
     .icon-heart:before {
         content: "\e924";
+        color: #dcdcdc;
     }
 
     .icon-left-arrow:before {
@@ -213,10 +279,12 @@ img.lazy {
 
     .icon-listing-fill:before {
         content: "\e927";
+        color: #dcdcdc;
     }
 
     .icon-listing:before {
         content: "\e928";
+        color: #dcdcdc;
     }
 
     .icon-location:before {
@@ -225,6 +293,7 @@ img.lazy {
 
     .icon-minus:before {
         content: "\e92a";
+        color: #dcdcdc;
     }
 
     .icon-more:before {
@@ -241,6 +310,7 @@ img.lazy {
 
     .icon-plus:before {
         content: "\e92e";
+        color: #dcdcdc;
     }
 
     .icon-product:before {
@@ -322,6 +392,7 @@ img.lazy {
 
     .icon-users:before {
         content: "\e942";
+        color: #dcdcdc;
     }
       
 
@@ -370,7 +441,6 @@ img.lazy {
 
     * {
         @apply box-border font-poppins;
-        /*background-color: #1d2124 !important;*/
     }
 
     .scrollbar-hide::-webkit-scrollbar {
@@ -437,12 +507,12 @@ img.lazy {
     }
 
     .shimmer {
-        animation-duration: 2.2s;
+        animation-duration: 0.2s;
         animation-fill-mode: forwards;
         animation-iteration-count: infinite;
         animation-name: skeleton;
         animation-timing-function: linear;
-        background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+        background: #343a40;
         background-size: 1250px 100%;
     }
 

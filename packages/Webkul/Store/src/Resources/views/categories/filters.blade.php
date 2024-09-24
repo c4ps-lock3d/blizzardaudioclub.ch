@@ -162,7 +162,7 @@
                 </x-slot>
 
                 <!-- Filter Item Content -->
-                <x-slot:content class="!p-0">
+                <x-slot:content id="backgroundFilter" class="!p-0">
                     <!-- Price Range Filter -->
                     <ul v-if="filter.type === 'price'">
                         <li>
@@ -181,7 +181,7 @@
                             :key="option.id"
                             v-for="(option, optionIndex) in filter.options"
                         >
-                            <div class="flex select-none items-center gap-x-4 rounded hover:bg-gray-100 max-sm:gap-x-1 max-sm:!p-0 ltr:pl-2 rtl:pr-2">
+                            <div id="backgroundHover" class="flex select-none items-center gap-x-4 rounded hover:bg-gray-100 max-sm:gap-x-1 max-sm:!p-0 ltr:pl-2 rtl:pr-2">
                                 <input
                                     type="checkbox"
                                     :id="'option_' + option.id"

@@ -149,7 +149,7 @@
         </div>
 
         <p class="mb-4 mt-8 text-center text-xs text-zinc-500">
-            @lang('shop::app.customers.reset-password.footer', ['current_year'=> date('Y') ])
+            © 2019 - {{date('Y')}} Blizzard Audio Club. Tous droits réservés.
         </p>
     </div>
 </x-shop::layouts>

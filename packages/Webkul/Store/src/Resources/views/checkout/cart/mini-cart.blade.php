@@ -30,7 +30,7 @@
 
                         @if (core()->getConfigData('sales.checkout.my_cart.summary') == 'display_item_quantity')
                             <span
-                                class="absolute -top-4 rounded-[44px] bg-navyBlue px-2 py-1.5 text-xs font-semibold leading-[9px] text-white max-md:px-2 max-md:py-1.5 ltr:left-5 max-md:ltr:left-4 rtl:right-5 max-md:rtl:right-4"
+                                class="absolute -top-4 rounded-[44px] bg-[#FADA00] px-2 py-1.5 text-xs font-semibold leading-[9px] text-black max-md:px-2 max-md:py-1.5 ltr:left-5 max-md:ltr:left-4 rtl:right-5 max-md:rtl:right-4"
                                 v-if="cart?.items_count"
                             >
                                 @{{ cart.items_count }}
@@ -38,7 +38,7 @@
 
                         @else
                             <span
-                                class="absolute -top-4 rounded-[44px] bg-navyBlue px-2 py-1.5 text-xs font-semibold leading-[9px] text-white ltr:left-5 max-md:ltr:left-4 rtl:right-5 max-md:rtl:right-4"
+                                class="absolute -top-4 rounded-[44px] bg-[#FADA00] px-2 py-1.5 text-xs font-semibold leading-[9px] text-black ltr:left-5 max-md:ltr:left-4 rtl:right-5 max-md:rtl:right-4"
                                 v-if="cart?.items_qty"
                             >
                                 @{{ cart.items_qty }}
@@ -60,7 +60,7 @@
                     </div>
 
                     <p class="text-base max-md:text-zinc-500 max-sm:text-xs">
-                        {{ core()->getConfigData('sales.checkout.mini_cart.offer_info')}}
+                        {{-- core()->getConfigData('sales.checkout.mini_cart.offer_info') --}}
                         {{-- @lang('shop::app.checkout.cart.mini-cart.offer-on-orders') --}}
                     </p>
 
@@ -202,7 +202,7 @@
                                 <!-- Cart Item Remove Button -->
                                 <button
                                     type="button"
-                                    class="text-blue-700 max-md:text-sm"
+                                    class="!text-[#FADA00] !bg-inherit max-md:text-sm"
                                     @click="removeItem(item.id)"
                                 >
                                     @lang('shop::app.checkout.cart.mini-cart.remove')
@@ -316,18 +316,18 @@
 
                         <a
                             href="{{ route('shop.checkout.onepage.index') }}"
-                            class="mx-auto block w-full cursor-pointer rounded-2xl bg-navyBlue px-11 py-4 text-center text-base font-medium text-white max-md:rounded-lg max-md:px-5 max-md:py-2"
+                            class="primary-button mx-auto block w-full cursor-pointer rounded-2xl bg-navyBlue px-11 py-4 text-center text-base font-medium text-white max-md:rounded-lg max-md:px-5 max-md:py-2"
                         >
                             @lang('shop::app.checkout.cart.mini-cart.continue-to-checkout')
                         </a>
 
                             {!! view_render_event('bagisto.shop.checkout.mini-cart.continue_to_checkout.after') !!}
 
-                            <div class="block cursor-pointer text-center text-base font-medium max-md:py-1.5">
+                            <button class="secondary-button mx-auto block cursor-pointer text-center text-base font-medium max-md:py-1.5">
                                 <a href="{{ route('shop.checkout.cart.index') }}">
                                     @lang('shop::app.checkout.cart.mini-cart.view-cart')
                                 </a>
-                            </div>
+                            </button>
                         </div>
 
                         {!! view_render_event('bagisto.shop.checkout.mini-cart.action.after') !!}

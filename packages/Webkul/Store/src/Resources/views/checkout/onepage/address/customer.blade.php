@@ -29,7 +29,7 @@
                     v-slot="{ meta, errors, handleSubmit }"
                     as="div"
                 >
-                    <form @submit="handleSubmit($event, addAddressToCart)">
+                    <form id="backgroundCheckout" @submit="handleSubmit($event, addAddressToCart)">
                         <!-- Billing Address Header -->
                         <div class="mb-4 flex items-center justify-between max-md:mb-2">
                             <h2 class="text-xl font-medium max-sm:text-base max-sm:font-normal">
@@ -262,7 +262,7 @@
                     v-slot="{ meta, errors, handleSubmit }"
                     as="div"
                 >
-                    <form @submit="handleSubmit($event, updateOrCreateAddress)">
+                    <form id="backgroundCheckout" @submit="handleSubmit($event, updateOrCreateAddress)">
                         <!-- Billing Address Header -->
                         <div class="mb-4 flex items-center justify-between">
                             <h2 class="text-xl font-medium max-md:text-base max-sm:font-normal">
@@ -281,8 +281,7 @@
                                 @click="selectedAddressForEdit = null; activeAddressForm = null"
                             >
                                 <span class="icon-arrow-left text-2xl max-md:hidden"></span>
-
-                                @lang('shop::app.checkout.onepage.address.back')
+                                <p>@lang('shop::app.checkout.onepage.address.back')</p>
                             </span>
                         </div>
                         

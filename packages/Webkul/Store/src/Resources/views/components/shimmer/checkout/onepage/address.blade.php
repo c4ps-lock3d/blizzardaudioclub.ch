@@ -1,5 +1,5 @@
 <!-- Address Section -->
-<div class="mt-8">
+<div id="backgroundShimmer" class="mt-8">
     <!-- Section Title -->
     <div class="mb-4">
         <h2 class="shimmer h-7 w-[150px]"></h2>

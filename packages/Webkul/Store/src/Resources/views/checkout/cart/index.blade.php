@@ -130,6 +130,7 @@
                                         class="text-xl max-sm:text-sm ltr:ml-2.5 rtl:mr-2.5"
                                         role="heading"
                                         aria-level="2"
+                                        id="textColorCartMassAction"
                                     >
                                         @{{ "@lang('shop::app.checkout.cart.index.items-selected')".replace(':count', selectedItemsCount) }}
                                     </span>
@@ -137,7 +138,7 @@
 
                                 <div v-if="selectedItemsCount">
                                     <span
-                                        class="cursor-pointer text-base text-blue-700 max-sm:text-xs" 
+                                        class="cursor-pointer text-base text-[#FADA00] max-sm:text-xs" 
                                         role="button"
                                         tabindex="0"
                                         @click="removeSelectedItems"
@@ -149,7 +150,7 @@
                                         <span class="mx-2.5 border-r-2 border-zinc-200"></span>
 
                                         <span
-                                            class="cursor-pointer text-base text-blue-700 max-sm:text-xs"
+                                            class="cursor-pointer text-base text-[#FADA00] max-sm:text-xs"
                                             role="button"
                                             tabindex="0"
                                             @click="moveToWishlistSelectedItems"
@@ -269,7 +270,7 @@
                                                 </p>
                                                 
                                                 <span
-                                                    class="cursor-pointer text-base text-blue-700 max-md:hidden"
+                                                    class="cursor-pointer text-base text-[#FADA00] max-md:hidden"
                                                     role="button"
                                                     tabindex="0"
                                                     @click="removeItem(item.id)"
@@ -338,7 +339,7 @@
                                         
                                         <!-- Cart Item Remove Button -->
                                         <span
-                                            class="cursor-pointer text-base text-blue-700" 
+                                            class="cursor-pointer text-base text-[#FADA00]" 
                                             role="button"
                                             tabindex="0"
                                             @click="removeItem(item.id)"

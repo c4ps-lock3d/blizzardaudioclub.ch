@@ -90,7 +90,7 @@
                     :is-selected="true"
                 >
                     <!-- For Desktop -->
-                    <div class="max-md:hidden">
+                    <div id="colorTextCommand" class="max-md:hidden">
                         <div class="text-base font-medium">
                             @lang('shop::app.customers.account.orders.view.information.placed-on')
     
@@ -100,7 +100,7 @@
                         <div class="relative mt-8 overflow-x-auto rounded-xl border">
                             <table class="w-full text-left">
                                 <thead class="border-b border-zinc-200 bg-zinc-100 text-sm text-black">
-                                    <tr class="[&>*]:font-medium [&>*]:px-6 [&>*]:py-4">
+                                    <tr id="backgroundTableHeaderFooter" class="text-[#DCDCDC] [&>*]:font-medium [&>*]:px-6 [&>*]:py-4">
                                         <th scope="col">
                                             @lang('shop::app.customers.account.orders.view.information.sku')
                                         </th>
@@ -125,7 +125,7 @@
     
                                 <tbody>
                                     @foreach ($order->items as $item)
-                                        <tr class="border-b bg-white align-top font-medium [&>*]:px-6 [&>*]:py-4">
+                                        <tr id="backgroundTableHeaderFooter" class="border-b align-top font-medium [&>*]:px-6 [&>*]:py-4">
                                             <td data-value="@lang('shop::app.customers.account.orders.view.information.sku')">
                                                 {{ $item->getTypeInstance()->getOrderedItem($item)->sku }}
                                             </td>
@@ -1024,7 +1024,7 @@
                                 <div class="relative mt-8 overflow-x-auto rounded-xl border">
                                     <table class="w-full text-left">
                                         <thead class="border-b border-zinc-200 bg-zinc-100 text-sm text-black">
-                                            <tr class="[&>*]:font-medium [&>*]:px-6 [&>*]:py-4">
+                                            <tr id="backgroundTableHeaderFooter" class="text-[#DCDCDC] [&>*]:font-medium [&>*]:px-6 [&>*]:py-4">
                                                 <th scope="col">
                                                     @lang('shop::app.customers.account.orders.view.invoices.sku')
                                                 </th>
@@ -1049,7 +1049,7 @@
     
                                         <tbody>
                                             @foreach ($invoice->items as $item)
-                                                <tr class="border-b bg-white text-black [&>*]:font-medium [&>*]:px-6 [&>*]:py-4">
+                                                <tr id="backgroundTableHeaderFooter" class="border-b bg-white text-[#DCDCDC] [&>*]:font-medium [&>*]:px-6 [&>*]:py-4">
                                                     <td data-value="@lang('shop::app.customers.account.orders.view.invoices.sku')">
                                                         {{ $item->getTypeInstance()->getOrderedItem($item)->sku }}
                                                     </td>
@@ -1111,7 +1111,7 @@
     
                                 <div class="mt-8 flex items-start gap-10 max-lg:gap-5">
                                     <div class="flex flex-auto justify-end">
-                                        <div class="grid max-w-max gap-2 text-sm">
+                                        <div class="!text-[#DCDCDC] grid max-w-max gap-2 text-sm">
                                             @if (core()->getConfigData('sales.taxes.sales.display_subtotal') == 'including_tax')
                                                 <div class="flex w-full justify-between gap-x-5">
                                                     @lang('shop::app.customers.account.orders.view.invoices.subtotal')
@@ -1232,7 +1232,7 @@
                                     </span>
                                 </div>
 
-                                <div class="text-base font-medium">
+                                <div class="!text-[#DCDCDC] font-medium">
                                     <span>
                                         @lang('shop::app.customers.account.orders.view.shipments.individual-shipment', ['shipment_id' => $shipment->id])
                                     </span>
@@ -1242,7 +1242,7 @@
                                 <div class="relative mt-8 overflow-x-auto rounded-xl border max-md:hidden">
                                     <table class="w-full text-left text-sm">
                                         <thead class="border-b border-zinc-200 bg-zinc-100 text-sm text-black">
-                                            <tr class="[&>*]:font-medium [&>*]:px-6 [&>*]:py-4">
+                                            <tr id="backgroundTableHeaderFooter" class="text-[#DCDCDC] [&>*]:font-medium [&>*]:px-6 [&>*]:py-4">
                                                 <th scope="col">
                                                     @lang('shop::app.customers.account.orders.view.shipments.sku')
                                                 </th>
@@ -1259,7 +1259,7 @@
     
                                         <tbody>
                                             @foreach ($shipment->items as $item)
-                                                <tr class="border-b bg-white [&>*]:font-medium [&>*]:px-6 [&>*]:py-4 [&>*]:text-black">
+                                                <tr id="backgroundTableHeaderFooter" class="text-[#DCDCDC] border-b bg-white [&>*]:font-medium [&>*]:px-6 [&>*]:py-4">
                                                     <td data-value="@lang('shop::app.customers.account.orders.view.shipments.sku')">
                                                         {{ $item->sku }}
                                                     </td>

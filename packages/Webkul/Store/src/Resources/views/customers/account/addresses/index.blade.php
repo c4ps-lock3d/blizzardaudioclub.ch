@@ -58,7 +58,7 @@
 
                             <div class="flex gap-4 max-sm:gap-2.5">
                                 @if ($address->default_address)
-                                    <div class="label-pending block h-fit w-max px-2.5 py-1 max-md:px-1.5">
+                                    <div class="label-pending bg-[#FADA00] text-black block h-fit w-max px-2.5 py-1 max-md:px-1.5">
                                         @lang('shop::app.customers.account.addresses.index.default-address') 
                                     </div>
                                 @endif

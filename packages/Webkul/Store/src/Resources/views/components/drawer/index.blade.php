@@ -21,7 +21,7 @@
             <div {{ $header->attributes->merge(['class' => 'grid gap-y-2.5 p-6 pb-5 max-md:gap-y-1.5 max-md:border-b max-md:border-zinc-200 max-md:p-4 max-md:gap-y-1 max-md:font-semibold']) }}>
                 {{ $header }}
 
-                <div class="absolute top-5 max-sm:top-4 ltr:right-5 rtl:left-5">
+                <div class="absolute text-white top-5 max-sm:top-4 ltr:right-5 rtl:left-5">
                     <span
                         class="icon-cancel cursor-pointer text-3xl max-md:text-2xl"
                         @click="close"
@@ -100,8 +100,9 @@
                     }"
                     :style="'width:' + width"
                     v-show="isOpen"
+                    id="backgroundDrawer"
                 >
-                    <div class="pointer-events-auto h-full w-full overflow-auto bg-white">
+                    <div id="backgroundDrawer" class="pointer-events-auto h-full w-full overflow-auto bg-white">
                         <div class="flex h-full w-full flex-col">
                             <div class="min-h-0 min-w-0 flex-1 overflow-auto">
                                 <div class="flex h-full flex-col">

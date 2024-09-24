@@ -141,7 +141,7 @@
                 <!-- Guest Dropdown -->
                 @guest('customer')
                     <x-slot:content>
-                        <div class="grid gap-2.5">
+                        <div id="backgroundGuestDropdown" class="grid gap-2.5">
                             <p class="font-dmserif text-xl">
                                 @lang('shop::app.components.layouts.header.welcome-guest')
                             </p>
@@ -184,7 +184,7 @@
                     <x-slot:content class="!p-0">
                         <div class="grid gap-2.5 p-5 pb-0">
                             <p class="font-dmserif text-xl">
-                                @lang('shop::app.components.layouts.header.welcome')’
+                                @lang('shop::app.components.layouts.header.welcome'), 
                                 {{ auth()->guard('customer')->user()->first_name }}
                             </p>
 
@@ -201,6 +201,7 @@
                             <a
                                 class="cursor-pointer px-5 py-2 text-base hover:bg-gray-100"
                                 href="{{ route('shop.customers.account.profile.index') }}"
+                                id="itemHover"
                             >
                                 @lang('shop::app.components.layouts.header.profile')
                             </a>
@@ -208,6 +209,7 @@
                             <a
                                 class="cursor-pointer px-5 py-2 text-base hover:bg-gray-100"
                                 href="{{ route('shop.customers.account.orders.index') }}"
+                                id="itemHover"
                             >
                                 @lang('shop::app.components.layouts.header.orders')
                             </a>
@@ -216,6 +218,7 @@
                                 <a
                                     class="cursor-pointer px-5 py-2 text-base hover:bg-gray-100"
                                     href="{{ route('shop.customers.account.wishlist.index') }}"
+                                    id="itemHover"
                                 >
                                     @lang('shop::app.components.layouts.header.wishlist')
                                 </a>
@@ -233,6 +236,7 @@
                                     class="cursor-pointer px-5 py-2 text-base hover:bg-gray-100"
                                     href="{{ route('shop.customer.session.destroy') }}"
                                     onclick="event.preventDefault(); document.getElementById('customerLogout').submit();"
+                                    id="itemHover"
                                 >
                                     @lang('shop::app.components.layouts.header.logout')
                                 </a>
