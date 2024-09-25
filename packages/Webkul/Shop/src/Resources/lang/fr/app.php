@@ -43,7 +43,7 @@ return [
             'password'            => 'Mot de passe',
             'show-password'       => 'Afficher le mot de passe',
             'title'               => 'Se connecter',
-            'verify-first'        => 'Vérifiez d\'abord votre compte e-mail.',
+            'verify-first'        => "Veuillez vérifier votre compte e-mail.",
         ],
 
         'signup-form' => [

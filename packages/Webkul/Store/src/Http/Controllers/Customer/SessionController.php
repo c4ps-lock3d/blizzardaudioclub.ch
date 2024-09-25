@@ -45,7 +45,7 @@ class SessionController extends Controller
         }
 
         if (! auth()->guard('customer')->user()->is_verified) {
-            session()->flash('info', trans('shop::app.customers.login-form.verify-first'));
+            session()->flash('info', 'Veuillez en premier lieu vérifier votre compte e-mail.');
 
             Cookie::queue(Cookie::make('enable-resend', 'true', 1));
 
