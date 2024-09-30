@@ -1,4 +1,5 @@
 <div class="max-md:[&>*]:leading-6 max-sm:[&>*]:leading-4 grid gap-1.5 max-md:flex">
+    <p class="text-base font-normal max-sm:text-sm">De</p>
     @if ($prices['from']['regular']['price'] != $prices['from']['final']['price'])
         <p class="flex items-center gap-4 max-sm:text-sm">
             <span
@@ -20,7 +21,7 @@
         $prices['from']['regular']['price'] != $prices['to']['regular']['price']
         || $prices['from']['final']['price'] != $prices['to']['final']['price']
     )
-        <p class="text-base font-normal max-sm:text-sm">To</p>
+        <p class="text-base font-normal max-sm:text-sm">à</p>
         
         @if ($prices['to']['regular']['price'] != $prices['to']['final']['price'])
             <p class="flex items-center gap-4 max-sm:text-sm">

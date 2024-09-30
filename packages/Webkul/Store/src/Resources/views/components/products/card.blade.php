@@ -117,6 +117,7 @@
                 {!! view_render_event('bagisto.shop.components.products.card.price.before') !!}
 
                 <div
+                    id="colorTextCommand"
                     class="flex items-center gap-2.5 text-lg font-semibold max-sm:text-sm max-sm:leading-6"
                     v-html="product.price_html"
                 >

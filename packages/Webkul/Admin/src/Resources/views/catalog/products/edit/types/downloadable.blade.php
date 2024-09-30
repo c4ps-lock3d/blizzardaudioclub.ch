@@ -78,9 +78,10 @@
 
                             <!-- File Hidden Fields -->
                             <input
-                                type="hidden"
+                                type="checkbox"
                                 :name="'downloadable_links[' + element.id + '][type]'"
                                 :value="element.type"
+                                checked="true"
                             />
 
                             <template v-if="element.type == 'file'">
