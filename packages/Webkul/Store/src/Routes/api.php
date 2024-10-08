@@ -16,6 +16,7 @@ use Webkul\Store\Http\Controllers\API\WishlistController;
 
 Route::group(['middleware' => ['locale', 'theme', 'currency'], 'prefix' => 'api'], function () {
     Route::get('artisteslist', [ArtisteController::class, 'index'])->name('shop.api.artisteslist');
+    Route::get('artisteview', [ArtisteController::class, 'view'])->name('shop.api.artisteview');
 
     Route::controller(CoreController::class)->prefix('core')->group(function () {
         Route::get('countries', 'getCountries')->name('shop.api.core.countries');

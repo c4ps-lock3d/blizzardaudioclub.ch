@@ -7,7 +7,8 @@ import.meta.glob(["../images/**", "../fonts/**"]);
  * Main vue bundler.
  */
 import { createApp } from "vue";
-import ArtistesIndex from './components/Artistes/Index.vue' 
+import ArtistesIndex from './components/Artistes/Index.vue'
+import ArtisteView from './components/Artiste/View.vue' 
 
 /**
  * Main root application registry.
@@ -48,7 +49,9 @@ window.app = createApp({
             });
         },
     },
-}).component('ArtistesIndex', ArtistesIndex);
+});
+app.component('ArtistesIndex', ArtistesIndex);
+app.component('ArtisteView', ArtisteView);
 
 /**
  * Global plugins registration.

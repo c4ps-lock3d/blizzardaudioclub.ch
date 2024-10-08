@@ -18,3 +18,5 @@
         </div>
     </div>
 </x-shop::layouts>
+
+<script>document.body.style.overflow ='scroll';</script>

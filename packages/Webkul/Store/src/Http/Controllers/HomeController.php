@@ -8,6 +8,7 @@ use Webkul\Store\Mail\ContactUs;
 use Webkul\Theme\Repositories\ThemeCustomizationRepository;
 use Illuminate\Http\Request;
 use App\Models\Artiste;
+use Webkul\Product\Models\Product;
 
 class HomeController extends Controller
 {
@@ -65,7 +66,7 @@ class HomeController extends Controller
     {
         return view('store::artistes.artistes-list');
     }
-    public function artisteView(string $slug, Artiste $artistes){
+    public function artisteView(string $slug, Artiste $artistes, Product $products){
         // Inutile grâce au Model Binding --> $post = Post::findOrFail($post);
         if($artistes->slug != $slug){
             return to_route('store.artistes.artiste-view', ['slug' => $artistes->slug, 'id' => $artistes->id]);
