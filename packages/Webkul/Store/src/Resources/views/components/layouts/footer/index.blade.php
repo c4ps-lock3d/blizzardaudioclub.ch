@@ -48,7 +48,7 @@
             :is-active="false"
             class="hidden !w-full rounded-xl !border-2 !border-[#e9decc] max-1060:block max-sm:rounded-lg"
         >
-            <x-slot:header class="rounded-t-lg bg-[#F1EADF] font-medium max-md:p-2.5 max-sm:px-3 max-sm:py-2 max-sm:text-sm">
+            <x-slot:header class="rounded-lg bg-[#F1EADF] text-[#DCDCDC] font-medium max-md:p-2.5 max-sm:px-3 max-sm:py-2 max-sm:text-sm">
                 @lang('shop::app.components.layouts.footer.footer-content')
             </x-slot>
 

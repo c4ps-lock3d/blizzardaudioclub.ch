@@ -57,11 +57,13 @@
 
     <!-- Breadcrumbs -->
     @if ((core()->getConfigData('general.general.breadcrumbs.shop')))
-        <div class="flex justify-center max-lg:hidden">
+    <div class="container px-[60px] max-lg:px-8 max-md:mt-4 max-md:px-4 max-md:text-sm max-sm:text-xs">
+        <div class="mb-[18px] flex justify-start max-lg:hidden">
             <x-shop::breadcrumbs
                 name="product"
                 :entity="$product"
             />
+        </div>
         </div>
     @endif
 
@@ -108,8 +110,8 @@
                                 @foreach ($customAttributeValues as $customAttributeValue)
                                     @if (! empty($customAttributeValue['value']))
                                         <div class="grid">
-                                            <p class="text-base text-black">
-                                                {!! $customAttributeValue['label'] !!}
+                                            <p class="text-base">
+                                                {!! $customAttributeValue['label'] !!} :
                                             </p>
                                         </div>
 
@@ -164,7 +166,7 @@
             class="max-md:border-none"
             :is-active="true"
         >
-            <x-slot:header class="bg-gray-100 max-md:!py-3 max-sm:!py-2">
+            <x-slot:header id="backgroundTableHeaderFooter" class="max-md:!py-3 max-sm:!py-2">
                 <p class="text-base font-medium 1180:hidden">
                     @lang('shop::app.products.view.description')
                 </p>
@@ -183,7 +185,7 @@
                 class="max-md:border-none"
                 :is-active="false"
             >
-                <x-slot:header class="bg-gray-100 max-md:!py-3 max-sm:!py-2">
+                <x-slot:header id="backgroundTableHeaderFooter" class="max-md:!py-3 max-sm:!py-2">
                     <p class="text-base font-medium 1180:hidden">
                         @lang('shop::app.products.view.additional-information')
                     </p>
@@ -239,8 +241,8 @@
             :is-active="false"
         >
             <x-slot:header
-                class="bg-gray-100 max-md:!py-3 max-sm:!py-2"
-                id="review-accordian-button"
+                class="max-md:!py-3 max-sm:!py-2"
+                id="backgroundTableHeaderFooter"
             >
                 <p class="text-base font-medium">
                     @lang('shop::app.products.view.review')
