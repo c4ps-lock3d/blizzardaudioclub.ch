@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="flex items-start mb-16 gap-10 max-lg:gap-5 md:mt-10">
-                <div class="grid grid-cols-6 gap-4 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
+                <div class="grid grid-cols-5 gap-8 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
                     @foreach($artistes->products as $product)
                         @foreach ($product->images as $image)
                             <h1>

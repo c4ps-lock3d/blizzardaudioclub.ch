@@ -12,7 +12,7 @@ class ArtisteController extends APIController
 {
     public function index(): JsonResource
     {
-        $artisteslist = Artiste::all();
+        $artisteslist = Artiste::orderBy('name', 'asc')->get();
         return ArtistesListResource::collection($artisteslist);
     }
 

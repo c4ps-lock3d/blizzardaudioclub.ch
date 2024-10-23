@@ -62,17 +62,19 @@ class HomeController extends Controller
         return view('shop::home.contact-us');
     }
 
-    public function artisteslist()
+    public function artisteslist(Artiste $artiste)
     {
         return view('store::artistes.artistes-list');
     }
+
     public function artisteView(string $slug, Artiste $artistes, Product $products){
         // Inutile grâce au Model Binding --> $post = Post::findOrFail($post);
         if($artistes->slug != $slug){
             return to_route('store.artistes.artiste-view', ['slug' => $artistes->slug, 'id' => $artistes->id]);
         }
+        
         return view('store::artistes.artiste-view',[
-            'artistes' => $artistes,
+            'artistes' => $artistes
         ]);
     }
 
