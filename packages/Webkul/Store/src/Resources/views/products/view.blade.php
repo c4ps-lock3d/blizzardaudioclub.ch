@@ -89,13 +89,24 @@
                     :is-selected="true"
                 >
                     <div class="container mt-[60px] max-1180:px-5">
-                        <p class="text-lg text-zinc-500 max-1180:text-sm">
+                        <p class="text-lg text-justify text-zinc-500 max-1180:text-sm">
                             {!! $product->description !!}
                         </p>
                     </div>
                 </x-shop::tabs.item>
 
                 {!! view_render_event('bagisto.shop.products.view.description.after', ['product' => $product]) !!}
+
+                <x-shop::tabs.item
+                    class="container mt-[60px] !p-0"
+                    title="Écouter"
+                >
+                    <div class="container mt-[60px] max-1180:px-5">
+                        <p class="text-lg text-justify text-zinc-500 max-1180:text-sm">
+                            {!! $product->ecouter !!}
+                        </p>
+                    </div>
+                </x-shop::tabs.item>
 
                 <!-- Additional Information Tab -->
                 @if(count($attributeData))
