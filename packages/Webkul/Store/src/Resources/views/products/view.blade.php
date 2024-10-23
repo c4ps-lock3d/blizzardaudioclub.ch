@@ -190,6 +190,24 @@
             </x-slot>
         </x-shop::accordion>
 
+        <!-- Ecouter Accordion -->
+        <x-shop::accordion
+            class="max-md:border-none"
+            :is-active="true"
+        >
+            <x-slot:header id="backgroundTableHeaderFooter" class="max-md:!py-3 max-sm:!py-2">
+                <p class="text-base font-medium 1180:hidden">
+                    Écouter
+                </p>
+            </x-slot>
+
+            <x-slot:content class="max-sm:px-0">
+                <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
+                    {!! $product->ecouter !!}
+                </div>
+            </x-slot>
+        </x-shop::accordion>
+
         <!-- Additional Information Accordion -->
         @if (count($attributeData))
             <x-shop::accordion
@@ -246,7 +264,7 @@
             </x-shop::accordion>
         @endif
 
-        <!-- Reviews Accordion -->
+        <!-- Reviews Accordion
         <x-shop::accordion
             class="max-md:border-none"
             :is-active="false"
@@ -255,15 +273,15 @@
                 class="max-md:!py-3 max-sm:!py-2"
                 id="backgroundTableHeaderFooter"
             >
-                <p class="text-base font-medium">
-                    @lang('shop::app.products.view.review')
-                </p>
+                <p class="text-base font-medium"> -->
+                    {{-- @lang('shop::app.products.view.review') --}}
+                <!-- </p>
             </x-slot>
 
-            <x-slot:content>
-                @include('shop::products.view.reviews')
-            </x-slot>
-        </x-shop::accordion>
+            <x-slot:content> -->
+            {{-- @include('shop::products.view.reviews') --}}
+            <!-- </x-slot>
+        </x-shop::accordion> -->
     </div>
 
     <!-- Featured Products -->
