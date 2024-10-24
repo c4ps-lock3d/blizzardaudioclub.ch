@@ -5,6 +5,8 @@
 .phpunit.result.cache
 .vscode
 .vagrant
+composer.json
+composer.lock
 *.hot
 /stubs
 /data
