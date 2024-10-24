@@ -1,3 +1,4 @@
+{!! RecaptchaV3::initJs() !!}
 <!-- SEO Meta Content -->
 @push('meta')
     <meta name="description" content="@lang('shop::app.customers.login-form.page-title')"/>
