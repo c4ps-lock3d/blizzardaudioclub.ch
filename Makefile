@@ -4,6 +4,7 @@ deploy:
 
 install: vendor/autoload.php .env public/storage
 	composer dump-autoload
+	composer update
 	php artisan optimize
 	# php artisan vendor:publish --provider=Webkul\ZAddArtist\Providers\ZAddArtistServiceProvider --force
 	# php artisan migrate
@@ -21,4 +22,5 @@ public/storage:
 vendor/autoload.php: composer.lock
 	composer install
 	composer dump-autoload
+	composer update
 	touch vendor/autoload.php
