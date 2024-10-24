@@ -57,7 +57,7 @@
                         <x-shop::form.control-group.control
                             type="submit"
                             value="Register"
-                            rules="required|recaptchav3:register,0.5"
+                            rules="required|recaptchav3:register,1"
                         />
                     </x-shop::form.control-group>
 
