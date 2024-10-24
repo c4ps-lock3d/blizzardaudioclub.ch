@@ -297,12 +297,12 @@
 
                                 {!! view_render_event('bagisto.shop.products.short_description.before', ['product' => $product]) !!}
 
-                                <p class="mt-6 text-lg text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
+                                <p class="mt-6 text-lg text-justify text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
                                     {!! $product->short_description !!}
                                 </p>
 
                                 @if ($product->release_date)
-                                <p class="mt-2 text-lg text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
+                                <p class="mt-4 text-lg text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
                                     Date de sortie : {!! $product->release_date !!}
                                 </p>
                                 @endif

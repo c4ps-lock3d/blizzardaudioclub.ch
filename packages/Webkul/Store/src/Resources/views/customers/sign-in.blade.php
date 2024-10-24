@@ -1,3 +1,4 @@
+{!! RecaptchaV3::initJs() !!}
 <!-- SEO Meta Content -->
 @push('meta')
     <meta name="description" content="@lang('shop::app.customers.login-form.page-title')"/>
@@ -50,6 +51,15 @@
 
             <div class="mt-14 rounded max-sm:mt-8">
                 <x-shop::form :action="route('shop.customer.session.create')">
+
+                    <x-shop::form.control-group>
+                        {!! RecaptchaV3::field('register') !!}
+                        <x-shop::form.control-group.control
+                            type="submit"
+                            value="Register"
+                            rules="required|recaptchav3:register,0.5"
+                        />
+                    </x-shop::form.control-group>
 
                     {!! view_render_event('bagisto.shop.customers.login_form_controls.before') !!}
 

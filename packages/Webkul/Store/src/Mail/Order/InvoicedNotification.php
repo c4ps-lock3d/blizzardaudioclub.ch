@@ -25,8 +25,8 @@ class InvoicedNotification extends Mailable
         return new Envelope(
             to: [
                 new Address(
-                    $this->invoice->order->customer_email,
-                    $this->invoice->order->customer_full_name
+                    core()->getAdminEmailDetails()['email'],
+                    core()->getAdminEmailDetails()['full_name']
                 ),
             ],
             subject: trans('shop::app.emails.orders.invoiced.subject'),

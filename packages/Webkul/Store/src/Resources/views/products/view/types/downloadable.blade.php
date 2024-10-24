@@ -72,6 +72,8 @@
                     @endif
                 </div>
             @endforeach
+            <p class="text-justify">Une fois la commande effectuée, le lien de téléchargement sera disponible dans votre profil utilisateur dans la section "Produits téléchargeables".</p>
+
 
             <v-error-message
                 name="links[]"

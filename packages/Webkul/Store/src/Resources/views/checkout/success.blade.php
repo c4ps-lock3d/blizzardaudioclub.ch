@@ -68,7 +68,7 @@
 				@if (! empty($order->checkout_message))
 					{!! nl2br($order->checkout_message) !!}
 				@else
-					@lang('shop::app.checkout.success.info')
+					Nous vous enverrons par e-mail une confirmation et la facture de votre commande. Si vous avez acheté un produit téléchargeable, celui ci est disponible dans votre profil utilisateur dans la section "Produits téléchargeables".
 				@endif
 			</p>
 

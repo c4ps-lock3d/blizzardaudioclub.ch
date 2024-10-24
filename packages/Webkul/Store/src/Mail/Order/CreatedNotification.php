@@ -25,8 +25,8 @@ class CreatedNotification extends Mailable
         return new Envelope(
             to: [
                 new Address(
-                    $this->order->customer_email,
-                    $this->order->customer_full_name
+                    core()->getAdminEmailDetails()['email'],
+                    core()->getAdminEmailDetails()['full_name']
                 ),
             ],
             subject: trans('shop::app.emails.orders.created.subject'),

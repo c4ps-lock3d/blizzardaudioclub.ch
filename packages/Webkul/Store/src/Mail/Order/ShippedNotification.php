@@ -25,8 +25,8 @@ class ShippedNotification extends Mailable
         return new Envelope(
             to: [
                 new Address(
-                    $this->shipment->order->customer_email,
-                    $this->shipment->order->customer_full_name
+                    core()->getAdminEmailDetails()['email'],
+                    core()->getAdminEmailDetails()['full_name']
                 ),
             ],
             subject: trans('shop::app.emails.orders.shipped.subject'),
