@@ -20,7 +20,7 @@
                 <div><p class="text-justify">{{ $artistes->content }}</p></div>
             </div>
             <div class="col-span-6">
-                <h1 class ="text-xl mt-[34px]">Produits relatifss</h1>
+                <h1 class ="text-xl mt-[34px]">Produits relatifs</h1>
             </div>
         </div>
         <div class="flex items-start mb-16 gap-10 max-lg:gap-5 md:mt-10">
