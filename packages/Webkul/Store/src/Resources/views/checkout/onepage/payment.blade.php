@@ -88,9 +88,9 @@
 
                                         {!! view_render_event('bagisto.shop.checkout.onepage.payment-method.description.before') !!}
 
-                                        <!--<p class="mt-2.5 text-xs font-medium text-zinc-500 max-md:mt-1 max-sm:mt-0">
+                                        <p class="mt-2.5 text-xs font-medium text-zinc-500 max-md:mt-1 max-sm:mt-0">
                                             @{{ payment.description }}
-                                        </p>-->
+                                        </p>
 
                                         {!! view_render_event('bagisto.shop.checkout.onepage.payment-method.description.after') !!}
     
