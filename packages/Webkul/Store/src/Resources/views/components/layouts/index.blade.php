@@ -82,7 +82,7 @@
 
     <body>
         {!! view_render_event('bagisto.shop.layout.body.before') !!}
-
+        {!! RecaptchaV3::initJs() !!}
         <a
             href="#main"
             class="skip-to-main-content-link"

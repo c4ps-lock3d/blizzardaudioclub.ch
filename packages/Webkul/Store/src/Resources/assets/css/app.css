@@ -15,6 +15,7 @@ img.lazy {
 }
 
 @layer components {
+
     #main, #backgroundFilter, body, #backgroundDrawer, #backgroundShimmer, #backgroundCheckout, #backgroundTableRows {
         background-color: #1d2124 !important;
     }
