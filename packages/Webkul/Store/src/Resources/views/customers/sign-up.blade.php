@@ -1,3 +1,4 @@
+{!! RecaptchaV3::initJs() !!}
 <!-- SEO Meta Content -->
 @push('meta')
     <meta
