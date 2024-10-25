@@ -61,7 +61,7 @@ img.lazy {
         background-color: #dcdcdc !important;
     }
 
-    p, a, h1, h2, label, #textColorCartMassAction {
+    p, a, h1, h2, label, li, #textColorCartMassAction {
         color: #dcdcdc !important;
     }
 
