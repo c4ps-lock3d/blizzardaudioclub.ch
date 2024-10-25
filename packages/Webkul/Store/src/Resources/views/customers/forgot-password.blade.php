@@ -54,6 +54,14 @@
             <div class="mt-14 rounded max-sm:mt-8">
                 <x-shop::form :action="route('shop.customers.forgot_password.store')">
                     {!! view_render_event('bagisto.shop.customers.forget_password_form_controls.before') !!}
+                    <x-shop::form.control-group>
+                        {!! RecaptchaV3::field('register') !!}
+                        <x-shop::form.control-group.control
+                            type="submit"
+                            value="Register"
+                            rules="required|recaptchav3:register,1"
+                        />
+                    </x-shop::form.control-group>
 
                     <x-shop::form.control-group class="max-sm:mb-1.5">
                         <x-shop::form.control-group.label class="required">

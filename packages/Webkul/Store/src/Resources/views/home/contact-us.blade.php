@@ -1,3 +1,4 @@
+{!! RecaptchaV3::initJs() !!}
 <!-- Page Layout -->
 <x-shop::layouts>
     <!-- Page Title -->
@@ -19,6 +20,14 @@
             <div class="mt-14 rounded max-sm:mt-8">
                 <!-- Contact Form -->
                 <x-shop::form :action="route('shop.home.contact_us.send_mail')">
+                    <x-shop::form.control-group>
+                        {!! RecaptchaV3::field('register') !!}
+                        <x-shop::form.control-group.control
+                            type="submit"
+                            value="Register"
+                            rules="required|recaptchav3:register,1"
+                        />
+                    </x-shop::form.control-group>
                     <!-- Name -->
                     <x-shop::form.control-group>
                         <x-shop::form.control-group.label class="required">

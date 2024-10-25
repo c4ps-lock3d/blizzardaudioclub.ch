@@ -24,7 +24,7 @@ class SubscriptionNotification extends Mailable
     {
         return new Envelope(
             to: [
-                new Address($this->subscribersList->email),
+                new Address(core()->getAdminEmailDetails()['email'],),
             ],
             subject: trans('shop::app.emails.customers.subscribed.subject'),
         );
@@ -38,7 +38,7 @@ class SubscriptionNotification extends Mailable
         return new Content(
             view: 'shop::emails.customers.subscribed',
             with: [
-                'fullName' => trim($this->subscribersList->first_name.' '.$this->subscribersList->last_name),
+                'fullName' => core()->getAdminEmailDetails()['full_name'],
             ],
         );
     }
