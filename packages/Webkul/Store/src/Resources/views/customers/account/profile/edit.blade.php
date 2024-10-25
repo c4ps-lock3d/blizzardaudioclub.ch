@@ -118,20 +118,20 @@
 
             <!-- Phone -->
             <x-shop::form.control-group>
-                <x-shop::form.control-group.label class="required">
+                <x-shop::form.control-group.label class="">
                     @lang('shop::app.customers.account.profile.edit.phone')
                 </x-shop::form.control-group.label>
 
                 <x-shop::form.control-group.control
                     type="text"
                     name="phone"
-                    rules="required|phone"
+                    rules="phone"
                     :value="old('phone') ?? $customer->phone"
                     :label="trans('shop::app.customers.account.profile.edit.phone')"
                     :placeholder="trans('shop::app.customers.account.profile.edit.phone')"
                 />
 
-                <x-shop::form.control-group.error control-name="phone" />
+                
             </x-shop::form.control-group>
 
             {!! view_render_event('bagisto.shop.customers.account.profile.edit_form_controls.phone.after') !!}
@@ -151,16 +151,16 @@
                     :aria-label="trans('shop::app.customers.account.profile.edit.select-gender')"
                     :label="trans('shop::app.customers.account.profile.edit.gender')"
                 >
-                    <option value="Other">
-                        @lang('shop::app.customers.account.profile.edit.other')
+                    <option value="Female">
+                        @lang('shop::app.customers.account.profile.edit.female')
                     </option>
 
                     <option value="Male">
                         @lang('shop::app.customers.account.profile.edit.male')
                     </option>
 
-                    <option value="Female">
-                        @lang('shop::app.customers.account.profile.edit.female')
+                    <option value="Other">
+                        @lang('shop::app.customers.account.profile.edit.other')
                     </option>
                 </x-shop::form.control-group.control>
 
