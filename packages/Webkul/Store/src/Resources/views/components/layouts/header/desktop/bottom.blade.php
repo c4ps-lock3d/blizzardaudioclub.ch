@@ -346,7 +346,7 @@
                 class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue"
             >
                 <span>
-                    <a href=""
+                    <a href="{{ route('store.home.a_propos') }}"
                        class="inline-block px-5 uppercase"
                     >
                         A PROPOS

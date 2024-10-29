@@ -426,7 +426,7 @@
                             this.isAddingToCart = false;
                         })
                         .catch(error => {
-                            this.$emitter.emit('add-flash', { type: 'error', message: error.response.data.message });
+                            //this.$emitter.emit('add-flash', { type: 'error', message: error.response.data.message });
 
                             if (error.response.data.redirect_uri) {
                                 window.location.href = error.response.data.redirect_uri;

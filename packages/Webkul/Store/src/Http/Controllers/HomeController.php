@@ -62,6 +62,11 @@ class HomeController extends Controller
         return view('shop::home.contact-us');
     }
 
+    public function aPropos()
+    {
+        return view('store::home.a-propos');
+    }
+
     public function artisteslist(Artiste $artiste)
     {
         return view('store::artistes.artistes-list');

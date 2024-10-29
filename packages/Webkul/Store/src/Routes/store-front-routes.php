@@ -38,6 +38,10 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
     Route::get('artistes', [HomeController::class, 'artisteslist'])
         ->name('shop.home.artisteslist')
         ->middleware('cacheResponse');
+
+    Route::get('a-propos', [HomeController::class, 'aPropos'])
+        ->name('store.home.a_propos')
+        ->middleware('cacheResponse');
         
     Route::get('artistes/{slug}-{artistes}', [HomeController::class, 'artisteView'])
     ->where([
