@@ -20,31 +20,31 @@
         <p class="text-justify mb-6">Nous sommes issus de milieux très différents, pas forcément lié au monde de la musique. C'est ce qui fait la richesse de notre label : chacun d'entre nous apporte son expérience et des points de vue différents qui permettent de trouver des solutions innovantes.</p>
         <div class="grid grid-cols-5 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
             <div id="backgroundCard" class="p-4 rounded-lg border border-black">
-                <img src="{{url('label-members/etienne.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
+                <img src="{{url('storage/label-members/etienne.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
                 <p class="mt-2">
                     <b>Etienne</b>, artiste connu sous le nom de Pavel, donne la direction artistique et musicale et fait profiter au label de ses expériences dans cette industrie.
                 </p>
             </div>
             <div id="backgroundCard" class="p-4 rounded-lg border border-black">
-                <img src="{{url('label-members/nestor.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
+                <img src="{{url('storage/label-members/nestor.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
                 <p class="mt-2">
                     <b>Nestor</b> est tombé dans la marmite hôtelière quand il était petit, ce qui lui permet de maîtriser les aspects administratifs et financiers. 
                 </p>
             </div>
             <div id="backgroundCard" class="p-4 rounded-lg border border-black">
-                <img src="{{url('label-members/nicolas.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
+                <img src="{{url('storage/label-members/nicolas.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
                 <p class="mt-2">
                     <b>Nicolas</b>, techno-bricoleur dès son plus jeune âge, a toujours été passionné par l'informatique et est en charge des parties techniques du projet. 
                 </p>
             </div>
             <div id="backgroundCard" class="p-4 rounded-lg border border-black">
-                <img src="{{url('label-members/matheo.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
+                <img src="{{url('storage/label-members/matheo.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
                 <p class="mt-2">
                     <b>Mathéo</b>, passionné de musique et ayant une forte envie de la partager assure la promotion des sorties.
                 </p>
             </div>
             <div id="backgroundCard" class="p-4 rounded-lg border border-black">
-                <img src="{{url('label-members/nathan.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
+                <img src="{{url('storage/label-members/nathan.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
                 <p class="mt-2">
                     <b>Nathan</b>, la folie pétillante alliée à la précision de son art en font le profil parfait pour s’occuper de l’identité visuelle graphique du label.
                 </p>
@@ -53,21 +53,21 @@
         <h1 class="mb-6 mt-6 text-xl">ILS ONT PARTICIPÉS À NOTRE SUCCÈS</h1>
         <div class="grid grid-cols-5 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
             <div id="backgroundCard" class="p-4 rounded-lg border border-black">
-                <img src="{{url('label-members/michael.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
+                <img src="{{url('storage/label-members/michael.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
                 <p class="mt-2">
                     <b>Michael</b>, photographe de passion, mélange finesse, originalité, décalage et audace avec la petite touche de sarcasme et humour qui rendent son travail toujours plus surprenant.
                 </p>
             </div>
             <div id="backgroundCard" class="p-4 rounded-lg border border-black">
-                <img src="{{url('label-members/mona.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
+                <img src="{{url('storage/label-members/mona.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
                 <p class="mt-2">
                     <b>Mona</b>, sérigraphe de formation, est une hyperactive de la vie sociale et culturelle. C’est elle qui était derrière notre toute première série de t-shirts «BAC Classic». Amoureuse de bass-music, vous ne regretterez pas une soirée passée en club avec elle.
                 </p>
             </div>
             <div id="backgroundCard" class="p-8 rounded-lg border border-black">
-                <img src="{{url('sponsors/sponsor-bcn.png')}}" alt="..." style=""><br><br>
-                <img src="{{url('sponsors/sponsor-canton-ne.png')}}" alt="..." style=""><br><br>
-                <img src="{{url('sponsors/sponsor-loro.png')}}" alt="..." style="">
+                <img src="{{url('storage/sponsors/sponsor-bcn.png')}}" alt="..." style=""><br><br>
+                <img src="{{url('storage/sponsors/sponsor-canton-ne.png')}}" alt="..." style=""><br><br>
+                <img src="{{url('storage/sponsors/sponsor-loro.png')}}" alt="..." style="">
             </div>
         </div>
     </div>
