@@ -26,7 +26,7 @@
                 </p>
             </div>
             <div id="backgroundCard" class="p-4 rounded-lg border border-black">
-                <img src="{{url('storage/label-members/nestor.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
+                <img src="{{url('label-members/nestor.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
                 <p class="mt-2">
                     <b>Nestor</b> est tombé dans la marmite hôtelière quand il était petit, ce qui lui permet de maîtriser les aspects administratifs et financiers. 
                 </p>
