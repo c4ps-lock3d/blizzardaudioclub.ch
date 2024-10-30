@@ -20,7 +20,7 @@
         <p class="text-justify mb-6">Nous sommes issus de milieux très différents, pas forcément lié au monde de la musique. C'est ce qui fait la richesse de notre label : chacun d'entre nous apporte son expérience et des points de vue différents qui permettent de trouver des solutions innovantes.</p>
         <div class="grid grid-cols-5 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
             <div id="backgroundCard" class="p-4 rounded-lg border border-black">
-                <img src="storage/label-members/etienne.webp" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
+                <img src="{{ URL::to('/') }}/label-members/etienne.webp" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
                 <p class="mt-2">
                     <b>Etienne</b>, artiste connu sous le nom de Pavel, donne la direction artistique et musicale et fait profiter au label de ses expériences dans cette industrie.
                 </p>
