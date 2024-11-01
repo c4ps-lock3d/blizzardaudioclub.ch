@@ -263,7 +263,7 @@
     {!! view_render_event('bagisto.shop.components.layouts.header.mobile.search.before') !!}
 
     <!-- Serach Catalog Form -->
-    <form action="{{ route('shop.search.index') }}" class="flex w-full items-center">
+    <form action="{{ route('shop.search.index') }}" class="flex w-full mt-5 items-center">
         <label 
             for="organic-search" 
             class="sr-only"
