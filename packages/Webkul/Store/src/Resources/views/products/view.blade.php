@@ -96,17 +96,21 @@
                 </x-shop::tabs.item>
 
                 {!! view_render_event('bagisto.shop.products.view.description.after', ['product' => $product]) !!}
-
-                <x-shop::tabs.item
-                    class="container mt-[60px] !p-0"
-                    title="Écouter"
-                >
-                    <div class="container mt-[60px] max-1180:px-5">
-                        <p class="text-lg text-justify text-zinc-500 max-1180:text-sm">
-                            {!! $product->ecouter !!}
-                        </p>
-                    </div>
-                </x-shop::tabs.item>
+                
+                @foreach ($product->categories as $category)
+                    @if ($category->name != 'Merchandising')
+                        <x-shop::tabs.item
+                            class="container mt-[60px] !p-0"
+                            title="Écouter"
+                        >
+                            <div class="container mt-[60px] max-1180:px-5">
+                                <p class="text-lg text-justify text-zinc-500 max-1180:text-sm">
+                                    {!! $product->ecouter !!}
+                                </p>
+                            </div>
+                        </x-shop::tabs.item>
+                    @endif
+                @endforeach
 
                 <!-- Reviews Tab -->
                 <!-- <x-shop::tabs.item
@@ -141,23 +145,28 @@
             </x-slot>
         </x-shop::accordion>
 
-        <!-- Ecouter Accordion -->
-        <x-shop::accordion
-            class="max-md:border-none"
-            :is-active="true"
-        >
-            <x-slot:header id="backgroundTableHeaderFooter" class="max-md:!py-3 max-sm:!py-2">
-                <p class="text-base font-medium 1180:hidden">
-                    Écouter
-                </p>
-            </x-slot>
+        @foreach ($product->categories as $category)
+            @if ($category->name != 'Merchandising')
+                <!-- Ecouter Accordion -->
+                <x-shop::accordion
+                    class="max-md:border-none"
+                    :is-active="true"
+                >
+                    <x-slot:header id="backgroundTableHeaderFooter" class="max-md:!py-3 max-sm:!py-2">
+                        <p class="text-base font-medium 1180:hidden">
+                            Écouter
+                        </p>
+                    </x-slot>
 
-            <x-slot:content class="max-sm:px-0">
-                <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
-                    {!! $product->ecouter !!}
-                </div>
-            </x-slot>
-        </x-shop::accordion>
+                    <x-slot:content class="max-sm:px-0">
+                        <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
+                            {!! $product->ecouter !!}
+
+                        </div>
+                    </x-slot>
+                </x-shop::accordion>
+            @endif
+        @endforeach
 
         <!-- Reviews Accordion
         <x-shop::accordion
@@ -303,8 +312,14 @@
 
                                 @if ($product->release_date)
                                 <p class="mt-4 text-lg text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
-                                    Date de sortie : {!! $product->release_date !!}
+                                    Date de sortie : {!! date("d.m.Y", strtotime($product->release_date)) !!}
                                 </p>
+                                    @if ($product->preorder)
+                                        <p class="mt-4 text-justify text-md p-3 !border-black rounded-lg !text-black bg-[#FADA00]">
+                                            Il s'agit d'un produit en précommande. Dès qu'il sera disponible en stock, votre commande sera expédiée.
+                                            {!! (strtotime($product->release_date) - strtotime(date("Y-m-d")))/86400 !!} jours restants avant la sortie.
+                                        </p>
+                                    @endif
                                 @endif
                                 
 
@@ -335,18 +350,34 @@
                                     {!! view_render_event('bagisto.shop.products.view.quantity.after', ['product' => $product]) !!}
 
                                     @if (core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
-                                        <!-- Add To Cart Button -->
-                                        {!! view_render_event('bagisto.shop.products.view.add_to_cart.before', ['product' => $product]) !!}
-                                        <x-shop::button
-                                            type="submit"
-                                            class="secondary-button w-full max-w-full max-md:py-3 max-sm:rounded-lg max-sm:py-1.5"
-                                            button-type="secondary-button"
-                                            :loading="false"
-                                            :title="trans('shop::app.products.view.add-to-cart')"
-                                            :disabled="! $product->isSaleable(1)"
-                                            ::loading="isStoring.addToCart"
-                                        />
-                                        {!! view_render_event('bagisto.shop.products.view.add_to_cart.after', ['product' => $product]) !!}
+                                        @if ($product->preorder)
+                                            <!-- Add To Cart Button -->
+                                            {!! view_render_event('bagisto.shop.products.view.add_to_cart.before', ['product' => $product]) !!}
+                                            <x-shop::button
+                                                type="submit"
+                                                class="secondary-button w-full max-w-full max-md:py-3 max-sm:rounded-lg max-sm:py-1.5"
+                                                button-type="secondary-button"
+                                                :loading="false"
+                                                title="Précommander"
+                                                :disabled="! $product->isSaleable(1)"
+                                                ::loading="isStoring.addToCart"
+                                            />
+                                            {!! view_render_event('bagisto.shop.products.view.add_to_cart.after', ['product' => $product]) !!}
+                                        @else
+                                            <!-- Add To Cart Button -->
+                                            {!! view_render_event('bagisto.shop.products.view.add_to_cart.before', ['product' => $product]) !!}
+                                            <x-shop::button
+                                                type="submit"
+                                                class="secondary-button w-full max-w-full max-md:py-3 max-sm:rounded-lg max-sm:py-1.5"
+                                                button-type="secondary-button"
+                                                :loading="false"
+                                                :title="trans('shop::app.products.view.add-to-cart')"
+                                                :disabled="! $product->isSaleable(1)"
+                                                ::loading="isStoring.addToCart"
+                                            />
+                                            {!! view_render_event('bagisto.shop.products.view.add_to_cart.after', ['product' => $product]) !!}
+
+                                        @endif
                                     @endif
                                 </div>
 

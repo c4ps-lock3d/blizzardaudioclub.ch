@@ -11,8 +11,15 @@
 
     <div class="container px-[60px] max-lg:px-8 max-md:px-4">
         <p class="text-justify mt-6 mb-6">
-        Blizzard Audio Club est un label indépendant de musique à tendances électroniques créé autour de l'ambition de sortir des disques, cassettes et autres supports sonores en tout genre.Le label loclois a aussi pour vocation d'être une aide pour les artistes dans la production de leurs œuvres ainsi qu'une plateforme de promotion et de visibilité pour ces dernières, au travers d’un travail de communication pointu et de l’organisation d’événements. Riche de bientôt 30 sorties depuis sa création, le label compte dans ses rangs les artistes suivants : Pavel (NE), E&A Rüeger (FR), CORPS PUR (NE), HYPER OPAL (Allemagne), Antonello Teora (Italie), Etienne Machine (VD), Senar (VD), numeral (BE), Fels (FR), Hybisae (VD), J.NUNN (VS), STACY.O (Allemagne), AUST (NE), Ruisseau Cerise (BE), Waldskin (BE), Osmose TV (NE) et Eckhart (VD).<br><br>
-        Il est ici important de relever le fait que le label a toujours mis un point d’honneur à défendre la scène musicale suisse et régional, comme le prouve sa liste d'artistes, tout en leur permettant un rayonnement dans leur pays mais aussi à l'international. En effet, le permet aux groupes qu'il soutient de se faire un nom sur la scène suprarégionale mais aussi de toucher un plus large public, hors des frontières, grâce large au tissu professionnel de partenaires qu'il a développé.<br><br>
+        Blizzard Audio Club est un label indépendant de musique à tendances électroniques créé autour de l'ambition de sortir des disques, cassettes et autres supports sonores en tout genre.Le label loclois a aussi pour vocation d'être une aide pour les artistes dans la production de leurs œuvres ainsi qu'une plateforme de promotion et de visibilité pour ces dernières, au travers d’un travail de communication pointu et de l’organisation d’événements. Riche de bientôt 30 sorties depuis sa création, le label compte dans ses rangs les artistes suivants :
+        @foreach($artistes as $artiste)
+            @if($loop->last)
+                et <a class="!text-[#FADA00]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">{{ $artiste->name}}</a>.
+            @else
+                <a class="!text-[#FADA00]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">{{ $artiste->name}}</a>,
+            @endif
+        @endforeach
+        <br><br>Il est ici important de relever le fait que le label a toujours mis un point d’honneur à défendre la scène musicale suisse et régional, comme le prouve sa liste d'artistes, tout en leur permettant un rayonnement dans leur pays mais aussi à l'international. En effet, le permet aux groupes qu'il soutient de se faire un nom sur la scène suprarégionale mais aussi de toucher un plus large public, hors des frontières, grâce large au tissu professionnel de partenaires qu'il a développé.<br><br>
         De plus, au lieu de se figer dans le style électronique qui caractérisait les premières sorties, Blizzard Audio Club a pris le choix de s’ouvrir afin de faire profiter à une plus large palette d’artistes de son expertise et support. Fondé en 2018 sous la forme associative, BAC (pour Blizzard Audio Club) jouit déjà d’une certaine renommée dans le paysage culturel. Ses sorties sont fréquemment diffusées dans de multiples médias.
         </p>
         
@@ -20,7 +27,7 @@
         <p class="text-justify mb-6">Nous sommes issus de milieux très différents, pas forcément lié au monde de la musique. C'est ce qui fait la richesse de notre label : chacun d'entre nous apporte son expérience et des points de vue différents qui permettent de trouver des solutions innovantes.</p>
         <div class="grid grid-cols-5 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
             <div id="backgroundCard" class="p-4 rounded-lg border border-black">
-                <img src="{{url('/images/label-members/nestor.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
+                <img src="{{url('/images/label-members/etienne.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
                 <p class="mt-2">
                     <b>Etienne</b>, artiste connu sous le nom de Pavel, donne la direction artistique et musicale et fait profiter au label de ses expériences dans cette industrie.
                 </p>

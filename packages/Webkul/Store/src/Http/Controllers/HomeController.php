@@ -62,9 +62,13 @@ class HomeController extends Controller
         return view('shop::home.contact-us');
     }
 
-    public function aPropos()
+    public function aPropos(Artiste $artiste)
     {
-        return view('store::home.a-propos');
+        $artiste = $artiste->newQuery();
+        $artiste = $artiste->orderBy('name', 'asc');
+        return view('store::home.a-propos', [
+            'artistes' => $artiste->get(),
+        ]);
     }
 
     public function artisteslist(Artiste $artiste)
