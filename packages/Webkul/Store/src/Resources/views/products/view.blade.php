@@ -98,7 +98,7 @@
                 {!! view_render_event('bagisto.shop.products.view.description.after', ['product' => $product]) !!}
                 
                 @foreach ($product->categories as $category)
-                    @if ($category->name != 'Merchandising')
+                    @if ($category->name != 'Merch')
                         <x-shop::tabs.item
                             class="container mt-[60px] !p-0"
                             title="Écouter"
