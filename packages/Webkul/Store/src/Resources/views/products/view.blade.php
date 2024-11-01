@@ -146,7 +146,7 @@
         </x-shop::accordion>
 
         @foreach ($product->categories as $category)
-            @if ($category->name != 'Merchandising')
+            @if ($category->name != 'Merch')
                 <!-- Ecouter Accordion -->
                 <x-shop::accordion
                     class="max-md:border-none"
