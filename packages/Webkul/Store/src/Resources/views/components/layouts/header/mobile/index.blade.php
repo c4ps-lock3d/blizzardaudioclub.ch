@@ -263,7 +263,7 @@
     {!! view_render_event('bagisto.shop.components.layouts.header.mobile.search.before') !!}
 
     <!-- Serach Catalog Form -->
-    <form action="{{ route('shop.search.index') }}" class="flex w-full items-center">
+    <form action="{{ route('shop.search.index') }}" class="flex w-full mt-5 items-center">
         <label 
             for="organic-search" 
             class="sr-only"
@@ -299,6 +299,19 @@
         id="v-mobile-category-template"
     >
         <div>
+            <div class="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 border-zinc-100 py-3.5 max-sm:py-2.5">
+                <a
+                    href="{{ route('shop.home.artisteslist') }}"
+                    class="flex items-center justify-between"
+                >
+                    Artistes
+                </a>
+
+                <span
+                    class="cursor-pointer text-2xl icon-arrow-right"
+                >
+                </span>
+            </div>
             <template v-for="(category) in categories">
                 {!! view_render_event('bagisto.shop.components.layouts.header.mobile.category.before') !!}
 
@@ -377,6 +390,19 @@
 
                 {!! view_render_event('bagisto.shop.components.layouts.header.mobile.category.after') !!}
             </template>
+            <div class="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 border-zinc-100 py-3.5 max-sm:py-2.5">
+                <a
+                    href="{{ route('store.home.a_propos') }}"
+                    class="flex items-center justify-between"
+                >
+                    À Propos
+                </a>
+
+                <span
+                    class="cursor-pointer text-2xl icon-arrow-right"
+                >
+                </span>
+            </div>
         </div>
 
         <!-- Localization & Currency Section -->
