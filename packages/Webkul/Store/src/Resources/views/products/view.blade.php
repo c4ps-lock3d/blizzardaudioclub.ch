@@ -97,20 +97,18 @@
 
                 {!! view_render_event('bagisto.shop.products.view.description.after', ['product' => $product]) !!}
                 
-                @foreach ($product->categories as $category)
-                    @if ($category->name != 'Merch')
-                        <x-shop::tabs.item
-                            class="container mt-[60px] !p-0"
-                            title="Écouter"
-                        >
-                            <div class="container mt-[60px] max-1180:px-5">
-                                <p class="text-lg text-justify text-zinc-500 max-1180:text-sm">
-                                    {!! $product->ecouter !!}
-                                </p>
-                            </div>
-                        </x-shop::tabs.item>
-                    @endif
-                @endforeach
+                @if ($product->ecouter)
+                    <x-shop::tabs.item
+                        class="container mt-[60px] !p-0"
+                        title="Écouter"
+                    >
+                        <div class="container mt-[60px] max-1180:px-5">
+                            <p class="text-lg text-justify text-zinc-500 max-1180:text-sm">
+                                {!! $product->ecouter !!}
+                            </p>
+                        </div>
+                    </x-shop::tabs.item>
+                @endif
 
                 <!-- Reviews Tab -->
                 <!-- <x-shop::tabs.item
@@ -145,28 +143,26 @@
             </x-slot>
         </x-shop::accordion>
 
-        @foreach ($product->categories as $category)
-            @if ($category->name != 'Merch')
-                <!-- Ecouter Accordion -->
-                <x-shop::accordion
-                    class="max-md:border-none"
-                    :is-active="true"
-                >
-                    <x-slot:header id="backgroundTableHeaderFooter" class="max-md:!py-3 max-sm:!py-2">
-                        <p class="text-base font-medium 1180:hidden">
-                            Écouter
-                        </p>
-                    </x-slot>
+        @if ($product->ecouter)
+            <!-- Ecouter Accordion -->
+            <x-shop::accordion
+                class="max-md:border-none"
+                :is-active="true"
+            >
+                <x-slot:header id="backgroundTableHeaderFooter" class="max-md:!py-3 max-sm:!py-2">
+                    <p class="text-base font-medium 1180:hidden">
+                        Écouter
+                    </p>
+                </x-slot>
 
-                    <x-slot:content class="max-sm:px-0">
-                        <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
-                            {!! $product->ecouter !!}
+                <x-slot:content class="max-sm:px-0">
+                    <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
+                        {!! $product->ecouter !!}
 
-                        </div>
-                    </x-slot>
-                </x-shop::accordion>
-            @endif
-        @endforeach
+                    </div>
+                </x-slot>
+            </x-shop::accordion>
+        @endif
 
         <!-- Reviews Accordion
         <x-shop::accordion
