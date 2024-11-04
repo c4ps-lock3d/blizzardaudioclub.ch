@@ -1957,8 +1957,8 @@
                             @lang('shop::app.customers.account.orders.view.shipping-method')
                         </p>
 
-                        <p class="text-sm">
-                            {{ $order->shipping_title }}
+                        <p class="!leading-6 text-sm">
+                            Standard
                         </p>
 
                         {!! view_render_event('bagisto.shop.customers.account.orders.view.shipping_method_details.after', ['order' => $order]) !!}
@@ -1974,7 +1974,7 @@
                         @lang('shop::app.customers.account.orders.view.payment-method')
                     </p>
 
-                    <p class="text-sm">
+                    <p class="!leading-6 text-sm">
                         {{ core()->getConfigData('sales.payment_methods.' . $order->payment->method . '.title') }}
                     </p>
 

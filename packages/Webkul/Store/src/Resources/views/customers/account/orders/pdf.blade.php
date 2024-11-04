@@ -366,7 +366,7 @@
 
                                     <div>{{ $invoice->order->billing_address->state . ', ' . core()->country_name($invoice->order->billing_address->country) }}</div>
 
-                                    <div>@lang('shop::app.customers.account.orders.invoice-pdf.contact'): {{ $invoice->order->billing_address->phone }}</div>
+                                    <div>{{ $invoice->order->billing_address->phone }}</div>
                                 </td>
                             @endif
                             
@@ -382,7 +382,7 @@
 
                                     <div>{{ $invoice->order->shipping_address->state . ', ' . core()->country_name($invoice->order->shipping_address->country) }}</div>
 
-                                    <div>@lang('shop::app.customers.account.orders.invoice-pdf.contact'): {{ $invoice->order->shipping_address->phone }}</div>
+                                    <div>{{ $invoice->order->shipping_address->phone }}</div>
                                 </td>
                             @endif
                         </tr>
@@ -427,7 +427,7 @@
 
                             @if ($invoice->order->shipping_address)
                                 <td style="width: 50%">
-                                    {{ $invoice->order->shipping_title }}
+                                    Standard
                                 </td>
                             @endif
                         </tr>
