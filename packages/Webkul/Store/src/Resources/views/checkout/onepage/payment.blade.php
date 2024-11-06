@@ -62,15 +62,15 @@
 
                                 <label 
                                     :for="payment.method" 
-                                    class="block w-[260px] cursor-pointer rounded-xl border border-zinc-200 p-5 max-md:flex max-md:w-full max-md:gap-5 max-md:rounded-lg max-sm:gap-4 max-sm:px-4 max-sm:py-2.5"
+                                    class="block w-[160px] cursor-pointer rounded-xl border border-zinc-200 p-5 max-md:flex max-md:w-full max-md:gap-5 max-md:rounded-lg max-sm:gap-4 max-sm:px-4 max-sm:py-2.5"
                                 >
                                     {!! view_render_event('bagisto.shop.checkout.onepage.payment-method.image.before') !!}
 
                                     <img
-                                        class="max-h-11 max-w-14"
+                                        class=""
                                         :src="payment.image"
-                                        width="55"
-                                        height="55"
+                                        width="70"
+                                        height="70"
                                         :alt="payment.method_title"
                                         :title="payment.method_title"
                                     />
@@ -80,7 +80,7 @@
                                     <div>
                                         {!! view_render_event('bagisto.shop.checkout.onepage.payment-method.title.before') !!}
 
-                                        <p class="mt-1.5 text-sm font-semibold max-md:mt-1 max-sm:mt-0">
+                                        <p class="mt-1.5 text-md max-md:mt-1 max-sm:mt-0">
                                             @{{ payment.method_title }}
                                         </p>
                                         

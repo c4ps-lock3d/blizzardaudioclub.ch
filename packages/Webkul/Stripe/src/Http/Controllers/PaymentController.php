@@ -30,7 +30,7 @@ class PaymentController extends Controller
     /**
      * Redirects to the Stripe server.
      */
-    public function redirect(): RedirectResponse
+    public function redirectcard(): RedirectResponse
     {
         $cart = Cart::getCart();
         $billingAddress = $cart->billing_address;
@@ -42,7 +42,39 @@ class PaymentController extends Controller
         $totalAmount = $cart->grand_total;
 
         $checkoutSession = Session::create([
-            'payment_method_types' => ['card','twint','paypal'],
+            'payment_method_types' => ['card'],
+            'line_items'           => [[
+                'price_data' => [
+                    'currency'     => $cart->global_currency_code,
+                    'product_data' => [
+                        'name' => 'Stripe Checkout Payment order id - '.$cart->id,
+                    ],
+                    'unit_amount' => $cart->grand_total * 100,
+                ],
+                'quantity' => 1,
+            ]],
+            'customer_email' => $cart->billing_address->email,
+            'mode'        => 'payment',
+            'success_url' => route('stripe.success'),
+            'cancel_url'  => route('stripe.cancel'),
+        ]);
+
+        return redirect()->away($checkoutSession->url);
+    }
+
+    public function redirecttwint(): RedirectResponse
+    {
+        $cart = Cart::getCart();
+        $billingAddress = $cart->billing_address;
+
+        Stripe::setApiKey(core()->getConfigData('sales.payment_methods.stripe.stripe_api_key'));
+
+        $shippingRate = $cart->selected_shipping_rate ? $cart->selected_shipping_rate->price : 0;
+        $discountAmount = $cart->discount_amount;
+        $totalAmount = $cart->grand_total;
+
+        $checkoutSession = Session::create([
+            'payment_method_types' => ['twint'],
             'line_items'           => [[
                 'price_data' => [
                     'currency'     => $cart->global_currency_code,
@@ -68,6 +100,7 @@ class PaymentController extends Controller
     public function success(): RedirectResponse
     {
         $cart = Cart::getCart();
+        /*$cart->payment->method_title = 'TWINT';*/
 
         $data = (new OrderResource($cart))->jsonSerialize();
 

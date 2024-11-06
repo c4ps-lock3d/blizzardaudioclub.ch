@@ -1293,7 +1293,7 @@ return [
         'info' => 'admin::app.configuration.index.sales.payment-methods.info',
         'icon' => 'settings/payment-method.svg',
         'sort' => 3,
-    ], [
+    ], /*[
         'key'    => 'sales.payment_methods.cashondelivery',
         'name'   => 'admin::app.configuration.index.sales.payment-methods.cash-on-delivery',
         'info'   => 'admin::app.configuration.index.sales.payment-methods.cash-on-delivery-info',
@@ -1657,7 +1657,7 @@ return [
                 ],
             ],
         ],
-    ], [
+    ],*/ [
         'key'  => 'sales.order_settings',
         'name' => 'admin::app.configuration.index.sales.order-settings.title',
         'info' => 'admin::app.configuration.index.sales.order-settings.info',
