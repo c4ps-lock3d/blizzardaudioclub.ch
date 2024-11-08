@@ -311,16 +311,18 @@
                                 </p>
 
                                 <p class="mt-2 text-md text-justify text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
-                                    Artiste :
                                     @foreach($product->artistes as $artiste)
-                                        @if($loop->last)
-                                            <a class="!text-[#FADA00]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">
-                                                {!! $artiste->name !!}
-                                            </a>
-                                        @else
-                                            <a class="!text-[#FADA00]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">
-                                                {!! $artiste->name !!}
-                                            </a>, 
+                                        @if(!is_null($artiste))
+                                            @if($loop->first)
+                                                Artiste :
+                                                <a class="!text-[#FADA00]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">
+                                                    {!! $artiste->name !!}
+                                                </a>
+                                            @else
+                                                , <a class="!text-[#FADA00]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">
+                                                    {!! $artiste->name !!}
+                                                </a>
+                                            @endif
                                         @endif
                                     @endforeach
                                 </p>
