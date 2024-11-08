@@ -310,11 +310,14 @@
                                     Référence : {!! $product->sku !!}
                                 </p>
 
-                                @foreach($product->artistes as $artiste)
-                                    <p class="mt-2 text-md text-justify text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
-                                        Artiste : {!! $artiste->name !!}
-                                    </p>
-                                @endforeach
+                                <p class="mt-2 text-md text-justify text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
+                                    Artiste :
+                                    @foreach($product->artistes as $artiste)
+                                        <a class="!text-[#FADA00]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">
+                                            {!! $artiste->name !!}
+                                        </a>
+                                    @endforeach
+                                </p>
 
                                 @if ($product->release_date)
                                 <p class="mt-2 text-md text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
