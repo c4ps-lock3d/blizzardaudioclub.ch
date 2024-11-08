@@ -75,7 +75,7 @@ class DownloadableProductDataGrid extends DataGrid
                     return $row->product_name;
                 }
 
-                return '<a class="text-blue-600" href="'.route('shop.customers.account.downloadable_products.download', $row->id).'" target="_blank">'.$row->product_name.'</a>';
+                return $row->product_name.' (<a class="!text-[#FADA00]" href="'.route('shop.customers.account.downloadable_products.download', $row->id).'" target="_blank">Télécharger</a>)';
             },
         ]);
 

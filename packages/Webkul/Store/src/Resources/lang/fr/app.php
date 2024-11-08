@@ -500,10 +500,10 @@ return [
             'default-header'  => 'En-tête par défaut',
 
             'confirm' => [
-                'agree-btn'    => 'D\'accord',
-                'disagree-btn' => 'Pas d\'accord',
+                'agree-btn'    => 'OK',
+                'disagree-btn' => 'Annuler',
                 'message'      => 'Êtes-vous sûr de vouloir effectuer cette action ?',
-                'title'        => 'Êtes-vous sûr ?',
+                'title'        => 'Attention',
             ],
         ],
 

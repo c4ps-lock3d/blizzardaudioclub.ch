@@ -75,7 +75,7 @@
 
             {!! view_render_event('bagisto.shop.customers.account.profile.gender.before') !!}
 
-            <div class="grid w-full grid-cols-[2fr_3fr] border-b border-zinc-200 px-8 py-3 max-md:px-0">
+            <!-- <div class="grid w-full grid-cols-[2fr_3fr] border-b border-zinc-200 px-8 py-3 max-md:px-0">
                 <p class="text-sm font-medium">
                     @lang('shop::app.customers.account.profile.index.gender')
                 </p>
@@ -83,7 +83,7 @@
                 <p class="text-sm font-medium text-zinc-500">
                     {{ $customer->gender ?? '-'}}
                 </p>
-            </div>
+            </div> -->
 
             {!! view_render_event('bagisto.shop.customers.account.profile.gender.after') !!}
 

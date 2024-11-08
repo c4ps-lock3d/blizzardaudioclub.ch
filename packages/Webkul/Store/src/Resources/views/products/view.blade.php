@@ -84,11 +84,11 @@
 
                 <x-shop::tabs.item
                     id="descritpion-tab"
-                    class="container mt-[60px] !p-0"
+                    class="container mt-[40px] !p-0"
                     :title="trans('shop::app.products.view.description')"
                     :is-selected="true"
                 >
-                    <div class="container mt-[60px] max-1180:px-5">
+                    <div class="container mt-[40px] max-1180:px-5">
                         <p class="text-lg text-justify text-zinc-500 max-1180:text-sm">
                             {!! $product->description !!}
                         </p>
@@ -99,7 +99,7 @@
                 
                 @if ($product->ecouter)
                     <x-shop::tabs.item
-                        class="container mt-[60px] !p-0"
+                        class="container mt-[40px] !p-0"
                         title="Écouter"
                     >
                         <div class="container mt-[60px] max-1180:px-5">
@@ -244,7 +244,7 @@
                                             role="button"
                                             aria-label="@lang('shop::app.products.view.add-to-wishlist')"
                                             tabindex="0"
-                                            :class="isWishlist ? 'icon-heart-fill text-red-600' : 'icon-heart'"
+                                            :class="isWishlist ? 'icon-heart-fill text-red-600 border-[#FADA00]' : 'icon-heart'"
                                             @click="addToWishlist"
                                         >
                                         </div>
@@ -306,18 +306,21 @@
                                     {!! $product->short_description !!}
                                 </p>
 
+                                <p class="mt-6 text-md text-justify text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
+                                    Référence : {!! $product->sku !!}
+                                </p>
+
                                 @if ($product->release_date)
-                                <p class="mt-4 text-lg text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
+                                <p class="mt-2 text-md text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
                                     Date de sortie : {!! date("d.m.Y", strtotime($product->release_date)) !!}
                                 </p>
                                     @if ($product->preorder)
-                                        <p class="mt-4 text-justify text-md p-3 !border-black rounded-lg !text-black bg-[#D4EDDA]">
+                                        <p class="mt-6 text-justify text-md p-3 !border-black rounded-lg !text-white bg-[#343A40]">
                                             Il s'agit d'un produit en précommande. Dès qu'il sera disponible en stock, votre commande sera expédiée.
                                             {!! (strtotime($product->release_date) - strtotime(date("Y-m-d")))/86400 !!} jours restants avant la sortie.
                                         </p>
                                     @endif
                                 @endif
-                                
 
                                 {!! view_render_event('bagisto.shop.products.short_description.after', ['product' => $product]) !!}
 
@@ -351,7 +354,7 @@
                                             {!! view_render_event('bagisto.shop.products.view.add_to_cart.before', ['product' => $product]) !!}
                                             <x-shop::button
                                                 type="submit"
-                                                class="secondary-button w-full max-w-full max-md:py-3 max-sm:rounded-lg max-sm:py-1.5"
+                                                class="primary-button w-full max-w-full max-md:py-3 max-sm:rounded-lg max-sm:py-1.5"
                                                 button-type="secondary-button"
                                                 :loading="false"
                                                 title="Précommander"
@@ -364,7 +367,7 @@
                                             {!! view_render_event('bagisto.shop.products.view.add_to_cart.before', ['product' => $product]) !!}
                                             <x-shop::button
                                                 type="submit"
-                                                class="secondary-button w-full max-w-full max-md:py-3 max-sm:rounded-lg max-sm:py-1.5"
+                                                class="primary-button w-full max-w-full max-md:py-3 max-sm:rounded-lg max-sm:py-1.5"
                                                 button-type="secondary-button"
                                                 :loading="false"
                                                 :title="trans('shop::app.products.view.add-to-cart')"

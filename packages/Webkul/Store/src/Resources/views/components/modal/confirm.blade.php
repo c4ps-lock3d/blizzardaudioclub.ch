@@ -49,11 +49,11 @@
                                         @{{ title }}
                                     </div>
 
-                                    <div class="pb-5 pt-1.5 text-left text-sm text-gray-500">
+                                    <div class="pb-5 pt-1.5 text-left text-sm" id="colorTextCommand">
                                         @{{ message }}
                                     </div>
 
-                                    <div class="flex justify-end gap-2.5">
+                                    <div class="flex justify-center gap-2.5">
                                         <button
                                             type="button"
                                             class="secondary-button max-md:py-3 max-sm:px-6 max-sm:py-2.5"
@@ -108,11 +108,11 @@
 
             methods: {
                 open({
-                    title = "@lang('shop::app.components.modal.confirm.title')",
-                    message = "@lang('shop::app.components.modal.confirm.message')",
+                    title = "Attention",
+                    message = "Êtes-vous sûr de vouloir effectuer cette action ?",
                     options = {
-                        btnDisagree: "@lang('shop::app.components.modal.confirm.disagree-btn')",
-                        btnAgree: "@lang('shop::app.components.modal.confirm.agree-btn')",
+                        btnDisagree: "Annuler",
+                        btnAgree: "OK",
                     },
                     agree = () => {},
                     disagree = () => {},

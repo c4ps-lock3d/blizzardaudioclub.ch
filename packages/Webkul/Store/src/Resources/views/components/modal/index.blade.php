@@ -18,6 +18,7 @@
                 {{ $header }}
 
                 <span
+                    id="colorTextCommand"
                     class="icon-cancel cursor-pointer text-3xl max-sm:text-2xl"
                     @click="toggle"
                 >
