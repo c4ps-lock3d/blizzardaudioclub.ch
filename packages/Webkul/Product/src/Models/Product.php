@@ -52,6 +52,10 @@ class Product extends Model implements ProductContract
      */
     protected $typeInstance;
 
+    public function artistes(){
+        return $this->belongsToMany(\App\Models\Artiste::class);
+    }
+
     /**
      * Get the product flat entries that are associated with product.
      * May be one for each locale and each channel.
