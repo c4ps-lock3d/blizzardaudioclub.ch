@@ -347,7 +347,7 @@
             >
                 <span>
                     <a href="{{ route('store.home.a_propos') }}"
-                       class="inline-block px-5 uppercase"
+                       class="whitespace-nowrap inline-block px-5 uppercase"
                     >
                         A PROPOS
                     </a>

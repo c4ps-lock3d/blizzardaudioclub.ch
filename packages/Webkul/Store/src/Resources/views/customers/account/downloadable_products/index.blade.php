@@ -90,7 +90,7 @@
                                         >
                                         </p>
 
-                                        <p><span class="text-neutral-500">@lang('Remaining Downloads'):</span> <span class="font-medium">@{{ record.remaining_downloads }}</span></p>
+                                        <p><span id="colorTextCommand" class="text-neutral-500">@lang('Remaining Downloads'):</span> <span class="font-medium">@{{ record.remaining_downloads }}</span></p>
                                     </div>
                                 </div>
                             </template>
