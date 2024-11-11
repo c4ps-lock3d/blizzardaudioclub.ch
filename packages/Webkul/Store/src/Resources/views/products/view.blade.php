@@ -319,7 +319,7 @@
                                                     {!! $artiste->name !!}
                                                 </a>
                                             @else
-                                                , <a class="!text-[#FADA00]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">
+                                            &brvbar; <a class="!text-[#FADA00]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">
                                                     {!! $artiste->name !!}
                                                 </a>
                                             @endif
