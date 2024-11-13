@@ -26,12 +26,10 @@
         <div class="grid grid-cols-5 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
             @foreach($artistes->products as $product)
                 @foreach ($product->images as $image)
-                    <h1>
-                        <artiste-view
-                            :image='{{ json_encode($image) }}'
-                            :product='{{ json_encode($product) }}'
-                        ></artiste-view>
-                    </h1>
+                    <artiste-view
+                        :image='{{ json_encode($image) }}'
+                        :product='{{ json_encode($product) }}'
+                    ></artiste-view>
                 @endforeach
             @endforeach
         </div>
