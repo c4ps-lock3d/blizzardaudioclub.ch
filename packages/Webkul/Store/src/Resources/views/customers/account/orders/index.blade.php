@@ -66,7 +66,7 @@
     
                     <template v-else>
                         <template v-for="record in available.records">
-                            <div class="w-full p-4 border rounded-md transition-all hover:bg-gray-50 [&>*]:border-0 mb-4 last:mb-0">
+                            <div class="w-full p-4 border rounded-md transition-all [&>*]:border-0 mb-4 last:mb-0">
                                 <a :href="record.actions[0].url">
                                     <div class="flex justify-between">
                                         <div class="text-sm font-semibold">
@@ -80,10 +80,10 @@
                                         <p v-html="record.status"></p>
                                     </div>
         
-                                    <div class="mt-2.5 text-xs font-normal text-neutral-500">
+                                    <div class="mt-2.5 text-xs font-normal">
                                         @lang('shop::app.customers.account.orders.subtotal')
     
-                                        <p class="text-xl font-semibold text-black">
+                                        <p class="text-xl font-semibold">
                                             @{{ record.grand_total }}
                                         </p>
                                     </div>
