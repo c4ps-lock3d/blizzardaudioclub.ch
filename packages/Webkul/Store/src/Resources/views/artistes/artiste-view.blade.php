@@ -6,23 +6,46 @@
     </x-slot>
 
     <div class="container mt-[34px] px-[60px] max-lg:px-8 max-md:mt-4 max-md:px-4 max-md:text-sm max-sm:text-xs">
-        <div class="mt-[34px] mb-[34px] flex justify-start max-lg:hidden">
+        <div class="mt-[34px] mb-[18px] flex justify-start max-lg:hidden">
             <div id="colorTextCommand">
-                <a class="text-xl !text-[#FADA00]" href="{{ route('shop.home.artisteslist') }}">ARTISTES</a>
-                <span class="align-top icon-arrow-right text-2xl"></span>
-                <span class="uppercase text-xl">{{ $artistes->name }}</span>
+                <a class="text-2xl !text-[#FADA00]" href="{{ route('shop.home.artisteslist') }}">ARTISTES</a>
+                <span class="align-top icon-arrow-right text-3xl"></span>
+                <span class="uppercase text-2xl">{{ $artistes->name }}</span>
             </div>
         </div>
-        <div class="grid grid-cols-8 gap-4">
-            <div class="col-span-2"><img class="rounded-md" src="/storage/{{ $artistes->image }}"></div>
-            <div class="col-span-6">
-                <h1 class="text-3xl font-medium max-sm:text-xl mb-[18px]">{{ $artistes->name }}</h1>
-                <div><p class="text-justify">{{ $artistes->content }}</p></div>
-            </div>
-            <div class="col-span-6">
-                <h1 class ="text-xl mt-[34px] mb-[18px]">PRODUITS RELATIFS</h1>
+        <div class="grid grid-cols-10 gap-6">
+            <div class="col-span-3"><img class="rounded-lg border border-black" src="/storage/{{ $artistes->image }}"></div>
+            <div class="col-span-7">
+                <h1 class="text-3xl font-medium max-sm:text-xl mb-[18px] flex justify-between">
+                    <div>
+                        {{ $artistes->name }}
+                    </div>
+                    <div>
+                        @if($artistes->facebook)
+                            <a href="{{ $artistes->facebook }}" target="_blank" class="fab fa-facebook fa-1x fa-inverse mr-4"></a>
+                        @endif
+                        @if($artistes->instagram)
+                            <a href="{{ $artistes->instagram }}" target="_blank" class="fab fa-instagram fa-1x fa-inverse mr-4"></a>
+                        @endif
+                        @if($artistes->tiktok)
+                            <a href="{{ $artistes->tiktok }}" target="_blank" class="fab fa-tiktok fa-1x fa-inverse mr-4"></a>
+                        @endif
+                        @if($artistes->soundcloud)
+                            <a href="{{ $artistes->soundcloud }}" target="_blank" class="fab fa-soundcloud fa-1x fa-inverse mr-4"></a>
+                        @endif
+                        @if($artistes->youtube)
+                            <a href="{{ $artistes->youtube }}" target="_blank" class="fab fa-youtube fa-1x fa-inverse"></a>
+                        @endif
+                    </div>
+                </h1>
+                <div>
+                    <p class="text-justify">{{ $artistes->content }}</p>
+                </div>
             </div>
         </div>
+
+        <h1 class ="text-2xl mt-[34px] mb-[18px]">PRODUITS RELATIFS</h1>
+
         <div class="grid grid-cols-5 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
             @foreach($artistes->products as $product)
                 @foreach ($product->images as $image)

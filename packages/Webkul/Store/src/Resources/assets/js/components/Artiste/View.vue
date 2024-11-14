@@ -11,10 +11,10 @@ export default {
         <a v-bind:href="'/' + product.url_key">
             <img v-bind:src="'/storage/' + image.path"/>
             <div class="p-4">
-                <p class="mb-2">{{ product.name }}</p>
-                <p class="font-bold">
+                <div class="mb-2">{{ product.name }}</div>
+                <div class="font-bold">
                     {{ parseFloat(product.price).toFixed(2) }}CHF
-                </p>
+                </div>
             </div>
         </a>
     </div>

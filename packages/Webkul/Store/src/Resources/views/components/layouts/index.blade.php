@@ -76,6 +76,8 @@
             {!! core()->getConfigData('general.content.custom_scripts.custom_css') !!}
         </style>
 
+        <script src="https://kit.fontawesome.com/759283867f.js" crossorigin="anonymous"></script>
+
         {!! view_render_event('bagisto.shop.layout.head.after') !!}
 
     </head>
