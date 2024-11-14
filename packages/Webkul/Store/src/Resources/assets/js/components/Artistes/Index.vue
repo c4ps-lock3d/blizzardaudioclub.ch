@@ -23,7 +23,7 @@ export default {
     <div v-for="artiste in artistes">
         <a v-bind:href="'/artistes/' + artiste.slug + '-' + artiste.id">
             <div
-                class="1180:transtion-all group w-full rounded-md 1180:relative 1180:grid 1180:content-start 1180:overflow-hidden 1180:duration-300 1180:hover:shadow-[0_5px_10px_rgba(0,0,0,0.1)]"
+                class="1180:transtion-all group w-full rounded-lg border border-black 1180:relative 1180:grid 1180:content-start 1180:overflow-hidden 1180:duration-300 1180:hover:shadow-[0_5px_10px_rgba(0,0,0,0.1)]"
             >
                 <div
                     class="relative max-h-[300px] max-w-[291px] overflow-hidden max-md:max-h-60 max-md:max-w-full max-md:rounded-lg max-sm:max-h-[200px] max-sm:max-w-full"

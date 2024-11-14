@@ -202,7 +202,7 @@
                                     <li  @click="changePage('previous')">
                                         <a
                                             href="javascript:void(0);"
-                                            class="flex h-10 w-9 items-center justify-center font-medium leading-normal hover:bg-gray-100 max-md:h-8 max-md:w-6 max-md:justify-normal"
+                                            class="flex h-10 w-9 items-center justify-center font-medium leading-normal max-md:h-8 max-md:w-6 max-md:justify-normal"
                                             aria-label="@lang('shop::app.components.datagrid.table.previous-page')"
                                         >
                                             <span class="icon-arrow-left rtl:icon-arrow-right text-2xl"></span>
@@ -222,7 +222,7 @@
                                     <li @click="changePage('next')">
                                         <a
                                             href="javascript:void(0);"
-                                            class="flex h-10 w-9 items-center justify-center font-medium leading-normal hover:bg-gray-100 max-md:h-8 max-md:w-6 max-md:justify-normal"
+                                            class="flex h-10 w-9 items-center justify-center font-medium leading-normal max-md:h-8 max-md:w-6 max-md:justify-normal"
                                             aria-label="@lang('shop::app.components.datagrid.table.next-page')"
                                         >
                                             <span class="icon-arrow-right rtl:icon-arrow-left text-2xl"></span>
