@@ -60,11 +60,18 @@
         <h1 class ="text-2xl mt-[34px] mb-[18px]">VIDÉOCLIPS</h1>
 
         <div class="flex flex-row gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
-            @foreach($artistes->products as $product)
-                @foreach ($product->videoclips as $videoclip)
-                    <lite-youtube class="rounded-lg border border-black" autoload videotitle="{!! $videoclip->name !!}" videoid="{!! $videoclip->youtubetoken !!}"></lite-youtube>
-                @endforeach
-            @endforeach
+            @php
+                $arr = array();
+                foreach($artistes->products as $product){
+                    foreach ($product->videoclips as $videoclip) {
+                        $arr[] = $videoclip->youtubetoken;
+                    }
+                }
+                $unique_data = array_unique($arr);
+                foreach($unique_data as $val) {
+                    echo "<lite-youtube class='rounded-lg border border-black' autoload videoid='".$val."'></lite-youtube>";
+                }
+            @endphp        
         </div>
     </div>
 
