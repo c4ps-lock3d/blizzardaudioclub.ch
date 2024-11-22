@@ -110,6 +110,30 @@
                     </x-shop::tabs.item>
                 @endif
 
+
+                @foreach($product->videoclips as $videoclip)
+                    @if(!is_null($videoclip))
+                        @if($loop->first)
+                            <x-shop::tabs.item
+                                class="container mt-[40px] !p-0"
+                                title="Vidéoclip"
+                            >
+                        @endif
+                        <div class="container mt-[60px] max-1180:px-5">
+                            <div class="grid grid-cols-2 gap-8">
+                                @foreach($product->videoclips as $videoclip)  
+                                    @if(!is_null($videoclip))
+                                        <lite-youtube style="--lite-youtube-frame-shadow-visible: no;" class="rounded-lg border border-black" autoload videotitle="{!! $videoclip->name !!}" videoid="{!! $videoclip->youtubetoken !!}"></lite-youtube>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                        </x-shop::tabs.item>
+                    @endif
+                @endforeach
+               
+                
+
                 <!-- Reviews Tab -->
                 <!-- <x-shop::tabs.item
                     id="review-tab"
@@ -122,6 +146,8 @@
             </x-shop::tabs>
         </div>
     </div>
+
+
 
     <!-- Information Section -->
     <div class="container mt-6 grid gap-3 !p-0 max-1180:px-5 1180:hidden">
@@ -164,6 +190,28 @@
             </x-shop::accordion>
         @endif
 
+            <!-- Ecouter Accordion -->
+            <x-shop::accordion
+                class="max-md:border-none"
+                :is-active="true"
+            >
+                <x-slot:header id="backgroundTableHeaderFooter" class="max-md:!py-3 max-sm:!py-2">
+                    <p class="text-base font-medium 1180:hidden">
+                        Videoclip
+                    </p>
+                </x-slot>
+
+                <x-slot:content class="max-sm:px-0">
+                    <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
+                    @foreach($product->videoclips as $videoclip)
+                        @if(!is_null($videoclip))
+                            <p>{!! $videoclip->youtubetoken !!}</p>
+                        @endif
+                    @endforeach
+                    </div>
+                </x-slot>
+            </x-shop::accordion>
+
         <!-- Reviews Accordion
         <x-shop::accordion
             class="max-md:border-none"
@@ -199,6 +247,7 @@
     {!! view_render_event('bagisto.shop.products.view.after', ['product' => $product]) !!}
 
     @pushOnce('scripts')
+        <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1/lite-youtube.min.js"></script>
         <script
             type="text/x-template"
             id="v-product-template"

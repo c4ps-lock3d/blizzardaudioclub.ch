@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('videoclip_product', function (Blueprint $table) {
+        Schema::create('product_videoclip', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\Videoclip::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(\Webkul\Product\Models\Product::class)->constrained()->cascadeOnDelete();
             $table->primary(['videoclip_id','product_id']);

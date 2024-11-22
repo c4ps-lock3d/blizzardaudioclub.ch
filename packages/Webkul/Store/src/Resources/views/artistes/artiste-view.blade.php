@@ -56,6 +56,16 @@
                 @endforeach
             @endforeach
         </div>
+
+        <h1 class ="text-2xl mt-[34px] mb-[18px]">VIDÉOCLIPS</h1>
+
+        <div class="flex flex-row gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
+            @foreach($artistes->products as $product)
+                @foreach ($product->videoclips as $videoclip)
+                    <lite-youtube class="rounded-lg border border-black" autoload videotitle="{!! $videoclip->name !!}" videoid="{!! $videoclip->youtubetoken !!}"></lite-youtube>
+                @endforeach
+            @endforeach
+        </div>
     </div>
 
     @push('scripts')
@@ -64,3 +74,4 @@
 </x-shop::layouts>
 
 <script>document.body.style.overflow ='scroll';</script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1/lite-youtube.min.js"></script>
