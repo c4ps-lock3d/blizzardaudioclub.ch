@@ -120,7 +120,7 @@
                             >
                         @endif
                         <div class="container mt-[60px] max-1180:px-5">
-                            <div class="grid grid-cols-2 gap-8">
+                            <div class="flex flex-row gap-6">
                                 @foreach($product->videoclips as $videoclip)  
                                     @if(!is_null($videoclip))
                                         <lite-youtube style="--lite-youtube-frame-shadow-visible: no;" class="rounded-lg border border-black" autoload videotitle="{!! $videoclip->name !!}" videoid="{!! $videoclip->youtubetoken !!}"></lite-youtube>
