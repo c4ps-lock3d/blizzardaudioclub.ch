@@ -59,7 +59,7 @@
 
         <h1 class ="text-2xl mt-[34px] mb-[18px]">VIDÉOCLIPS</h1>
 
-        <div class="flex flex-row gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
+        <div class="grid grid-cols-3 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
             @php
                 $arr = array();
                 foreach($artistes->products as $product){
