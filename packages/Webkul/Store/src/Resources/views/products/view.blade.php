@@ -92,6 +92,12 @@
                         <p class="text-lg text-justify text-zinc-500 max-1180:text-sm">
                             {!! $product->description !!}
                         </p>
+                        <p class="mt-6 text-lg font-bold text-zinc-500 max-1180:text-sm">
+                            CRÉDITS
+                        </p>
+                        <p class="text-lg text-zinc-500 max-1180:text-sm">
+                            {!! $product->credits !!}
+                        </p>
                     </div>
                 </x-shop::tabs.item>
 
