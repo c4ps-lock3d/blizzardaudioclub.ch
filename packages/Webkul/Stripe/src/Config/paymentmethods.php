@@ -18,5 +18,14 @@ return [
         'class'       => 'Webkul\Stripe\Payment\StripeTwint',
         'active'      => true,
         'sort'        => 1,
+    ],
+    'stripepaypal'  => [
+        'code'        => 'stripepaypal',
+        'title'       => 'StripePaypal',
+        'description' => 'StripePaypal',
+        'image'       => '/images/stripe.svg',
+        'class'       => 'Webkul\Stripe\Payment\StripePaypal',
+        'active'      => true,
+        'sort'        => 2,
     ]
 ];

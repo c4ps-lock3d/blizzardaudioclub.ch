@@ -94,6 +94,38 @@ class PaymentController extends Controller
         return redirect()->away($checkoutSession->url);
     }
 
+    public function redirectpaypal(): RedirectResponse
+    {
+        $cart = Cart::getCart();
+        $billingAddress = $cart->billing_address;
+
+        Stripe::setApiKey(core()->getConfigData('sales.payment_methods.stripe.stripe_api_key'));
+
+        $shippingRate = $cart->selected_shipping_rate ? $cart->selected_shipping_rate->price : 0;
+        $discountAmount = $cart->discount_amount;
+        $totalAmount = $cart->grand_total;
+
+        $checkoutSession = Session::create([
+            'payment_method_types' => ['paypal'],
+            'line_items'           => [[
+                'price_data' => [
+                    'currency'     => $cart->global_currency_code,
+                    'product_data' => [
+                        'name' => 'Stripe Checkout Payment order id - '.$cart->id,
+                    ],
+                    'unit_amount' => $cart->grand_total * 100,
+                ],
+                'quantity' => 1,
+            ]],
+            'customer_email' => $cart->billing_address->email,
+            'mode'        => 'payment',
+            'success_url' => route('stripe.success'),
+            'cancel_url'  => route('stripe.cancel'),
+        ]);
+
+        return redirect()->away($checkoutSession->url);
+    }
+
     /**
      * Place an order and redirect to the success page.
      */
