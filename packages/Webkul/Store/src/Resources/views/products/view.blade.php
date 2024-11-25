@@ -92,12 +92,14 @@
                         <p class="text-lg text-justify text-zinc-500 max-1180:text-sm">
                             {!! $product->description !!}
                         </p>
-                        <p class="mt-6 text-lg font-bold text-zinc-500 max-1180:text-sm">
-                            CRÉDITS
-                        </p>
-                        <p class="text-lg text-zinc-500 max-1180:text-sm">
-                            {!! $product->credits !!}
-                        </p>
+                        @if($product->credits)
+                            <p class="mt-6 text-lg font-bold text-zinc-500 max-1180:text-sm">
+                                CRÉDITS
+                            </p>
+                            <p class="text-lg text-zinc-500 max-1180:text-sm">
+                                {!! $product->credits !!}
+                            </p>
+                        @endif
                     </div>
                 </x-shop::tabs.item>
 
@@ -172,6 +174,14 @@
                 <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
                     {!! $product->description !!}
                 </div>
+                @if($product->credits)
+                    <div class="mb-5 mt-5 font-bold text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
+                        <p>CRÉDITS</p>
+                    </div>
+                    <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
+                        {!! $product->credits !!}
+                    </div>
+                @endif
             </x-slot>
         </x-shop::accordion>
 
@@ -195,31 +205,34 @@
                 </x-slot>
             </x-shop::accordion>
         @endif
+        @foreach($product->videoclips as $videoclip)
+            @if(!is_null($videoclip))
+                <!-- Ecouter Accordion -->
+                <x-shop::accordion
+                    class="max-md:border-none"
+                    :is-active="true"
+                >
+                    <x-slot:header id="backgroundTableHeaderFooter" class="max-md:!py-3 max-sm:!py-2">
+                        <p class="text-base font-medium 1180:hidden">
+                            Videoclip
+                        </p>
+                    </x-slot>
 
-            <!-- Ecouter Accordion -->
-            <x-shop::accordion
-                class="max-md:border-none"
-                :is-active="true"
-            >
-                <x-slot:header id="backgroundTableHeaderFooter" class="max-md:!py-3 max-sm:!py-2">
-                    <p class="text-base font-medium 1180:hidden">
-                        Videoclip
-                    </p>
-                </x-slot>
-
-                <x-slot:content class="max-sm:px-0">
-                    <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
-                        <div class="flex flex-row gap-6">
-                            @foreach($product->videoclips as $videoclip)  
-                                @if(!is_null($videoclip))
-                                    <lite-youtube style="--lite-youtube-frame-shadow-visible: no;" class="rounded-lg border border-black" autoload videotitle="{!! $videoclip->name !!}" videoid="{!! $videoclip->youtubetoken !!}"></lite-youtube>
-                                @endif
-                            @endforeach
+                    <x-slot:content class="max-sm:px-0">
+                        <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
+                            <div class="flex flex-row gap-6">
+                                @foreach($product->videoclips as $videoclip)  
+                                    @if(!is_null($videoclip))
+                                        <lite-youtube style="--lite-youtube-frame-shadow-visible: no;" class="rounded-lg border border-black" autoload videotitle="{!! $videoclip->name !!}" videoid="{!! $videoclip->youtubetoken !!}"></lite-youtube>
+                                    @endif
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
-                </x-slot>
-            </x-shop::accordion>
-
+                    </x-slot>
+                </x-shop::accordion>
+            @endif
+        @endforeach
+        
         <!-- Reviews Accordion
         <x-shop::accordion
             class="max-md:border-none"
