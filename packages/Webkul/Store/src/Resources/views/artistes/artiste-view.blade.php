@@ -57,20 +57,19 @@
             @endforeach
         </div>
         @php
-                $arr = array();
-                foreach($artistes->products as $product){
-                    foreach ($product->videoclips as $videoclip) {
-                        $arr[] = $videoclip->youtubetoken;
-                    }
+            $arr = array();
+            foreach($artistes->products as $product){
+                foreach ($product->videoclips as $videoclip) {
+                    $arr[] = $videoclip->youtubetoken;
                 }
-                $unique_data = array_unique($arr);
-                foreach($unique_data as $key => $val) {
-                    if ($key === array_key_first($unique_data)) {
-                            echo "<h1 class ='text-2xl mt-[34px] mb-[18px]'>VIDÉOCLIPS</h1>";
-
-                    }
+            }
+            $unique_data = array_unique($arr);
+            foreach($unique_data as $key => $val) {
+                if ($key === array_key_first($unique_data)) {
+                        echo "<h1 class ='text-2xl mt-[34px] mb-[18px]'>VIDÉOCLIPS</h1>";
                 }
-            @endphp   
+            }
+        @endphp   
 
         <div class="grid grid-cols-3 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
             @php
@@ -82,7 +81,7 @@
                 }
                 $unique_data = array_unique($arr);
                 foreach($unique_data as $key => $val) {
-                    echo "<div><lite-youtube class='rounded-lg border border-black' autoload videoid='".$val."'></lite-youtube></div>";
+                    echo "<lite-youtube class='rounded-lg border border-black' autoload videoid='".$val."'></lite-youtube>";
                 }
             @endphp        
         </div>
