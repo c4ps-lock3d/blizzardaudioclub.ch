@@ -18,7 +18,7 @@
             <div class="col-span-7">
                 <h1 class="text-3xl font-medium max-sm:text-xl mb-[18px] flex justify-between">
                     <div>
-                        {{ $artistes->name }} [{{ $artistes->country }}]
+                        {{ $artistes->name }} @if($artistes->country)[{{ $artistes->country }}]@endif
                     </div>
                     <div>
                         @if($artistes->facebook)
@@ -46,9 +46,10 @@
                 </h1>
                 <div>
                     <p class="text-justify">{{ $artistes->content }}
-                    @if($artistes->website)
-                        <a href="{{ $artistes->website }}" target="_blank" class="!text-[#FADA00] whitespace-nowrap">site officiel de l'artiste <i class="fas fa-external-link-alt"></i></a>
-                    @endif</p>
+                        @if($artistes->website)
+                            <a href="{{ $artistes->website }}" target="_blank" class="!text-[#FADA00] whitespace-nowrap">site officiel de l'artiste <i class="fas fa-external-link-alt"></i></a>
+                        @endif
+                    </p>
                 </div>
             </div>
         </div>
