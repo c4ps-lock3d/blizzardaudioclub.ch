@@ -32,9 +32,10 @@ export default {
                 </div>
                 <div
                     id="backgroundCard"
-                    class="-mt-9 justify-center grid max-w-[291px] translate-y-9 content-start gap-2.5 p-4 transition-transform duration-300 ease-out group-hover:-translate-y-0 group-hover:rounded-t-lg max-md:relative max-md:mt-0 max-md:translate-y-0 max-md:gap-0 max-md:px-0 max-md:py-1.5 max-sm:min-w-[170px] max-sm:max-w-[192px]"
+                    class="-mt-9 text-center font-bold justify-center grid max-w-[291px] translate-y-9 content-start gap-2.5 p-4 transition-transform duration-300 ease-out group-hover:-translate-y-0 group-hover:rounded-t-lg max-md:relative max-md:mt-0 max-md:translate-y-0 max-md:gap-0 max-md:px-0 max-md:py-1.5 max-sm:min-w-[170px] max-sm:max-w-[192px]"
                 >
-                    <p class="mb-8">{{ artiste.name }}</p>
+                    <p>{{ artiste.name }}</p>
+                    <p>{{ artiste.country }}</p>
                 </div>
             </div>
         </a>

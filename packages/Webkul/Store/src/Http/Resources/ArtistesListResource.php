@@ -19,6 +19,7 @@ class ArtistesListResource extends JsonResource
             'slug'                => $this->slug,
             'name'              => $this->name,
             'image'              => $this->image,
+            'country'              => $this->country,
         ];
     }
 }
