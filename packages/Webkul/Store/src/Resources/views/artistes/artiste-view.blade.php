@@ -18,7 +18,7 @@
             <div class="col-span-7">
                 <h1 class="text-3xl font-medium max-sm:text-xl mb-[18px] flex justify-between">
                     <div>
-                        {{ $artistes->name }}
+                        {{ $artistes->name }} [{{ $artistes->country }}]
                     </div>
                     <div>
                         @if($artistes->facebook)
@@ -34,7 +34,13 @@
                             <a href="{{ $artistes->soundcloud }}" target="_blank" class="fab fa-soundcloud fa-1x fa-inverse mr-4"></a>
                         @endif
                         @if($artistes->youtube)
-                            <a href="{{ $artistes->youtube }}" target="_blank" class="fab fa-youtube fa-1x fa-inverse"></a>
+                            <a href="{{ $artistes->youtube }}" target="_blank" class="fab fa-youtube fa-1x fa-inverse mr-4"></a>
+                        @endif
+                        @if($artistes->bandcamp)
+                            <a href="{{ $artistes->bandcamp }}" target="_blank" class="fab fa-bandcamp fa-1x fa-inverse mr-4"></a>
+                        @endif
+                        @if($artistes->spotify)
+                            <a href="{{ $artistes->spotify }}" target="_blank" class="fab fa-spotify fa-1x fa-inverse"></a>
                         @endif
                     </div>
                 </h1>
