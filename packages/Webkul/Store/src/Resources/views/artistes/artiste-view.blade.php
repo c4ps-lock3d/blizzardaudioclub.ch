@@ -45,7 +45,10 @@
                     </div>
                 </h1>
                 <div>
-                    <p class="text-justify">{{ $artistes->content }}</p>
+                    <p class="text-justify">{{ $artistes->content }}
+                    @if($artistes->website)
+                        <a href="{{ $artistes->website }}" target="_blank" class="!text-[#FADA00] whitespace-nowrap">site officiel de l'artiste <i class="fas fa-external-link-alt"></i></a>
+                    @endif</p>
                 </div>
             </div>
         </div>
