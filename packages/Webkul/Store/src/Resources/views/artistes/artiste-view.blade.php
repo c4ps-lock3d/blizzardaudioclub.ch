@@ -2,7 +2,7 @@
 <x-shop::layouts>
     <!-- Page Title -->
     <x-slot:title>
-        @lang('shop::app.home.contact.title')
+        {{ $artistes->name }}
     </x-slot>
 
     <div class="container mt-[34px] px-[60px] max-lg:px-8 max-md:mt-4 max-md:px-4 max-md:text-sm max-sm:text-xs">
