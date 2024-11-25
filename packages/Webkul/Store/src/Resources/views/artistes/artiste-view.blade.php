@@ -18,7 +18,7 @@
             <div class="col-span-7">
                 <h1 class="text-3xl font-medium max-sm:text-xl mb-[18px] flex justify-between">
                     <div>
-                        {{ $artistes->name }} @if($artistes->country)[{{ $artistes->country }}]@endif
+                        {{ $artistes->name }} @if($artistes->country)({{ $artistes->country }})@endif
                     </div>
                     <div>
                         @if($artistes->facebook)
