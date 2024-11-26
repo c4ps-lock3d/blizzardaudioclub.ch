@@ -83,7 +83,8 @@ class HomeController extends Controller
         }
         
         return view('store::artistes.artiste-view',[
-            'artistes' => $artistes
+            'artistes' => $artistes,
+            'count_products' => $artistes->products()->count(),
         ]);
     }
 
