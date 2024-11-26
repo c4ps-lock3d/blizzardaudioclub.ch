@@ -14,8 +14,10 @@
             </div>
         </div>
         <div class="grid grid-cols-10 gap-6">
-            <div class="col-span-3"><img class="rounded-lg border border-black" src="/storage/{{ $artistes->image }}"></div>
-            <div class="col-span-7">
+            <div class="col-span-3 max-1060:col-span-10 max-md:gap-x-4">
+                <img class="rounded-lg border border-black" src="/storage/{{ $artistes->image }}">
+            </div>
+            <div class="col-span-7 max-1060:col-span-10 max-md:gap-x-4">
                 <h1 class="text-3xl font-medium max-sm:text-xl mb-[18px] flex justify-between">
                     <div>
                         {{ $artistes->name }} @if($artistes->country)({{ $artistes->country }})@endif
@@ -54,8 +56,8 @@
             </div>
         </div>
 
-        <div class="flex flex-row gap-12">
-            <div class="basis-3/5">
+        <div class="grid grid-cols-5 gap-12 max-1060:grid-cols-1 max-md:gap-x-4">
+            <div class="col-span-3">
                 <h1 class ="text-2xl mt-[34px] mb-[18px]">PRODUITS RELATIFS</h1>
                 <div class="grid grid-cols-3 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
                     @foreach($artistes->products as $product)
@@ -68,22 +70,7 @@
                     @endforeach
                 </div>
             </div>
-            <div class="basis-2/5">
-            @php
-                $arr = array();
-                foreach($artistes->products as $product){
-                    foreach ($product->videoclips as $videoclip) {
-                        $arr[] = $videoclip->youtubetoken;
-                    }
-                }
-                $unique_data = array_unique($arr);
-                foreach($unique_data as $key => $val) {
-                    if ($key === array_key_first($unique_data)) {
-                        echo "<h1 class ='col-span-12 text-2xl mt-[34px] mb-[18px]'>VIDÉOCLIPS</h1>";
-                    }
-                }
-            @endphp   
-            <div class="grid grid-cols-1 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
+            <div class="col-span-2">
                 @php
                     $arr = array();
                     foreach($artistes->products as $product){
@@ -93,10 +80,25 @@
                     }
                     $unique_data = array_unique($arr);
                     foreach($unique_data as $key => $val) {
-                        echo "<lite-youtube class='rounded-lg border border-black' autoload videoid='".$val."'></lite-youtube>";
+                        if ($key === array_key_first($unique_data)) {
+                            echo "<h1 class ='text-2xl mt-[34px] mb-[18px]'>VIDÉOCLIPS</h1>";
+                        }
                     }
-                @endphp        
-            </div>
+                @endphp   
+                <div class="grid grid-cols-1 gap-6 max-1060:grid-cols-1 max-md:gap-x-4">
+                    @php
+                        $arr = array();
+                        foreach($artistes->products as $product){
+                            foreach ($product->videoclips as $videoclip) {
+                                $arr[] = $videoclip->youtubetoken;
+                            }
+                        }
+                        $unique_data = array_unique($arr);
+                        foreach($unique_data as $key => $val) {
+                            echo "<lite-youtube class='rounded-lg border border-black' autoload videoid='".$val."'></lite-youtube>";
+                        }
+                    @endphp        
+                </div>
             </div>
         </div>
 
