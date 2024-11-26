@@ -39,9 +39,7 @@
                     
                     {{ $invoice->order->shipping_address->state }}<br/>
 
-                    ---<br/>
-
-                    @lang('shop::app.emails.orders.contact') : {{ $invoice->order->billing_address->phone }}
+                    {{ $invoice->order->billing_address->phone }}
                 </div>
 
                 <div style="font-size: 16px;font-weight: 600;color: #121A26;">
@@ -49,7 +47,7 @@
                 </div>
 
                 <div style="font-size: 16px;font-weight: 400;color: #384860;">
-                    {{ $invoice->order->shipping_title }}
+                    Standard
                 </div>
             </div>
         @endif
@@ -71,9 +69,7 @@
                     
                     {{ $invoice->order->billing_address->state }}<br/>
 
-                    ---<br/>
-
-                    @lang('shop::app.emails.orders.contact') : {{ $invoice->order->billing_address->phone }}
+                    {{ $invoice->order->billing_address->phone }}
                 </div>
 
                 <div style="font-size: 16px;font-weight: 600;color: #121A26;">

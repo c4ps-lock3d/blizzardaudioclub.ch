@@ -54,34 +54,21 @@
             </div>
         </div>
 
-        <h1 class ="text-2xl mt-[34px] mb-[18px]">PRODUITS RELATIFS</h1>
-
-        <div class="grid grid-cols-5 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
-            @foreach($artistes->products as $product)
-                @foreach ($product->images as $image)
-                    <artiste-view
-                        :image='{{ json_encode($image) }}'
-                        :product='{{ json_encode($product) }}'
-                    ></artiste-view>
-                @endforeach
-            @endforeach
-        </div>
-        @php
-            $arr = array();
-            foreach($artistes->products as $product){
-                foreach ($product->videoclips as $videoclip) {
-                    $arr[] = $videoclip->youtubetoken;
-                }
-            }
-            $unique_data = array_unique($arr);
-            foreach($unique_data as $key => $val) {
-                if ($key === array_key_first($unique_data)) {
-                        echo "<h1 class ='text-2xl mt-[34px] mb-[18px]'>VIDÉOCLIPS</h1>";
-                }
-            }
-        @endphp   
-
-        <div class="grid grid-cols-3 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
+        <div class="flex flex-row gap-12">
+            <div class="basis-3/5">
+                <h1 class ="text-2xl mt-[34px] mb-[18px]">PRODUITS RELATIFS</h1>
+                <div class="grid grid-cols-3 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
+                    @foreach($artistes->products as $product)
+                        @foreach ($product->images as $image)
+                            <artiste-view
+                                :image='{{ json_encode($image) }}'
+                                :product='{{ json_encode($product) }}'
+                            ></artiste-view>
+                        @endforeach
+                    @endforeach
+                </div>
+            </div>
+            <div class="basis-2/5">
             @php
                 $arr = array();
                 foreach($artistes->products as $product){
@@ -91,10 +78,28 @@
                 }
                 $unique_data = array_unique($arr);
                 foreach($unique_data as $key => $val) {
-                    echo "<lite-youtube class='rounded-lg border border-black' autoload videoid='".$val."'></lite-youtube>";
+                    if ($key === array_key_first($unique_data)) {
+                        echo "<h1 class ='col-span-12 text-2xl mt-[34px] mb-[18px]'>VIDÉOCLIPS</h1>";
+                    }
                 }
-            @endphp        
+            @endphp   
+            <div class="grid grid-cols-1 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
+                @php
+                    $arr = array();
+                    foreach($artistes->products as $product){
+                        foreach ($product->videoclips as $videoclip) {
+                            $arr[] = $videoclip->youtubetoken;
+                        }
+                    }
+                    $unique_data = array_unique($arr);
+                    foreach($unique_data as $key => $val) {
+                        echo "<lite-youtube class='rounded-lg border border-black' autoload videoid='".$val."'></lite-youtube>";
+                    }
+                @endphp        
+            </div>
+            </div>
         </div>
+
     </div>
 
     @push('scripts')
