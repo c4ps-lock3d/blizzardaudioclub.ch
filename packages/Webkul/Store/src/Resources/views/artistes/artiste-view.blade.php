@@ -8,9 +8,9 @@
     <div class="container mt-[34px] px-[60px] max-lg:px-8 max-md:mt-4 max-md:px-4 max-md:text-sm max-sm:text-xs">
         <div class="mt-[34px] mb-[18px] flex justify-start max-lg:hidden">
             <div id="colorTextCommand">
-                <a class="text-2xl !text-[#FADA00]" href="{{ route('shop.home.artisteslist') }}">ARTISTES</a>
-                <span class="align-top icon-arrow-right text-3xl"></span>
-                <span class="uppercase text-2xl">{{ $artistes->name }}</span>
+                <a class="text-xl !text-[#FADA00]" href="{{ route('shop.home.artisteslist') }}">ARTISTES</a>
+                <span class="align-top icon-arrow-right text-2xl"></span>
+                <span class="uppercase text-xl">{{ $artistes->name }}</span>
             </div>
         </div>
         <div class="grid grid-cols-10 gap-6">
@@ -18,10 +18,10 @@
                 <img class="rounded-lg border border-black" src="/storage/{{ $artistes->image }}">
             </div>
             <div class="col-span-7 max-1060:col-span-10 max-md:gap-x-4">
-                <h1 class="text-3xl font-medium max-sm:text-xl mb-[18px] flex justify-between">
-                    <div>
+                <div class="border-b text-3xl font-medium max-sm:text-xl mb-[18px] flex justify-between">
+                    <h1>
                         {{ $artistes->name }} @if($artistes->country)({{ $artistes->country }})@endif
-                    </div>
+                    </h1>
                     <div>
                         @if($artistes->facebook)
                             <a href="{{ $artistes->facebook }}" target="_blank" class="fab fa-facebook fa-1x fa-inverse mr-4"></a>
@@ -45,7 +45,7 @@
                             <a href="{{ $artistes->spotify }}" target="_blank" class="fab fa-spotify fa-1x fa-inverse"></a>
                         @endif
                     </div>
-                </h1>
+                </div>
                 <div>
                     <p class="text-justify">{{ $artistes->content }}
                         @if($artistes->website)
@@ -58,7 +58,7 @@
 
         <div class="grid grid-cols-5 gap-12 max-1060:grid-cols-1 max-md:gap-x-4">
             <div class="col-span-3">
-                <h1 class ="text-2xl mt-[34px] mb-[18px]">PRODUITS RELATIFS</h1>
+                <h1 class ="border-b text-2xl mt-[34px] mb-[18px]">PRODUITS RELATIFS</h1>
                 <div class="grid grid-cols-3 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
                     @foreach($artistes->products as $product)
                         @foreach ($product->images as $image)
@@ -81,7 +81,7 @@
                     $unique_data = array_unique($arr);
                     foreach($unique_data as $key => $val) {
                         if ($key === array_key_first($unique_data)) {
-                            echo "<h1 class ='text-2xl mt-[34px] mb-[18px]'>VIDÉOCLIPS</h1>";
+                            echo "<h1 class ='border-b text-2xl mt-[34px] mb-[18px]'>VIDÉOCLIPS</h1>";
                         }
                     }
                 @endphp   
