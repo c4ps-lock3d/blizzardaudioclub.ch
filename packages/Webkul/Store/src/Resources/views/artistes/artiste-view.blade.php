@@ -64,7 +64,7 @@
             @elseif($count_products >= 3)
                 <div class="col-span-3">
             @endif
-                <h1 class ="border-b text-2xl mt-[34px] mb-[18px]">PRODUITS RELATIFS</h1>
+                <h1 class ="border-b text-2xl mt-[34px] mb-[18px]">PRODUITS LIÉS</h1>
                 @if($count_products < 2)
                     <div class="grid grid-cols-1 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
                 @elseif($count_products = 2)
