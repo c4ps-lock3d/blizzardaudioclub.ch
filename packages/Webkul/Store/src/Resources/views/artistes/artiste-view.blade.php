@@ -13,11 +13,11 @@
                 <span class="uppercase text-xl">{{ $artistes->name }}</span>
             </div>
         </div>
-        <div class="grid grid-cols-10 gap-6">
-            <div class="col-span-2 max-1060:col-span-10 max-md:gap-x-4">
+        <div class="grid grid-cols-12 gap-6">
+            <div class="col-span-3 max-1060:col-span-10 max-md:gap-x-4">
                 <img class="rounded-lg border border-black" src="/storage/{{ $artistes->image }}">
             </div>
-            <div class="col-span-8 max-1060:col-span-10 max-md:gap-x-4">
+            <div class="col-span-9 max-1060:col-span-10 max-md:gap-x-4">
                 <div class="border-b text-3xl font-medium max-sm:text-xl mb-[18px] flex justify-between">
                     <h1>
                         {{ $artistes->name }} @if($artistes->country)({{ $artistes->country }})@endif
