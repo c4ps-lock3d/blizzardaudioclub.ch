@@ -104,7 +104,7 @@
                     }
                 @endphp
                 @if($count_products <= 2)
-                    <div class="grid grid-cols-2 gap-6 max-1060:grid-cols-1 max-md:gap-x-4">
+                    <div id="test1" class="grid grid-cols-2 gap-6 max-1060:grid-cols-1 max-md:gap-x-4">
                 @elseif($count_products >= 3)
                     <div class="grid grid-cols-1 gap-6 max-1060:grid-cols-1 max-md:gap-x-4">
                 @endif
@@ -117,7 +117,7 @@
                         }
                         $unique_data = array_unique($arr);
                         foreach($unique_data as $key => $val) {
-                            echo "<lite-youtube class='rounded-lg border border-black' autoload videoid='".$val."'></lite-youtube>";
+                            echo "<lite-youtube id='test2' class='rounded-lg border border-black' autoload videoid='".$val."'></lite-youtube>";
                         }
                     @endphp        
                 </div>

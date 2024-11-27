@@ -61,6 +61,10 @@ img.lazy {
         background-color: #dcdcdc !important;
     }
 
+    #test1 > #test2:last-of-type {
+        grid-column: 1 / -1;
+    }
+
     p, a, h1, h2, label, li, #textColorCartMassAction {
         color: #dcdcdc !important;
     }
