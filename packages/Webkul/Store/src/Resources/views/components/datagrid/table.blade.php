@@ -34,7 +34,7 @@
 
                     <template v-else>
                         <div
-                            class="row grid items-center gap-2.5 border-b border-zinc-200 px-6 py-4 text-sm font-medium text-black max-md:p-4"
+                            class="row grid items-center gap-2.5 border-b border-black px-6 py-4 text-sm font-medium text-black max-md:p-4"
                             :style="`grid-template-columns: repeat(${gridsCount}, minmax(0, 1fr))`"
                         >
                             <!-- Mass Actions -->
@@ -106,7 +106,7 @@
                     <template v-else>
                         <template v-if="available.records.length">
                             <div
-                                class="row grid items-center gap-2.5 border-b px-6 py-4 font-medium text-gray-600 transition-all max-md:p-4 max-md:text-xs"
+                                class="row grid items-center gap-2.5 border-b border-black px-6 py-4 font-medium text-gray-600 transition-all max-md:p-4 max-md:text-xs"
                                 v-for="record in available.records"
                                 :style="`grid-template-columns: repeat(${gridsCount}, minmax(0, 1fr))`"
                             >
