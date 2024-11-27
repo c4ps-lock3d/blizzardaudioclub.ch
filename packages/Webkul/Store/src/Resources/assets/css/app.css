@@ -61,7 +61,7 @@ img.lazy {
         background-color: #dcdcdc !important;
     }
 
-    #test1 > #test2:last-of-type {
+    #test2:nth-child(2n-1):last-of-type {
         grid-column: 1 / -1;
     }
 
