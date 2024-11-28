@@ -25,8 +25,8 @@ class UpdatePasswordNotification extends Mailable
         return new Envelope(
             to: [
                 new Address(
-                    core()->getAdminEmailDetails()['email'],
-                    core()->getAdminEmailDetails()['name']
+                    core()->getSenderEmailDetails()['email'],
+                    core()->getSenderEmailDetails()['name'],
                 ),
             ],
             subject: trans('shop::app.emails.customers.update-password.subject'),

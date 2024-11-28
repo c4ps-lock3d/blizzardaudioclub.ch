@@ -25,8 +25,8 @@ class EmailVerificationNotification extends Mailable
         return new Envelope(
             to: [
                 new Address(
-                    core()->getAdminEmailDetails()['dsfsagd@dfafdf.com'],
-                    core()->getAdminEmailDetails()['name']
+                    core()->getSenderEmailDetails()['email'],
+                    core()->getSenderEmailDetails()['name'],
                 ),
             ],
             subject: trans('shop::app.emails.customers.verification.subject'),
