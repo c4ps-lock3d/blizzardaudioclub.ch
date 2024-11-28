@@ -24,9 +24,7 @@ class EmailVerificationNotification extends Mailable
     {
         return new Envelope(
             to: [
-                new Address(
-
-                ),
+                new Address($this->customer->email),
             ],
             subject: trans('shop::app.emails.customers.verification.subject'),
         );
