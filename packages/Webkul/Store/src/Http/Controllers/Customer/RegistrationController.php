@@ -123,7 +123,7 @@ class RegistrationController extends Controller
 
             session()->flash('success', trans('shop::app.customers.signup-form.verified'));
         } else {
-            session()->flash('warning', trans('shop::app.customers.signup-form.verify-failed'));
+            //session()->flash('warning', trans('shop::app.customers.signup-form.verify-failed'));
         }
 
         return redirect()->route('shop.customer.session.index');
