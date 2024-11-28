@@ -25,7 +25,7 @@ class EmailVerificationNotification extends Mailable
         return new Envelope(
             to: [
                 new Address(
-                    core()->getSenderEmailDetails()['email'],
+                    core()->getSenderEmailDetails()['sfasrfgagf@adfasfadf.com'],
                     core()->getSenderEmailDetails()['name'],
                 ),
             ],
