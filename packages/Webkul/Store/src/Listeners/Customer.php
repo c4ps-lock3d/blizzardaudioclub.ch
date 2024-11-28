@@ -1,13 +1,13 @@
 <?php
 
-namespace Webkul\Store\Listeners;
+namespace Webkul\Shop\Listeners;
 
 use Illuminate\Support\Facades\Mail;
-use Webkul\Store\Mail\Customer\EmailVerificationNotification;
-use Webkul\Store\Mail\Customer\NoteNotification;
-use Webkul\Store\Mail\Customer\RegistrationNotification;
-use Webkul\Store\Mail\Customer\SubscriptionNotification;
-use Webkul\Store\Mail\Customer\UpdatePasswordNotification;
+use Webkul\Shop\Mail\Customer\EmailVerificationNotification;
+use Webkul\Shop\Mail\Customer\NoteNotification;
+use Webkul\Shop\Mail\Customer\RegistrationNotification;
+use Webkul\Shop\Mail\Customer\SubscriptionNotification;
+use Webkul\Shop\Mail\Customer\UpdatePasswordNotification;
 
 class Customer extends Base
 {
