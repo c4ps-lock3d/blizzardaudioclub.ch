@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shop\Listeners;
+namespace Webkul\Store\Listeners;
 
 use Illuminate\Support\Facades\Mail;
 use Webkul\Shop\Mail\Customer\EmailVerificationNotification;
