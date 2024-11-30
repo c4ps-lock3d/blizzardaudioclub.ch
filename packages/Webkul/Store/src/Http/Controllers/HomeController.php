@@ -62,6 +62,11 @@ class HomeController extends Controller
         return view('shop::home.contact-us');
     }
 
+    public function locationSono()
+    {
+        return view('store::home.location-sono');
+    }
+
     public function aPropos(Artiste $artiste)
     {
         $artiste = $artiste->newQuery();

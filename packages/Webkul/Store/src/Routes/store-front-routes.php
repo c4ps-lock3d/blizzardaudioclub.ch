@@ -35,6 +35,10 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
         ->name('shop.home.contact_us')
         ->middleware('cacheResponse');
 
+    Route::get('location-sono', [HomeController::class, 'locationSono'])
+        ->name('store.home.location-sono')
+        ->middleware('cacheResponse');
+
     Route::get('artistes', [HomeController::class, 'artisteslist'])
         ->name('shop.home.artisteslist')
         ->middleware('cacheResponse');

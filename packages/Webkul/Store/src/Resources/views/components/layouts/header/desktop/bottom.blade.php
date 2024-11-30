@@ -346,13 +346,13 @@
                 class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue"
             >
                 <span>
-                    <a href="{{ route('store.home.a_propos') }}"
+                    <p
                        class="whitespace-nowrap inline-block px-5 uppercase"
                     >
                         A PROPOS
-                    </a>
+                    </p>
                 </span>
-<!--                 <div
+                 <div
                     id="backgroundDropdown" 
                     class="pointer-events-none absolute top-[78px] z-[1] max-h-[580px] w-max max-w-[1260px] translate-y-1 overflow-auto overflow-x-auto border border-b-0 border-l-0 border-r-0 border-t border-[#F3F3F3] bg-white p-9 opacity-0 shadow-[0_6px_6px_1px_rgba(0,0,0,.3)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-200 group-hover:ease-in ltr:-left-9 rtl:-right-9"
                 >
@@ -361,28 +361,21 @@
                             class="grid w-full min-w-max max-w-[150px] flex-auto grid-cols-[1fr] content-start gap-5"
                         >
                             <span>
-                                <a href=""
+                                <a href="{{ route('store.home.a_propos') }}"
                                 class="inline-block px-5 uppercase"
                                 >
                                     LABEL
                                 </a>
                             </span>
                             <span>
-                                <a href=""
+                                <a href="{{ route('shop.home.contact_us') }}"
                                 class="inline-block px-5 uppercase"
                                 >
                                     CONTACTEZ-NOUS
                                 </a>
                             </span>
                             <span>
-                                <a href=""
-                                class="inline-block px-5 uppercase"
-                                >
-                                    REVUE DE PRESSE
-                                </a>
-                            </span>
-                            <span>
-                                <a href=""
+                                <a href="{{ route('store.home.location-sono') }}"
                                 class="inline-block px-5 uppercase"
                                 >
                                     LOCATION SONO
@@ -390,7 +383,7 @@
                             </span>
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </script>
