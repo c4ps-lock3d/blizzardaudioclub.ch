@@ -304,7 +304,7 @@
                     href="{{ route('shop.home.artisteslist') }}"
                     class="flex items-center justify-between"
                 >
-                    Artistes
+                    ARTISTES
                 </a>
 
                 <span
@@ -318,7 +318,7 @@
                 <div class="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 border-zinc-100 py-3.5 max-sm:py-2.5">
                     <a
                         :href="category.url"
-                        class="flex items-center justify-between"
+                        class="flex items-center justify-between uppercase"
                     >
                         @{{ category.name }}
                     </a>
@@ -391,18 +391,68 @@
                 {!! view_render_event('bagisto.shop.components.layouts.header.mobile.category.after') !!}
             </template>
             <div class="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 border-zinc-100 py-3.5 max-sm:py-2.5">
-                <a
-                    href="{{ route('store.home.a_propos') }}"
+                <p
                     class="flex items-center justify-between"
                 >
-                    À Propos
-                </a>
+                    À PROPOS
+                </p>
 
                 <span
-                    class="cursor-pointer text-2xl icon-arrow-right"
+                    class="cursor-pointer text-2xl icon-arrow-down"
                 >
                 </span>
             </div>
+            <div
+                    class="grid gap-2"
+                >
+                    <ul>
+                        <li>
+                            <div class="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 border-zinc-100 ltr:ml-3 rtl:mr-3">
+                                <a
+                                    href="{{ route('store.home.a_propos') }}"
+                                    class="mt-3 flex items-center justify-between pb-3"
+                                >
+                                    LABEL
+                                </a>
+
+                                <span
+                                    class="cursor-pointer text-2xl"
+                                >
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 border-zinc-100 ltr:ml-3 rtl:mr-3">
+                                <a
+                                    href="{{ route('shop.home.contact_us') }}"
+                                    class="mt-3 flex items-center justify-between pb-3"
+                                >
+                                    CONTACTEZ-NOUS
+                                </a>
+
+                                <span
+                                    class="cursor-pointer text-2xl"
+                                >
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 border-zinc-100 ltr:ml-3 rtl:mr-3">
+                                <a
+                                    href="{{ route('store.home.location-sono') }}"
+                                    class="mt-3 flex items-center justify-between pb-3"
+                                >
+                                    LOCATION SONO
+                                </a>
+
+                                <span
+                                    class="cursor-pointer text-2xl"
+                                >
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
         </div>
 
         <!-- Localization & Currency Section -->
