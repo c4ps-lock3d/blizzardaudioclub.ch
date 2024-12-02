@@ -118,7 +118,6 @@
                     </x-shop::tabs.item>
                 @endif
 
-
                 @foreach($product->videoclips as $videoclip)
                     @if(!is_null($videoclip))
                         @if($loop->first)
@@ -208,6 +207,7 @@
         @foreach($product->videoclips as $videoclip)
             @if(!is_null($videoclip))
                 <!-- Ecouter Accordion -->
+                @if($loop->first)
                 <x-shop::accordion
                     class="max-md:border-none"
                     :is-active="true"
@@ -220,7 +220,7 @@
 
                     <x-slot:content class="max-sm:px-0">
                         <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
-                            <div class="flex flex-row gap-6">
+                            <div class="grid grid-cols-2 gap-6 max-sm:grid-cols-1">
                                 @foreach($product->videoclips as $videoclip)  
                                     @if(!is_null($videoclip))
                                         <lite-youtube style="--lite-youtube-frame-shadow-visible: no;" class="rounded-lg border border-black" autoload videotitle="{!! $videoclip->name !!}" videoid="{!! $videoclip->youtubetoken !!}"></lite-youtube>
@@ -230,6 +230,7 @@
                         </div>
                     </x-slot>
                 </x-shop::accordion>
+                @endif
             @endif
         @endforeach
         
