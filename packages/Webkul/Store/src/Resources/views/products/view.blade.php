@@ -170,7 +170,7 @@
             </x-slot>
 
             <x-slot:content class="max-sm:px-0">
-                <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
+                <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4 max-sm:mt-2">
                     {!! $product->description !!}
                 </div>
                 @if($product->credits)
@@ -197,7 +197,7 @@
                 </x-slot>
 
                 <x-slot:content class="max-sm:px-0">
-                    <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
+                    <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4 max-sm:mt-3">
                         {!! $product->ecouter !!}
 
                     </div>
@@ -219,7 +219,7 @@
                     </x-slot>
 
                     <x-slot:content class="max-sm:px-0">
-                        <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
+                        <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4 max-sm:mt-3">
                             <div class="grid grid-cols-2 gap-6 max-sm:grid-cols-1">
                                 @foreach($product->videoclips as $videoclip)  
                                     @if(!is_null($videoclip))
