@@ -32,6 +32,7 @@
                         ::alt="product.name"
                     />
                 </a>
+                
 
                 {!! view_render_event('bagisto.shop.components.products.card.image.after') !!}
                 
