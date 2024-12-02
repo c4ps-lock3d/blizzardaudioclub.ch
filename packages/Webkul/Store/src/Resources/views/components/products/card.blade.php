@@ -32,7 +32,6 @@
                         ::alt="product.name"
                     />
                 </a>
-                
 
                 {!! view_render_event('bagisto.shop.components.products.card.image.after') !!}
                 
@@ -72,7 +71,7 @@
 
                         @if (core()->getConfigData('customer.settings.wishlist.wishlist_option'))
                             <span
-                                class="absolute top-2.5 flex h-6 w-6 items-center justify-center rounded-full border border-zinc-200 bg-white text-lg md:hidden ltr:right-1.5 rtl:left-1.5"
+                                class="absolute top-2.5 flex h-6 w-6 items-center justify-center rounded-full border border-white bg-[#343a40] text-lg md:hidden ltr:right-1.5 rtl:left-1.5"
                                 role="button"
                                 aria-label="@lang('shop::app.components.products.card.add-to-wishlist')"
                                 tabindex="0"
