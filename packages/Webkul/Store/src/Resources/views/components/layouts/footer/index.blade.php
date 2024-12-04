@@ -37,7 +37,7 @@
                     <a href="https://instagram.com/blizzardaudioclub" target="_blank" class="fab fa-instagram fa-2x fa-inverse"></a>
                 </span>
                 <span class="fa-stack mr-4">
-                    <a href="https://soundcloud.com/blizzardaudioclub" target="_blank" class="fab fa-soundcloud fa-2x fa-inverse"></a>
+                    <a href="https://open.spotify.com/playlist/6y65QCSyYX7QXshEeP1OMU" target="_blank" class="fab fa-spotify fa-2x fa-inverse"></a>
                 </span>
                 <span class="fa-stack">
                     <a href="https://youtube.com/c/blizzardaudioclub" target="_blank" class="fab fa-youtube fa-2x fa-inverse"></a>
