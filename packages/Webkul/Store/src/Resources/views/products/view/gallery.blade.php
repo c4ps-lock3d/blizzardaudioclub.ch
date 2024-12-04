@@ -70,7 +70,7 @@
                     class="max-h-[560px] max-w-[560px]"
                     v-show="isMediaLoading"
                 >
-                    <div class="shimmer min-h-[560] min-w-[560px] rounded-xl bg-zinc-200"></div>
+                    <div class="shimmer min-h-[560px] min-w-[560px] rounded-xl bg-zinc-200"></div>
                 </div>
 
                 <div
