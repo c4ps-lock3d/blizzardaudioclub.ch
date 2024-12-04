@@ -9,7 +9,7 @@
     >
         <div>
             <!-- For large screens greater than 1180px. -->
-            <div class="sticky top-20 flex h-max gap-8 max-1180:hidden">
+            <div class="top-20 flex h-max gap-8 max-1180:hidden">
                 <!-- Product Image and Videos Slider -->
                 <div class="flex-24 h-509 flex min-w-[100px] max-w-[100px] flex-wrap place-content-start justify-center gap-2.5 overflow-y-auto overflow-x-hidden">
                     <!-- Arrow Up -->
