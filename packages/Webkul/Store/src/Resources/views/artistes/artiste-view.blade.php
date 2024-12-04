@@ -20,7 +20,7 @@
             <div class="col-span-9 max-1060:col-span-12 max-md:gap-x-4">
                 <div class="border-b text-3xl font-medium max-sm:text-xl mb-[18px] flex justify-between">
                     <h1>
-                        {{ $artistes->name }} @if($artistes->country)({{ $artistes->country }})@endif
+                        {{ $artistes->name }} @if($artistes->country) - {{ $artistes->country }}@endif
                     </h1>
                     <div>
                         @if($artistes->facebook)
@@ -64,7 +64,7 @@
             @elseif($count_products >= 3)
                 <div class="col-span-3">
             @endif
-                <h1 class ="border-b text-2xl mt-[34px] mb-[18px]">PRODUITS LIÉS</h1>
+                <h1 class ="border-b text-2xl mt-[34px] mb-[18px]">SORTIES LIÉES</h1>
                 @if($count_products < 2)
                     <div class="grid grid-cols-1 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
                 @elseif($count_products === 2)
