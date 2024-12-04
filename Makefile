@@ -8,8 +8,8 @@ install: vendor/autoload.php .env public/storage
 	# php artisan vendor:publish --provider=Webkul\ZAddArtist\Providers\ZAddArtistServiceProvider --force
 	# php artisan migrate
 	php artisan vendor:publish --provider="Webkul\Store\Providers\StoreServiceProvider" --force
-	php artisan optimize
-	php artisan route:cache
+	php artisan cache:clear
+	php artisan config:cache
 
 .env:
 	cp .env.example
