@@ -142,7 +142,7 @@
                 @guest('customer')
                     <x-slot:content>
                         <div id="backgroundGuestDropdown" class="grid gap-2.5">
-                            <p class="font-dmserif text-xl">
+                            <p class="text-xl">
                                 @lang('shop::app.components.layouts.header.welcome-guest')
                             </p>
 
@@ -183,7 +183,7 @@
                 @auth('customer')
                     <x-slot:content class="!p-0">
                         <div class="grid gap-2.5 p-5 pb-0">
-                            <p class="font-dmserif text-xl">
+                            <p class="text-xl">
                                 @lang('shop::app.components.layouts.header.welcome'), 
                                 {{ auth()->guard('customer')->user()->first_name }}
                             </p>
