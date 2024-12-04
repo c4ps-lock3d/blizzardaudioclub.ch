@@ -73,7 +73,7 @@
     </v-product>
 
     <!-- Information Section -->
-    <div class="1180:mt-20">
+    <div class="1180:mt-12">
         <div class="max-1180:hidden">
             <x-shop::tabs
                 position="center"

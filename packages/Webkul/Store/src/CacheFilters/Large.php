@@ -25,7 +25,7 @@ class Large implements FilterInterface
 
             $height = core()->getConfigData('catalog.products.cache_large_image.height') != ''
                 ? core()->getConfigData('catalog.products.cache_large_image.height')
-                : 610;
+                : 560;
 
             return $image->fit($width, $height);
         } elseif (Str::contains(url()->current(), '/category')) {
