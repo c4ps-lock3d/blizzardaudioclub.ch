@@ -279,7 +279,7 @@
                 class="block w-full rounded-xl bg-white/85 placeholder-[#1d2124] border border-['#000000'] px-11 py-3.5 text-sm font-medium text-[#1d2124] max-md:rounded-lg max-md:px-10 max-md:py-3 max-md:font-normal max-sm:text-xs"
                 name="query"
                 value="{{ request('query') }}"
-                placeholder="@lang('shop::app.components.layouts.header.search-text')"
+                placeholder="Recherchez des sorties ici"
                 required
             >
 
