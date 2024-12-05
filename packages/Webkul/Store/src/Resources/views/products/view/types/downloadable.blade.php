@@ -73,7 +73,7 @@
                 </div>
             @endforeach
             <p class="mt-4 text-md p-3 !border-black rounded-lg !text-white bg-[#343A40]">
-                Une fois la commande effectuée, le lien de téléchargement sera disponible dans votre profil utilisateur dans la section "Produits téléchargeables".
+                Une fois la commande effectuée, le lien de téléchargement sera disponible dans votre profil utilisateur dans la section "Téléchargements".
             </p>
 
 

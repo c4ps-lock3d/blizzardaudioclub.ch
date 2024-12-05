@@ -345,7 +345,7 @@ return [
                 'download-error'      => 'Le lien de téléchargement a expiré.',
                 'expired'             => 'Expiré',
                 'empty-product'       => 'Vous n\'avez pas de produit à télécharger',
-                'name'                => 'Produits téléchargeables',
+                'name'                => 'Téléchargements',
                 'orderId'             => 'ID de commande',
                 'pending'             => 'En attente',
                 'payment-error'       => 'Le paiement n\'a pas été effectué pour ce téléchargement.',
@@ -916,7 +916,7 @@ return [
 
     'layouts' => [
         'address'               => 'Adresse',
-        'downloadable-products' => 'Produits téléchargeables',
+        'downloadable-products' => 'Téléchargements',
         'my-account'            => 'Mon compte',
         'orders'                => 'Commandes',
         'profile'               => 'Profil',
