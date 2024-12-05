@@ -798,7 +798,7 @@ return [
                 'select-state'           => 'Sélectionner l\'état',
                 'shipping-address'       => 'Adresse de livraison',
                 'state'                  => 'État',
-                'street-address'         => 'Adresse de rue',
+                'street-address'         => 'Adresse',
                 'telephone'              => 'Téléphone',
                 'title'                  => 'Adresse',
             ],
