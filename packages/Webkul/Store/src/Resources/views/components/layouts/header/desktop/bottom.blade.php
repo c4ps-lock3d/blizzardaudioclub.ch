@@ -358,7 +358,7 @@
                 >
                     <div class="flex justify-between gap-x-[70px]">
                         <div
-                            class="grid w-full min-w-max max-w-[150px] flex-auto grid-cols-[1fr] content-start"
+                            class="grid w-full min-w-max flex-auto grid-cols-[1fr] content-start"
                         >
                             <div class="hover:bg-[#1d2124] pl-9 pr-9 pt-4 pb-2">
                                 <a href="{{ route('store.home.a_propos') }}"
