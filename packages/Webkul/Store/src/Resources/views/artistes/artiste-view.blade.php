@@ -41,7 +41,7 @@
                         @if($artistes->bandcamp)
                             <a href="{{ $artistes->bandcamp }}" target="_blank" class="fab fa-bandcamp fa-1x fa-inverse mr-4"></a>
                         @endif
-                        @if($artistes->spotifyToken)
+                        @if($artistes->spotifyToke)
                             <a href="https://open.spotify.com/intl-fr/artist/{{ $artistes->spotifyToken }}" target="_blank" class="fab fa-spotify fa-1x fa-inverse"></a>
                         @endif
                     </div>
