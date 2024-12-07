@@ -42,7 +42,7 @@
                             <a href="{{ $artistes->bandcamp }}" target="_blank" class="fab fa-bandcamp fa-1x fa-inverse mr-4"></a>
                         @endif
                         @if($artistes->spotify)
-                            <a href="{{ $artistes->spotify }}" target="_blank" class="fab fa-spotify fa-1x fa-inverse"></a>
+                            <a href="https://open.spotify.com/intl-fr/artist/{{ $artistes->spotifyToken }}" target="_blank" class="fab fa-spotify fa-1x fa-inverse"></a>
                         @endif
                     </div>
                 </div>
@@ -81,7 +81,12 @@
                         @endforeach
                     @endforeach
                 </div>
+                <div class="grid grid-cols-1">
+            <h1 class ="border-b text-2xl mt-[34px] mb-[18px]">ÉCOUTER</h1>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/{{ $artistes->spotifyToken }}?utm_source=generator&theme=0" width="100%" height="600" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
             </div>
+
             @if($count_products < 2)
                 <div class="col-span-4">
             @elseif($count_products === 2)
