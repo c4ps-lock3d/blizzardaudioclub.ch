@@ -34,7 +34,7 @@ export default {
                     id="backgroundCard"
                     class="-mt-9 text-center font-bold justify-center grid max-w-[291px] translate-y-9 content-start gap-2.5 p-4 transition-transform duration-300 ease-out group-hover:-translate-y-0 max-md:relative max-md:mt-0 max-md:translate-y-0 max-md:gap-0 max-md:px-0 max-md:py-1.5 rounded-b-lg"
                 >
-                    <p>{{ artiste.name }}</p>
+                    <p>{{ artiste.name }} - {{ artiste.name }}</p>
                     <p>{{ artiste.country }}</p>
                 </div>
             </div>
