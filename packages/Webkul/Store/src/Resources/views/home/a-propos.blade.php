@@ -72,7 +72,7 @@
                 </p>
             </div>
             <div id="backgroundCard" class="p-8 rounded-lg border border-black">
-                <img src="{{url('/images/sponsors/sponsor-bcn.png')}}" alt="..." style=""><br><br>
+                <img src="{{url('/images/sponsors/sponsor-bcne.png')}}" alt="..." style=""><br><br>
                 <img src="{{url('/images/sponsors/sponsor-canton-ne.png')}}" alt="..." style=""><br><br>
                 <img src="{{url('/images/sponsors/sponsor-loro.png')}}" alt="..." style="">
             </div>
