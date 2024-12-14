@@ -618,7 +618,7 @@ return [
             'buy-now'                => 'Acheter maintenant',
             'compare'                => 'Comparer',
             'description'            => 'Description',
-            'related-product-title'  => 'Produits connexes',
+            'related-product-title'  => 'Sorties liées',
             'review'                 => 'Avis',
             'tax-inclusive'          => 'Taxes incluses',
             'up-sell-title'          => 'Nous avons trouvé d\'autres produits qui pourraient vous plaire !',
