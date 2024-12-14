@@ -206,7 +206,6 @@
                         @lang('shop::app.components.products.card.sale')
                     </p>
 
-                    
                     <p
                         class="absolute top-5 inline-block rounded-[44px] !bg-black px-2.5 text-sm text-white ltr:left-5 max-sm:ltr:left-2 rtl:right-5"
                         v-else-if="product.is_new"
