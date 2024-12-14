@@ -212,7 +212,7 @@
                     >
                         @lang('shop::app.components.products.card.new')
                     </p>
-
+ 
                     <div class="opacity-0 transition-all duration-300 group-hover:bottom-0 group-hover:opacity-100 max-sm:opacity-100">
 
                         {!! view_render_event('bagisto.shop.components.products.card.wishlist_option.before') !!}
