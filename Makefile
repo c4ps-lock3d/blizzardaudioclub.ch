@@ -2,14 +2,17 @@ deploy:
 	rsync -avz public/themes/shop/store/build infomaniakbac:~/sites/blizzardaudioclub.ch/public/themes/shop/store
 	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && git pull origin master'
 
+dep:
+	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && make install'
+
 install: vendor/autoload.php .env public/storage
 	# composer dump-autoload
 	# composer update
 	# php artisan vendor:publish --provider=Webkul\ZAddArtist\Providers\ZAddArtistServiceProvider --force
 	# php artisan migrate
 	# php artisan vendor:publish --provider="Webkul\Store\Providers\StoreServiceProvider" --force
-	# php artisan cache:clear
-	# php artisan config:cache
+	php artisan cache:clear
+	php artisan config:cache
 
 .env:
 	cp .env.example
