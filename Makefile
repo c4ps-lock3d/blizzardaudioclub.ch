@@ -7,7 +7,7 @@ install: vendor/autoload.php .env public/storage
 	# composer update
 	# php artisan vendor:publish --provider=Webkul\ZAddArtist\Providers\ZAddArtistServiceProvider --force
 	# php artisan migrate
-	sudo php artisan vendor:publish --provider="Webkul\Store\Providers\StoreServiceProvider" --force
+	php artisan vendor:publish --provider="Webkul\Store\Providers\StoreServiceProvider" --force
 	php artisan cache:clear
 	php artisan config:cache
 
