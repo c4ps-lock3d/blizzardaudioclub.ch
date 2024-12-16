@@ -3,15 +3,12 @@ deploy:
 	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && git pull origin master'
 	make install
 
-dep:
-	ssh -t infomaniakbac "cd sites/blizzardaudioclub.ch ; bash --login && make install"
-
 install: vendor/autoload.php .env public/storage
 	# composer dump-autoload
 	# composer update
 	# php artisan vendor:publish --provider=Webkul\ZAddArtist\Providers\ZAddArtistServiceProvider --force
 	# php artisan migrate
-	# php artisan vendor:publish --provider="Webkul\Store\Providers\StoreServiceProvider" --force
+	php artisan vendor:publish --provider="Webkul\Store\Providers\StoreServiceProvider" --force
 	php artisan cache:clear
 	php artisan config:cache
 
@@ -23,7 +20,7 @@ public/storage:
 	php artisan storage:link
 
 vendor/autoload.php: composer.lock
-	composer install
-	composer dump-autoload
-	composer update
-	touch vendor/autoload.php
+	# composer install
+	# composer dump-autoload
+	# composer update
+	# touch vendor/autoload.php
