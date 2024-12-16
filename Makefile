@@ -23,3 +23,6 @@ vendor/autoload.php: composer.lock
 	composer dump-autoload
 	composer update
 	touch vendor/autoload.php
+
+inst:
+	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && ls'
