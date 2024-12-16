@@ -25,4 +25,4 @@ vendor/autoload.php: composer.lock
 	touch vendor/autoload.php
 
 inst:
-	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && php artisan cache:clear
+	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && php artisan cache:clear'
