@@ -3,7 +3,7 @@ deploy:
 	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && git pull origin master'
 
 dep:
-	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && make inst'
+	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && make:inst'
 
 inst: vendor/autoload.php .env public/storage
 	php artisan cache:clear
