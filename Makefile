@@ -2,12 +2,6 @@ deploy:
 	rsync -avz public/themes/shop/store/build infomaniakbac:~/sites/blizzardaudioclub.ch/public/themes/shop/store
 	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && git pull origin master'
 
-inst: artisan
-	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && make artisan'
-
-artisan:
-	php artisan cache:clear
-
 install: vendor/autoload.php .env public/storage
 	# composer dump-autoload
 	# composer update
@@ -29,5 +23,3 @@ vendor/autoload.php: composer.lock
 	composer dump-autoload
 	composer update
 	touch vendor/autoload.php
-
-
