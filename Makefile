@@ -1,6 +1,7 @@
 deploy:
 	rsync -avz public/themes/shop/store/build infomaniakbac:~/sites/blizzardaudioclub.ch/public/themes/shop/store
 	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && git pull origin master'
+	make install
 
 dep:
 	ssh -t infomaniakbac "cd sites/blizzardaudioclub.ch ; bash --login && make install"
