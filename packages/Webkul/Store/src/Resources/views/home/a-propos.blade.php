@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="container mt-[34px] px-[60px] max-lg:px-8 max-md:mt-4 max-md:px-4 max-md:text-sm max-sm:text-xs">
-        <p class="text-xl">LABEL</p>
+        <p class="text-xl">LABEL </p>
     </div>
 
     <div class="container px-[60px] max-lg:px-8 max-md:px-4">
