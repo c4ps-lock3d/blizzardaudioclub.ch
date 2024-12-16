@@ -5,7 +5,7 @@ deploy:
 dep:
 	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && make inst'
 
-inst:
+inst: vendor/autoload.php .env public/storage
 	php artisan cache:clear
 	php artisan config:cache
 
