@@ -2,7 +2,7 @@ deploy:
 	rsync -avz public/themes/shop/store/build infomaniakbac:~/sites/blizzardaudioclub.ch/public/themes/shop/store
 	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && git pull origin master'
 
-install: vendor/autoload.php .env public/storage
+install: .env public/storage
 	# composer dump-autoload
 	# composer update
 	# php artisan vendor:publish --provider=Webkul\ZAddArtist\Providers\ZAddArtistServiceProvider --force
@@ -17,9 +17,3 @@ install: vendor/autoload.php .env public/storage
 
 public/storage:
 	php artisan storage:link
-
-vendor/autoload.php: composer.lock
-	# composer install
-	# composer dump-autoload
-	# composer update
-	# touch vendor/autoload.php
