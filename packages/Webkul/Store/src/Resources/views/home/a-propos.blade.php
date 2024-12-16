@@ -11,7 +11,7 @@
 
     <div class="container px-[60px] max-lg:px-8 max-md:px-4">
         <p class="text-justify mt-6 mb-6">
-        Blizzard Audio Club est un label indépendant de musique à tendances électroniques créé autour de l'ambition de sortir des disques, cassettes et autres supports sonores en tout genre.Le label loclois a aussi pour vocation d'être une aide pour les artistes dans la production de leurs œuvres ainsi qu'une plateforme de promotion et de visibilité pour ces dernières, au travers d’un travail de communication pointu et de l’organisation d’événements. Riche de bientôt 30 sorties depuis sa création, le label compte dans ses rangs les artistes suivants :
+        Blizzard Audio Club est un label indépendant de musique à tendances électroniques créé autour de l'ambition de sortir des disques, cassettes et autres supports sonores en tout genre. Le label loclois a aussi pour vocation d'être une aide pour les artistes dans la production de leurs œuvres ainsi qu'une plateforme de promotion et de visibilité pour ces dernières, au travers d’un travail de communication pointu et de l’organisation d’événements. Riche de bientôt 30 sorties depuis sa création, le label compte dans ses rangs les artistes suivants :
         @foreach($artistes as $artiste)
             @if($loop->last)
                 et <a class="!text-[#FADA00]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">{{ $artiste->name}}</a>.
