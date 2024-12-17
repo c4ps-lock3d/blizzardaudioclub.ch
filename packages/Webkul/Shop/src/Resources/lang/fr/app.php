@@ -971,8 +971,8 @@ return [
             ],
 
             'subscribed' => [
-                'description' => 'Félicitations et bienvenue dans notre communauté de newsletter ! Nous sommes ravis de vous avoir à bord et de vous tenir informé des dernières actualités, tendances et offres exclusives.',
-                'greeting'    => 'Bienvenue à notre newsletter !',
+                'description' => 'Nous sommes ravis de vous avoir à bord et de vous tenir informé des dernières actualités du label.',
+                'greeting'    => 'Bienvenue et merci de vous être abonné !',
                 'subject'     => 'Vous êtes abonné à notre newsletter',
                 'unsubscribe' => 'Se désabonner',
             ],
