@@ -90,6 +90,22 @@
             @elseif($count_products >= 3)
                 <div class="col-span-2">
             @endif
+            <h1 class ="border-b text-2xl mt-[34px] mb-[18px]">ÉCOUTER</h1>
+            <div id="embed-iframe"></div>
+            <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+            <script type="text/javascript">
+                let spotifyToken = <?php echo json_encode($artistes->spotifyToken, JSON_HEX_TAG); ?>;
+                window.onSpotifyIframeApiReady = (IFrameAPI) => {
+                const element = document.getElementById('embed-iframe');
+                const options = {
+                    width: '100%',
+                    height: '160',
+                    uri: "spotify:artist:"+spotifyToken,
+                };
+                const callback = (EmbedController) => {};
+                IFrameAPI.createController(element, options, callback);
+                };
+            </script>
                 @php
                     $arr = array();
                     foreach($artistes->products as $product){
@@ -124,10 +140,9 @@
                 </div>
             </div>
         </div>
-<!--         <div class="grid grid-cols-1">
-            <h1 class ="border-b text-2xl mt-[34px] mb-[18px]">ÉCOUTER</h1>
+        <div class="grid grid-cols-1">
 
-        </div> -->
+        </div>
     </div>
 
     @push('scripts')
