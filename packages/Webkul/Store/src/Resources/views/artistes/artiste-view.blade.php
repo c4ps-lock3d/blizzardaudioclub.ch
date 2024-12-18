@@ -124,10 +124,10 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-1">
+<!--         <div class="grid grid-cols-1">
             <h1 class ="border-b text-2xl mt-[34px] mb-[18px]">ÉCOUTER</h1>
 
-        </div>
+        </div> -->
     </div>
 
     @push('scripts')
