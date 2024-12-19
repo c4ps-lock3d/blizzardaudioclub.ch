@@ -124,8 +124,8 @@
 
 <script>document.body.style.overflow ='scroll';</script>
 <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1/lite-youtube.min.js"></script>
-<!-- <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
-            <script type="text/javascript">
+<script src="https://open.spotify.com/embed/iframe-api/v1" defer></script>
+            <script type="text/javascript" defer>
                 let spotifyToken = <?php echo json_encode($artistes->spotifyToken, JSON_HEX_TAG); ?>;
                 window.onSpotifyIframeApiReady = (IFrameAPI) => {
                     const element = document.getElementById('embed-iframe');
@@ -137,4 +137,4 @@
                     const callback = (EmbedController) => {};
                     IFrameAPI.createController(element, options, callback);
                 };
-            </script> -->
+            </script>
