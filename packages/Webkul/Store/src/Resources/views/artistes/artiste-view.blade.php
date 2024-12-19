@@ -105,23 +105,20 @@
                 @elseif($count_products >= 3)
                     <div class="mt-4 grid grid-cols-1 gap-6 max-1060:grid-cols-1 max-md:gap-x-4">
                 @endif
-                    @php
-                        $arr = array();
-                        foreach($artistes->products as $product){
-                            foreach ($product->videoclips as $videoclip) {
-                                $arr[] = $videoclip->youtubetoken;
+                        @php
+                            $arr = array();
+                            foreach($artistes->products as $product){
+                                foreach ($product->videoclips as $videoclip) {
+                                    $arr[] = $videoclip->youtubetoken;
+                                }
                             }
-                        }
-                        $unique_data = array_unique($arr);
-                        foreach($unique_data as $key => $val) {
-                            echo "<lite-youtube id='test2' class='rounded-lg border border-black' autoload videoid='".$val."'></lite-youtube>";
-                        }
-                    @endphp        
-                </div>
+                            $unique_data = array_unique($arr);
+                            foreach($unique_data as $key => $val) {
+                                echo "<lite-youtube id='test2' class='rounded-lg border border-black' autoload videoid='".$val."'></lite-youtube>";
+                            }
+                        @endphp        
+                    </div>
             </div>
-        </div>
-        <div class="grid grid-cols-1">
-
         </div>
     </div>
 
