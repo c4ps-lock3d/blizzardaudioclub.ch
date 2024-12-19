@@ -86,19 +86,6 @@
             @endif
             <h1 class ="border-b text-2xl mt-[34px] mb-[18px]">ÉCOUTER</h1>
             <div id="embed-iframe"></div>
-            <script type="text/javascript">
-                let spotifyToken = <?php echo json_encode($artistes->spotifyToken, JSON_HEX_TAG); ?>;
-                window.onSpotifyIframeApiReady = (IFrameAPI) => {
-                    const element = document.getElementById('embed-iframe');
-                    const options = {
-                        width: '100%',
-                        height: '160',
-                        uri: "spotify:artist:"+spotifyToken,
-                    };
-                    const callback = (EmbedController) => {};
-                    IFrameAPI.createController(element, options, callback);
-                };
-            </script>
                 @if($count_products <= 2)
                     <div id="test1" class="mt-4 grid grid-cols-2 gap-6 max-1060:grid-cols-1 max-md:gap-x-4">
                 @elseif($count_products >= 3)
@@ -128,3 +115,17 @@
 
 <script>document.body.style.overflow ='scroll';</script>
 <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1/lite-youtube.min.js"></script>
+<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+<script type="text/javascript">
+    let spotifyToken = <?php echo json_encode($artistes->spotifyToken, JSON_HEX_TAG); ?>;
+    window.onSpotifyIframeApiReady = (IFrameAPI) => {
+        const element = document.getElementById('embed-iframe');
+        const options = {
+            width: '100%',
+            height: '160',
+            uri: "spotify:artist:"+spotifyToken,
+        };
+        const callback = (EmbedController) => {};
+        IFrameAPI.createController(element, options, callback);
+    };
+</script>
