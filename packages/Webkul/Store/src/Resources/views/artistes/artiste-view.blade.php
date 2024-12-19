@@ -57,13 +57,17 @@
         </div>
 
         <div class="grid grid-cols-5 gap-12 max-1060:grid-cols-1 max-md:gap-x-4">
-            @if($count_products <= 2)
+            @if($count_products < 2)
+                <div class="col-span-1">
+            @elseif($count_products === 2)
                 <div class="col-span-2">
             @elseif($count_products >= 3)
                 <div class="col-span-3">
             @endif
                 <h1 class ="border-b text-2xl mt-[34px] mb-[18px]">SORTIES LIÉES</h1>
-                @if($count_products <= 2)
+                @if($count_products < 2)
+                    <div class="grid grid-cols-1 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
+                @elseif($count_products === 2)
                     <div class="grid grid-cols-2 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
                 @elseif($count_products >= 3)
                     <div class="grid grid-cols-3 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
@@ -79,7 +83,9 @@
                 </div>
             </div>
 
-            @if($count_products <= 2)
+            @if($count_products < 2)
+                <div class="col-span-4">
+            @elseif($count_products === 2)
                 <div class="col-span-3">
             @elseif($count_products >= 3)
                 <div class="col-span-2">
@@ -91,20 +97,23 @@
                 @elseif($count_products >= 3)
                     <div class="mt-4 grid grid-cols-1 gap-6 max-1060:grid-cols-1 max-md:gap-x-4">
                 @endif
-                        @php
-                            $arr = array();
-                            foreach($artistes->products as $product){
-                                foreach ($product->videoclips as $videoclip) {
-                                    $arr[] = $videoclip->youtubetoken;
-                                }
+                    @php
+                        $arr = array();
+                        foreach($artistes->products as $product){
+                            foreach ($product->videoclips as $videoclip) {
+                                $arr[] = $videoclip->youtubetoken;
                             }
-                            $unique_data = array_unique($arr);
-                            foreach($unique_data as $key => $val) {
-                                echo "<lite-youtube id='test2' class='rounded-lg border border-black' autoload videoid='".$val."'></lite-youtube>";
-                            }
-                        @endphp        
-                    </div>
+                        }
+                        $unique_data = array_unique($arr);
+                        foreach($unique_data as $key => $val) {
+                            echo "<lite-youtube id='test2' class='rounded-lg border border-black' autoload videoid='".$val."'></lite-youtube>";
+                        }
+                    @endphp        
+                </div>
             </div>
+        </div>
+        <div class="grid grid-cols-1">
+
         </div>
     </div>
 
@@ -116,16 +125,16 @@
 <script>document.body.style.overflow ='scroll';</script>
 <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1/lite-youtube.min.js"></script>
 <!-- <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
-<script type="text/javascript">
-    let spotifyToken = <?php echo json_encode($artistes->spotifyToken, JSON_HEX_TAG); ?>;
-    window.onSpotifyIframeApiReady = (IFrameAPI) => {
-        const element = document.getElementById('embed-iframe');
-        const options = {
-            width: '100%',
-            height: '160',
-            uri: "spotify:artist:"+spotifyToken,
-        };
-        const callback = (EmbedController) => {};
-        IFrameAPI.createController(element, options, callback);
-    };
-</script> -->
+            <script type="text/javascript">
+                let spotifyToken = <?php echo json_encode($artistes->spotifyToken, JSON_HEX_TAG); ?>;
+                window.onSpotifyIframeApiReady = (IFrameAPI) => {
+                    const element = document.getElementById('embed-iframe');
+                    const options = {
+                        width: '100%',
+                        height: '160',
+                        uri: "spotify:artist:"+spotifyToken,
+                    };
+                    const callback = (EmbedController) => {};
+                    IFrameAPI.createController(element, options, callback);
+                };
+            </script> -->
