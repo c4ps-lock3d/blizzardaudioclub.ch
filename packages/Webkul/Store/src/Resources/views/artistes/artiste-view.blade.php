@@ -112,29 +112,26 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-1">
-
-        </div>
     </div>
 
     @push('scripts')
         {!! Captcha::renderJS() !!}
     @endpush
+    <script>document.body.style.overflow ='scroll';</script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1/lite-youtube.min.js"></script>
+    <script src="https://open.spotify.com/embed/iframe-api/v1" defer></script>
+    <script type="text/javascript" defer>
+        let spotifyToken = <?php echo json_encode($artistes->spotifyToken, JSON_HEX_TAG); ?>;
+        window.onSpotifyIframeApiReady = (IFrameAPI) => {
+            const element = document.getElementById('embed-iframe');
+            const options = {
+                width: '100%',
+                height: '160',
+                uri: "spotify:artist:"+spotifyToken,
+            };
+            const callback = (EmbedController) => {};
+            IFrameAPI.createController(element, options, callback);
+        };
+    </script>
 </x-shop::layouts>
 
-<script>document.body.style.overflow ='scroll';</script>
-<script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1/lite-youtube.min.js"></script>
-<script src="https://open.spotify.com/embed/iframe-api/v1" defer></script>
-            <script type="text/javascript" defer>
-                let spotifyToken = <?php echo json_encode($artistes->spotifyToken, JSON_HEX_TAG); ?>;
-                window.onSpotifyIframeApiReady = (IFrameAPI) => {
-                    const element = document.getElementById('embed-iframe');
-                    const options = {
-                        width: '100%',
-                        height: '160',
-                        uri: "spotify:artist:"+spotifyToken,
-                    };
-                    const callback = (EmbedController) => {};
-                    IFrameAPI.createController(element, options, callback);
-                };
-            </script>
