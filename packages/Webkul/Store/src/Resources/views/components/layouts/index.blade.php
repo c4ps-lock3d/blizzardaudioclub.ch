@@ -83,6 +83,7 @@
     </head>
 
     <body>
+        <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
         {!! view_render_event('bagisto.shop.layout.body.before') !!}
         <a
             href="#main"

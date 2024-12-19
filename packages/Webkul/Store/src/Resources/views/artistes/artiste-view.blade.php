@@ -86,7 +86,6 @@
             @endif
             <h1 class ="border-b text-2xl mt-[34px] mb-[18px]">ÉCOUTER</h1>
             <div id="embed-iframe"></div>
-            <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
             <script type="text/javascript">
                 let spotifyToken = <?php echo json_encode($artistes->spotifyToken, JSON_HEX_TAG); ?>;
                 window.onSpotifyIframeApiReady = (IFrameAPI) => {
