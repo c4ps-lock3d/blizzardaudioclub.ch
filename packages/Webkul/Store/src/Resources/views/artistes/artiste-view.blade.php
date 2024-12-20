@@ -91,7 +91,7 @@
                 <div class="col-span-2">
             @endif
             <h1 class ="border-b text-2xl mt-[34px] mb-[18px]">ÉCOUTER</h1>
-            <div id="embed-iframe"></div>
+            <div id="embed-iframe" data-spotify-token="{{ $artistes->spotifyToken }}" class="lazy-spotify"></div>
                 @if($count_products <= 2)
                     <div id="test1" class="mt-4 grid grid-cols-2 gap-6 max-1060:grid-cols-1 max-md:gap-x-4">
                 @elseif($count_products >= 3)
@@ -119,19 +119,47 @@
     @endpush
     <script>document.body.style.overflow ='scroll';</script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1/lite-youtube.min.js"></script>
-    <script src="https://open.spotify.com/embed/iframe-api/v1" defer></script>
-    <script type="text/javascript" defer>
-        let spotifyToken = <?php echo json_encode($artistes->spotifyToken, JSON_HEX_TAG); ?>;
+    <script>
+        // Chargement différé de l'API Spotify
+        const loadSpotifyAPI = () => {
+            if (!document.querySelector('script[src*="spotify.com/embed/iframe-api"]')) {
+                const script = document.createElement('script');
+                script.src = 'https://open.spotify.com/embed/iframe-api/v1';
+                script.async = true;
+                document.body.appendChild(script);
+            }
+        };
+        
+        // Initialisation de l'iframe avec IntersectionObserver
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        loadSpotifyAPI();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+        
+            const embedIframe = document.getElementById('embed-iframe');
+            if (embedIframe) {
+                observer.observe(embedIframe);
+            }
+        });
+        
         window.onSpotifyIframeApiReady = (IFrameAPI) => {
             const element = document.getElementById('embed-iframe');
+            const spotifyToken = element.dataset.spotifyToken;
+            
             const options = {
                 width: '100%',
                 height: '160',
-                uri: "spotify:artist:"+spotifyToken,
+                uri: `spotify:artist:${spotifyToken}`,
+                loading: 'lazy'
             };
-            const callback = (EmbedController) => {};
-            IFrameAPI.createController(element, options, callback);
+            
+            IFrameAPI.createController(element, options, () => {});
         };
-    </script>
+        </script>
 </x-shop::layouts>
 
