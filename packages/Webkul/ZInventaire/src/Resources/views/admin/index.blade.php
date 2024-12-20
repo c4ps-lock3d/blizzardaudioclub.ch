@@ -7,7 +7,7 @@
 
     <!-- Page Content -->
     <div class="page-content">
-        <h1>Package ZInventaire</h1>
+        <h1>Inventaire</h1>
     </div>
 
 </x-admin::layouts>
