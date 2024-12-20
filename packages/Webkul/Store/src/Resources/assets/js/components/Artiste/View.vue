@@ -37,6 +37,7 @@ export default {
                         width: '100%',
                         height: '160',
                         uri: `spotify:artist:${spotifyToken}`,
+                        theme: 'dark'
                     };
                     
                     IFrameAPI.createController(element, options, () => {
