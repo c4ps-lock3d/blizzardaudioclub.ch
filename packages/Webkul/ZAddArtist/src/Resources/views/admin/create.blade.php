@@ -7,7 +7,7 @@
 
     <!-- Page Content -->
     <div class="page-content">
-        <h1 class="mb-4 block text-gray-700 text-lg font-bold mb-2">Ajouter un artiste</h1>
+        <h1 class="mb-4 block text-gray-700 text-lg font-bold">Ajouter un artiste</h1>
         <div class="w-full max-w-lg">
             <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="" method="post" enctype="multipart/form-data">
                 @csrf
