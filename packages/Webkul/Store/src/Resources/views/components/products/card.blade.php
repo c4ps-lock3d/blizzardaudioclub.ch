@@ -270,7 +270,7 @@
                 {!! view_render_event('bagisto.shop.components.products.card.price.after') !!}
 
                 <!-- Needs to implement that in future -->
-                <div class="flex hidden gap-4">
+                <div class="hidden gap-4">
                     <span class="block h-[30px] w-[30px] rounded-full bg-[#B5DCB4]">
                     </span>
 
