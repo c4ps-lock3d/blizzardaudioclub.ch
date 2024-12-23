@@ -33,5 +33,10 @@ return [
             'build_directory'          => 'themes/zaddartist/default/build',
             'package_assets_directory' => 'src/Resources/assets',
         ],
+        'zinventaire' => [
+            'hot_file'                 => 'zinventaire-vite.hot',
+            'build_directory'          => 'themes/zinventaire/default/build',
+            'package_assets_directory' => 'src/Resources/assets',
+        ],
     ],
 ];

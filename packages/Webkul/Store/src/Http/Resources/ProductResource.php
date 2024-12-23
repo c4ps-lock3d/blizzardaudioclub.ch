@@ -35,6 +35,8 @@ class ProductResource extends JsonResource
             'sku'         => $this->sku,
             'name'        => $this->name,
             'description' => $this->description,
+            'price'       => $this->price,
+            'qty'         => $this->inventories->sum('qty'),
             'url_key'     => $this->url_key,
             'base_image'  => product_image()->getProductBaseImage($this),
             'images'      => product_image()->getGalleryImages($this),

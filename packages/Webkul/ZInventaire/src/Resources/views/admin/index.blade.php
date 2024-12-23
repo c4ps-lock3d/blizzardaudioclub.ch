@@ -8,6 +8,12 @@
     <!-- Page Content -->
     <div class="page-content">
         <h1>Inventaire</h1>
+        <inventaire-inv></inventaire-inv> 
     </div>
-
+@push('styles')
+    @bagistoVite([
+      'src/Resources/assets/css/app.css',
+      'src/Resources/assets/js/app.js'
+    ], 'zinventaire')
+@endpush
 </x-admin::layouts>
