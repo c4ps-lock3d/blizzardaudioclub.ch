@@ -213,6 +213,18 @@ class ProductRepository extends Repository
         return $this->searchFromDatabase($params);
     }
 
+        /**
+     * Get all products for inventory.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getAllInventory(array $params = [])
+    {
+        return $this->getModel()
+        ->orderBy('created_at', 'DESC')
+        ->paginate($params['per_page'] ?? 25);
+    }
+
     /**
      * Search product from database.
      *

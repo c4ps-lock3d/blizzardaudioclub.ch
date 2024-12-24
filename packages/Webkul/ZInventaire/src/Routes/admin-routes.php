@@ -9,6 +9,6 @@ Route::group(['middleware' => ['web', 'admin'], 'prefix' => 'admin/zinventaire']
         Route::get('', 'index')->name('admin.zinventaire.index');
     });
     Route::controller(ProductController::class)->prefix('products')->group(function () {
-        Route::get('inv', 'index');
+        Route::get('inv', 'inventaire');
     });
 });

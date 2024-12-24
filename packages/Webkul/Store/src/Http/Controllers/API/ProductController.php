@@ -7,6 +7,8 @@ use Webkul\Category\Repositories\CategoryRepository;
 use Webkul\Marketing\Jobs\UpdateCreateSearchTerm as UpdateCreateSearchTermJob;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Store\Http\Resources\ProductResource;
+use Webkul\Product\Models\Product;
+
 
 class ProductController extends APIController
 {
@@ -52,6 +54,16 @@ class ProductController extends APIController
             }
         }
 
+        return ProductResource::collection($products);
+    }
+
+    public function inventaire(): JsonResource
+    {
+        $perPage = request()->get('per_page', 25); // Défaut 25 produits
+    
+        $products = $this->productRepository
+            ->getModel()
+            ->paginate($perPage);
         return ProductResource::collection($products);
     }
 
