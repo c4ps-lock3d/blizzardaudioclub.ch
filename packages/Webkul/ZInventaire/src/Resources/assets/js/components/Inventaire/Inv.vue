@@ -46,6 +46,9 @@ export default {
     computed: {
         sortedProducts() {
             return this.products;
+        },
+        totalProducts() {
+            return this.products.length;
         }
     }
 };
@@ -54,63 +57,49 @@ export default {
 
 
 <template>
-   <table class="border-2 border-black w-full">
-    <thead>
-            <tr>
-                <th @click="sortBy('name')" :class="{ active: sortKey === 'name' }">
-                    Nom
-                    <span class="arrow" :class="sortOrders.name > 0 ? 'asc' : 'dsc'"></span>
-                </th>
-                <th @click="sortBy('sku')" :class="{ active: sortKey === 'sku' }">
-                    SKU
-                    <span class="arrow" :class="sortOrders.sku > 0 ? 'asc' : 'dsc'"></span>
-                </th>
-                <th @click="sortBy('qty')" :class="{ active: sortKey === 'qty' }">
-                    Quantité
-                    <span class="arrow" :class="sortOrders.qty > 0 ? 'asc' : 'dsc'"></span>
-                </th>
-                <th @click="sortBy('price')" :class="{ active: sortKey === 'price' }">
-                    Prix
-                    <span class="arrow" :class="sortOrders.price > 0 ? 'asc' : 'dsc'"></span>
-                </th>
-            </tr>
-        </thead>
-        <tbody>   
-            <tr v-for="product in sortedProducts">
-                <td>{{ product.name }}</td>
-                <td>{{ product.sku }}</td>
-                <td>{{ product.qty }}</td>
-                <td>{{ Math.round(product.price) }}</td>
-            </tr>
-        </tbody>
-  </table>
-</template>
+    <!-- En-tête avec total -->
+    <div class="flex justify-between items-center mb-4">
+        <h1 class="text-xl font-medium">Inventaire</h1>
+        <div class="text-gray-600">
+            Total: {{ totalProducts }} produits
+        </div>
+    </div>
 
-<style>
-th {
-    cursor: pointer;
-    background-color: grey;
-}
-th, td, tr {
-    border: 1px solid black;
-    padding: 3px;
-}
-table {
-    border: 2px solid black;
-}
-.arrow {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    margin-left: 5px;
-    vertical-align: middle;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-}
-.arrow.asc {
-    border-bottom: 4px solid #000000;
-}
-.arrow.dsc {
-    border-top: 4px solid #000000;
-}
-</style>
+    <!-- Tableau stylisé -->
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+        <table class="w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th @click="sortBy('name')" 
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+                        Nom
+                        <span class="arrow ml-2" :class="sortOrders.name > 0 ? 'asc' : 'dsc'"></span>
+                    </th>
+                    <th @click="sortBy('sku')" 
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+                        SKU
+                        <span class="arrow ml-2" :class="sortOrders.sku > 0 ? 'asc' : 'dsc'"></span>
+                    </th>
+                    <th @click="sortBy('qty')"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+                        Quantité
+                        <span class="arrow ml-2" :class="sortOrders.qty > 0 ? 'asc' : 'dsc'"></span>
+                    </th>
+                    <th @click="sortBy('price')"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+                        Prix (CHF)
+                        <span class="arrow ml-2" :class="sortOrders.price > 0 ? 'asc' : 'dsc'"></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                <tr v-for="product in sortedProducts" class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ product.name }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.sku }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.qty }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ Math.round(product.price) }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</template>

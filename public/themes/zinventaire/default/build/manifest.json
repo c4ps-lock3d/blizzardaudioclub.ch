@@ -1,6 +1,6 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-ea8b0d02.css",
+    "file": "assets/app-ac0dbe57.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -12,15 +12,8 @@
     "file": "assets/icon-temp-439e6462.svg",
     "src": "src/Resources/assets/images/icon-temp.svg"
   },
-  "src/Resources/assets/js/app.css": {
-    "file": "assets/app-5574fa4c.css",
-    "src": "src/Resources/assets/js/app.css"
-  },
   "src/Resources/assets/js/app.js": {
-    "css": [
-      "assets/app-5574fa4c.css"
-    ],
-    "file": "assets/app-38e2d27d.js",
+    "file": "assets/app-3ca93951.js",
     "isEntry": true,
     "src": "src/Resources/assets/js/app.js"
   }

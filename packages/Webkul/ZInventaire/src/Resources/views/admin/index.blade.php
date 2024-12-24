@@ -7,7 +7,7 @@
 
     <!-- Page Content -->
     <div class="page-content">
-        <h1>Inventaire</h1>
+        <h1 class="mb-4">Inventaire</h1>
         <inventaire-inv></inventaire-inv> 
     </div>
 @push('styles')
