@@ -63,6 +63,8 @@ class ProductController extends APIController
     
         $products = $this->productRepository
             ->getModel()
+            ->where('sku', 'not LIKE', '%DI%')
+            ->where('type', '<>', 'configurable')
             ->paginate($perPage);
         return ProductResource::collection($products);
     }
