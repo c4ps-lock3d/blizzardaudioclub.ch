@@ -59,7 +59,7 @@ class ProductController extends APIController
 
     public function inventaire(): JsonResource
     {
-        $perPage = request()->get('per_page', 25); // Défaut 25 produits
+        $perPage = request()->get('per_page', 200); // Défaut 25 produits
     
         $products = $this->productRepository
             ->getModel()

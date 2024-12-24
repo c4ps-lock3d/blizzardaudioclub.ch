@@ -222,7 +222,7 @@ class ProductRepository extends Repository
     {
         return $this->getModel()
         ->orderBy('created_at', 'DESC')
-        ->paginate($params['per_page'] ?? 25);
+        ->paginate($params['per_page'] ?? 200);
     }
 
     /**
