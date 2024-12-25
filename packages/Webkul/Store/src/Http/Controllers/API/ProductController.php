@@ -62,7 +62,7 @@ class ProductController extends APIController
         $perPage = request()->get('per_page', 200); // Défaut 25 produits
         $products = $this->productRepository
             ->getModel()
-            ->where('sku', 'not LIKE', '%DI%')
+            ->where('type', '<>', 'downloadable')
             ->where('type', '<>', 'configurable')
             ->paginate($perPage);
         return ProductResource::collection($products);
