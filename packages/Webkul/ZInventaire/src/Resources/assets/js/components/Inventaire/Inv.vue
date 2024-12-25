@@ -9,7 +9,8 @@ export default {
                 name: 1,
                 sku: 1,
                 qty: 1,
-                price: 1
+                price: 1,
+                format: 1
             }
         };
     },
@@ -34,6 +35,9 @@ export default {
                 if (key === 'price') {
                     aValue = parseFloat(aValue) || 0;
                     bValue = parseFloat(bValue) || 0;
+                } else if (key === 'format') {
+                    aValue = String(aValue || '').toLowerCase();
+                    bValue = String(bValue || '').toLowerCase();
                 } else if (typeof aValue === 'string') {
                     aValue = aValue.toLowerCase();
                     bValue = bValue.toLowerCase();
@@ -90,6 +94,11 @@ export default {
                         Prix (CHF)
                         <span class="arrow ml-2" :class="sortOrders.price > 0 ? 'asc' : 'dsc'"></span>
                     </th>
+                    <th @click="sortBy('format')"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+                        Format
+                        <span class="arrow ml-2" :class="sortOrders.format > 0 ? 'asc' : 'dsc'"></span>
+                    </th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
@@ -98,6 +107,7 @@ export default {
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.sku }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.qty }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ Math.round(product.price) }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.format }}</td>
                 </tr>
             </tbody>
         </table>

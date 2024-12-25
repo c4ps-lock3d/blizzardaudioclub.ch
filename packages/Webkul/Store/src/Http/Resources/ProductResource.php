@@ -29,6 +29,9 @@ class ProductResource extends JsonResource
     public function toArray($request)
     {
         $productTypeInstance = $this->getTypeInstance();
+        $formatName = app('Webkul\Attribute\Repositories\AttributeOptionRepository')
+        ->findOneByField('id', $this->format);
+
 
         return [
             'id'          => $this->id,
@@ -36,6 +39,7 @@ class ProductResource extends JsonResource
             'name'        => $this->name,
             'description' => $this->description,
             'price'       => $this->price,
+            'format'      => $formatName ? $formatName->admin_name : $this->format,
             'qty'         => $this->inventories->sum('qty'),
             'url_key'     => $this->url_key,
             'base_image'  => product_image()->getProductBaseImage($this),

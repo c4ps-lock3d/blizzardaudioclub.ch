@@ -1,6 +1,6 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-ac0dbe57.css",
+    "file": "assets/app-ea8b0d02.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -13,7 +13,7 @@
     "src": "src/Resources/assets/images/icon-temp.svg"
   },
   "src/Resources/assets/js/app.js": {
-    "file": "assets/app-3ca93951.js",
+    "file": "assets/app-2f7d4a91.js",
     "isEntry": true,
     "src": "src/Resources/assets/js/app.js"
   }
