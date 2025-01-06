@@ -1,6 +1,6 @@
 <h1>About</h1>
 <p>
-    Blizzard Audio Club is a Swiss music Label. The website have a store part implemented with Bagisto 2.2.1 mixed with a Laravel-Blade front-end part which display a presentation of each artists.
+    Blizzard Audio Club is a Swiss music Label. The website have a store part implemented with Bagisto 2.2.1 mixed with a Laravel-Vue front-end part which display a presentation of each artists.
 </p>
 
 <h1>Powered by</h1>
