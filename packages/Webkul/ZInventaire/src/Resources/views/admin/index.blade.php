@@ -2,7 +2,7 @@
 
     <!-- Title of the page -->
     <x-slot:title>
-        Package ZInventaire
+        Inventaire
     </x-slot>
 
     <!-- Page Content -->

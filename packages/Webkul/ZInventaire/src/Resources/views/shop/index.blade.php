@@ -2,7 +2,7 @@
 
     <!-- Title of the page -->
     <x-slot:title>
-        Inventaire
+        Package ZInventaire
     </x-slot>
 
     <div class="main">
