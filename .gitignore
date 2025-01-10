@@ -27,6 +27,7 @@ package-lock.json
 yarn.lock
 yarn-error.log
 /public/themes/shop/store
+/public/themes/zinventaire/default
 
 .DS_Store
 composer.json
