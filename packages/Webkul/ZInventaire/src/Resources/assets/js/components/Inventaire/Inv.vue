@@ -1,62 +1,74 @@
 <script>
-
-export default {
-    data() {
-        return {
-            products: [],
-            sortKey: '',
-            sortOrders: {
-                name: 1,
-                sku: 1,
-                qty: 1,
-                price: 1,
-                format: 1
-            }
-        };
-    },
-    mounted() {
-        this.fetchPosts();
-    },
-    methods: {
-        fetchPosts() {
-            axios
-                .get("/admin/zinventaire/products/inv")
-                .then((response) => (this.products = response.data.data))
-                .catch((error) => console.log(error));
+    export default {
+        data() {
+            return {
+                products: [],
+                sortKey: '',
+                sortOrders: {
+                    name: 1,
+                    sku: 1,
+                    qty: 1,
+                    price: 1,
+                    format: 1
+                },
+                newQty: null,
+            };
         },
-        sortBy(key) {
-            this.sortKey = key;
-            this.sortOrders[key] *= -1;
-            
-            this.products.sort((a, b) => {
-                let aValue = a[key];
-                let bValue = b[key];
+        mounted() {
+            this.fetchPosts();
+        },
+        methods: {
+            fetchPosts() {
+                axios
+                    .get("/admin/zinventaire/products/inv")
+                    .then((response) => (this.products = response.data.data))
+                    .catch((error) => console.log(error));
+            },
+            sortBy(key) {
+                this.sortKey = key;
+                this.sortOrders[key] *= -1;
                 
-                if (key === 'price') {
-                    aValue = parseFloat(aValue) || 0;
-                    bValue = parseFloat(bValue) || 0;
-                } else if (key === 'format') {
-                    aValue = String(aValue || '').toLowerCase();
-                    bValue = String(bValue || '').toLowerCase();
-                } else if (typeof aValue === 'string') {
-                    aValue = aValue.toLowerCase();
-                    bValue = bValue.toLowerCase();
+                this.products.sort((a, b) => {
+                    let aValue = a[key];
+                    let bValue = b[key];
+                    
+                    if (key === 'price') {
+                        aValue = parseFloat(aValue) || 0;
+                        bValue = parseFloat(bValue) || 0;
+                    } else if (key === 'format') {
+                        aValue = String(aValue || '').toLowerCase();
+                        bValue = String(bValue || '').toLowerCase();
+                    } else if (typeof aValue === 'string') {
+                        aValue = aValue.toLowerCase();
+                        bValue = bValue.toLowerCase();
+                    }
+                    
+                    return (aValue > bValue ? 1 : -1) * this.sortOrders[key];
+                });
+            },
+            handleQtyChange(event, product) {
+                this.newQty = parseInt(event.target.value);
+            },
+            async saveEdit(product) {
+                try {
+                    await axios.put(`/admin/zinventaire/products/edit/${product.id}`,{
+                        qty: this.newQty,
+                    });
+                    //this.fetchPosts(); // Rafraîchir les données après la mise à jour
+                } catch (error) {
+                    console.error('Erreur:', error);
                 }
-                
-                return (aValue > bValue ? 1 : -1) * this.sortOrders[key];
-            });
-        }
-    },
-    computed: {
-        sortedProducts() {
-            return this.products;
+            }
         },
-        totalProducts() {
-            return this.products.length;
+        computed: {
+            sortedProducts() {
+                return this.products;
+            },
+            totalProducts() {
+                return this.products.length;
+            },
         }
-    }
-};
-
+    };
 </script>
 
 
@@ -68,7 +80,6 @@ export default {
             Total: {{ totalProducts }} produits
         </div>
     </div>
-
     <!-- Tableau stylisé -->
     <div class="bg-white rounded-lg shadow overflow-hidden">
         <table class="w-full divide-y divide-gray-200">
@@ -105,8 +116,17 @@ export default {
                 <tr v-for="product in sortedProducts" class="hover:bg-gray-50">
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ product.name }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.sku }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.qty }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ Math.round(product.price) }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <input
+                            type="number"
+                            @input="(e) => handleQtyChange(e, product)"
+                            :value="product.qty"
+                            @change="saveEdit(product)"
+                            class="border px-2 py-1 rounded w-20"
+                            min="0"
+                        />
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.price }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.format }}</td>
                 </tr>
             </tbody>
