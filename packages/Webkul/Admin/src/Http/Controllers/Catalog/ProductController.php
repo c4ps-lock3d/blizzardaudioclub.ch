@@ -3,7 +3,6 @@
 namespace Webkul\Admin\Http\Controllers\Catalog;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Webkul\Admin\DataGrids\Catalog\ProductDataGrid;
@@ -156,33 +155,6 @@ class ProductController extends Controller
         session()->flash('success', trans('admin::app.catalog.products.update-success'));
 
         return redirect()->route('admin.catalog.products.index');
-    }
-
-        /**
-     * Update the specified resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function updateinventaire(Request $request, int $id)
-    {
-        $request->validate([
-            'qty' => 'required|numeric|min:0',
-        ]);
-    
-        $product = $this->productRepository->findOrFail($id);
-        $inventory = $product->inventories()->first();
-    
-        if ($inventory) {
-            $inventory->update(['qty' => $request->qty]);
-        }
-    
-        return response()->json([
-            'message' => 'Quantité mise à jour avec succès',
-            'data' => [
-                'qty' => $request->qty
-            ]
-        ]);
-
     }
 
     /**

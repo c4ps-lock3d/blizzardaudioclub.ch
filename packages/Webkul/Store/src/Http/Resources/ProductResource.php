@@ -39,6 +39,7 @@ class ProductResource extends JsonResource
             'name'        => $this->name,
             'description' => $this->description,
             'price'       => $this->price,
+            'release_date'=> $this->release_date,
             'format'      => $formatName ? $formatName->admin_name : $this->format,
             'qty'         => $this->inventories->sum('qty'),
             'url_key'     => $this->url_key,
