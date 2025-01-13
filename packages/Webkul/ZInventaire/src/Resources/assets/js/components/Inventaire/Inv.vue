@@ -3,7 +3,7 @@
         data() {
             return {
                 products: [],
-                sortKey: '',
+                sortKey: 'sku',
                 sortOrders: {
                     name: 1,
                     sku: 1,
@@ -15,7 +15,9 @@
             };
         },
         mounted() {
-            this.fetchPosts();
+            this.fetchPosts().then(() => {
+            this.sortBy('sku'); // Tri initial par SKU
+        });
         },
         methods: {
             fetchPosts() {
