@@ -9,7 +9,7 @@
                     sku: 1,
                     qty: 1,
                     price: 1,
-                    format: 1
+                    format: 1,
                 },
                 newQty: null,
             };
@@ -85,6 +85,10 @@
         <table class="w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
+                    <th 
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+                        Image
+                    </th>
                     <th @click="sortBy('name')" 
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
                         Nom
@@ -113,7 +117,10 @@
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-                <tr v-for="product in sortedProducts" class="hover:bg-gray-50">
+                <tr v-for="product in sortedProducts" class="hover:bg-gray-60">
+                    <td class="px-6 py-2">
+                        <img :src="product.base_image.small_image_url" width="55" class="rounded-sm">
+                    </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ product.name }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.sku }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -126,7 +133,7 @@
                             min="0"
                         />
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.price }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ Math.round(product.price) }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.format }}</td>
                 </tr>
             </tbody>
