@@ -6,6 +6,6 @@ return [
         'name'  => 'Inventaire',
         'route' => 'admin.zinventaire.index',
         'sort'  => 25,
-        'icon'  => 'temp-icon',
+        'icon'  => 'icon-product-1',
     ]
 ];
