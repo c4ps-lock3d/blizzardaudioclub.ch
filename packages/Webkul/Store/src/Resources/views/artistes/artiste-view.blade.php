@@ -97,18 +97,13 @@
                 @elseif($count_products >= 3)
                     <div class="mt-4 grid grid-cols-1 gap-6 max-1060:grid-cols-1 max-md:gap-x-4">
                 @endif
-                    @php
-                        $arr = array();
-                        foreach($artistes->products as $product){
-                            foreach ($product->videoclips as $videoclip) {
-                                $arr[] = $videoclip->youtubetoken;
+      
+                        @foreach($artistes->products as $product){
+                            @foreach ($product->videoclips as $videoclip) {
+                                <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/{!! $videoclip->youtubetoken !!}?si=DCmthf-j1ajhYQmw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                             }
                         }
-                        $unique_data = array_unique($arr);
-                        foreach($unique_data as $key => $val) {
-                            echo "<lite-youtube style='--lite-youtube-frame-shadow-visible: no;' id='test2' class='rounded-lg border border-black' autoload videotitle='toto' videoid='".$val."'></lite-youtube>";
-                        }
-                    @endphp        
+                        
                 </div>
             </div>
         </div>
