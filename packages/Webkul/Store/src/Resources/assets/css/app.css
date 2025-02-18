@@ -85,6 +85,15 @@ img.lazy {
         @apply cursor-not-allowed opacity-50;
     }
 
+    .youtube-container {
+        @apply w-full relative;
+        padding-bottom: 56.25%; /* Ratio 16:9 */
+    }
+
+    .youtube-container iframe {
+        @apply absolute top-0 left-0 w-full h-full;
+    }
+
     [class^="icon-"],
     [class*=" icon-"] {
         /* use !important to prevent issues with browser extensions that change fonts */
