@@ -106,7 +106,7 @@
                         }
                         $unique_data = array_unique($arr);
                         foreach($unique_data as $key => $val) {
-                            echo "<iframe class='rounded-lg border border-black' id='test2' src='https://www.youtube-nocookie.com/embed/ZfISdAOK2Ow?si=DCmthf-j1ajhYQmw' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' referrerpolicy='strict-origin-when-cross-origin' allowfullscreen></iframe>";
+                            echo "<iframe class='rounded-lg border border-black' id='test2' src='https://www.youtube-nocookie.com/embed/".$val."?si=DCmthf-j1ajhYQmw' title='YouTube video player' frameborder='0' allow='accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' referrerpolicy='strict-origin-when-cross-origin' allowfullscreen></iframe>";
                             //echo "<lite-youtube style='--lite-youtube-frame-shadow-visible: no;' id='test2' class='rounded-lg border border-black' autoload videotitle='toto' videoid='".$val."'></lite-youtube>";
                         }
                     @endphp        
