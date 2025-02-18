@@ -106,7 +106,7 @@
                         }
                         $unique_data = array_unique($arr);
                         foreach($unique_data as $key => $val) {
-                            echo "<lite-youtube id='test2' class='rounded-lg border border-black' videoid='".$val."'></lite-youtube>";
+                            echo "<lite-youtube style='--lite-youtube-frame-shadow-visible: no;' id='test2' class='rounded-lg border border-black' autoload videoid='".$val."'></lite-youtube>";
                         }
                     @endphp        
                 </div>
