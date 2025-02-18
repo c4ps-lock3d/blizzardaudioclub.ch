@@ -98,11 +98,11 @@
                     <div class="mt-4 grid grid-cols-1 gap-6 max-1060:grid-cols-1 max-md:gap-x-4">
                 @endif
       
-                        @foreach($artistes->products as $product){
-                            @foreach ($product->videoclips as $videoclip) {
+                        @foreach($artistes->products as $product)
+                            @foreach ($product->videoclips as $videoclip) 
                                 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/{!! $videoclip->youtubetoken !!}?si=DCmthf-j1ajhYQmw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                            }
-                        }
+                            @endforeach
+                        @endforeach
                         
                 </div>
             </div>
