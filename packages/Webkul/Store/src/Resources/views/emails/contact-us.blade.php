@@ -12,11 +12,11 @@
 
             @lang('shop::app.emails.contact-us.reply-to-mail')
 
-            @if($contactUs['contact'])
+{{--             @if($contactUs['contact'])
                 @lang('shop::app.emails.contact-us.reach-via-phone')
 
                 <a href="tel:{{ $contactUs['contact'] }}">{{ $contactUs['contact'] }}</a>.
-            @endif
+            @endif --}}
         </p>
     </p>
 @endcomponent
