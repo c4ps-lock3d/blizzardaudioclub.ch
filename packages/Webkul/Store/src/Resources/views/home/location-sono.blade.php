@@ -21,7 +21,7 @@
             </ul><br>
         <p class="text-justify">
             Le matériel est loué sur une base journalière. Des arrangements peuvent néanmoins être convenus, tels que des demi-journées ou des durées plus longues (Le tarif sera adapté selon). La location à l’heure n’est pas proposée.<br><br>
-            Le tarif de base de la location s’élève à 400 CHF [QUATRE-CENTS FRANCS] par jour. La moitié de ce montant est à verser avant la prise du matériel. L’autre moitié au retour du matériel. Les éventuels frais de réparation ou de remplacement de matériel y seront ajoutés (voir les <a class="!text-[#FADA00]" href="{{url('/images/sono/bac-soundsystem-renting-cg.pdf')}}" target="_blank">conditions générales</a>).<br><br>
+            Le tarif de base de la location s’élève à 200 CHF [DEUX-CENTS FRANCS] par jour. La moitié de ce montant est à verser avant la prise du matériel. L’autre moitié au retour du matériel. Les éventuels frais de réparation ou de remplacement de matériel y seront ajoutés (voir les <a class="!text-[#FADA00]" href="{{url('/images/sono/bac-soundsystem-renting-cg.pdf')}}" target="_blank">conditions générales</a>).<br><br>
         </p>
         <p>Intéressé(e) ? <a class="!text-[#FADA00]" href="{{ route('shop.home.contact_us') }}">contactez-nous via notre formulaire</a>.</p>
         <div class="mt-10 grid grid-cols-2 gap-6">
