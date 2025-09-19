@@ -405,7 +405,7 @@
                                     @if ($product->preorder)
                                         <p class="mt-6 text-justify text-md p-3 !border-black rounded-lg !text-white bg-[#343A40]">
                                             Il s'agit d'un produit en précommande. Dès qu'il sera disponible en stock, votre commande sera expédiée.
-                                            {!! (strtotime($product->release_date) - strtotime(date("Y-m-d")))/86400 !!} jours restants avant la sortie.
+                                            <!--{!! (strtotime($product->release_date) - strtotime(date("Y-m-d")))/86400 !!} jours restants avant la sortie.-->
                                         </p>
                                     @endif
                                 @endif
