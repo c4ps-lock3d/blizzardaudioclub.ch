@@ -274,7 +274,7 @@
                         this.currentIndex = (this.currentIndex + this.startFrom) % this.images.length;
 
                         this.setPositionByIndex();
-                    }, 5000);
+                    }, 10000);
                 },
             },
         });
