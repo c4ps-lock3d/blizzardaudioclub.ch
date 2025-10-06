@@ -46,6 +46,10 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
     Route::get('a-propos', [HomeController::class, 'aPropos'])
         ->name('store.home.a_propos')
         ->middleware('cacheResponse');
+
+    Route::get('bac-plus-cinq', [HomeController::class, 'bacPlusCinq'])
+        ->name('store.home.bac-plus-cinq')
+        ->middleware('cacheResponse');
         
     Route::get('artistes/{slug}-{artistes}', [HomeController::class, 'artisteView'])
     ->where([
