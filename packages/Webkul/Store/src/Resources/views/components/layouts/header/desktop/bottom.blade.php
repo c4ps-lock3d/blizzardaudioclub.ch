@@ -381,13 +381,6 @@
                                     LOCATION SONO
                                 </a>
                             </div>
-                            <div class="hover:bg-[#1d2124] pl-9 pr-9 pt-2 pb-4">
-                                <a href="{{ route('store.home.bac-plus-cinq') }}"
-                                class="inline-block px-5 uppercase"
-                                >
-                                    BAC+5
-                                </a>
-                            </div>
                         </div>
                     </div>
                 </div>

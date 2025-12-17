@@ -451,21 +451,6 @@
                                 </span>
                             </div>
                         </li>
-                                                <li>
-                            <div class="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 border-zinc-100 ltr:ml-3 rtl:mr-3">
-                                <a
-                                    href="{{ route('store.home.bac-plus-cinq') }}"
-                                    class="mt-3 flex items-center justify-between pb-3"
-                                >
-                                    BAC+5
-                                </a>
-
-                                <span
-                                    class="cursor-pointer text-2xl"
-                                >
-                                </span>
-                            </div>
-                        </li>
                     </ul>
                 </div>
         </div>
