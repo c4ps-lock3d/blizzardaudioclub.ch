@@ -122,7 +122,7 @@
 
                             <div class="grid">
                                 <!-- Item Listing -->
-                                @foreach ($order->items as $item)
+                                @foreach ($order->all_items as $item)
                                     @if (
                                         $item->qty_to_ship > 0
                                         && $item->product

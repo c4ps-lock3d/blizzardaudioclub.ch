@@ -283,7 +283,7 @@ class Order extends Model implements OrderContract
      */
     public function canShip(): bool
     {
-        foreach ($this->items as $item) {
+        foreach ($this->all_items as $item) {
             if (
                 $item->canShip()
                 && ! in_array($item->order->status, [

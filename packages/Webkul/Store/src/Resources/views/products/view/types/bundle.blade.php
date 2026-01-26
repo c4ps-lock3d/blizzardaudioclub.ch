@@ -30,7 +30,7 @@
                     </p>
                 </div>
 
-                <ul class="grid gap-2.5 text-base max-sm:text-sm">
+                <!--<ul class="grid gap-2.5 text-base max-sm:text-sm">
                     <li v-for="option in options">
                         <span class="mb-1.5 inline-block max-sm:mb-0">
                             @{{ option.label }}
@@ -46,7 +46,7 @@
                             </div>
                         </template>
                     </li>
-                </ul>
+                </ul>-->
             </div>
         </script>
 
@@ -54,14 +54,13 @@
             type="text/x-template"
             id="v-product-bundle-option-item-template"
         >
-            <div class="mt-8 border-b border-zinc-200 pb-4 max-sm:mt-4 max-sm:pb-0">
+            <div class="mt-4 border-b border-zinc-400 pb-2 max-sm:mt-4 max-sm:pb-0">
                 <x-shop::form.control-group>
                     <!-- Dropdown Options Container -->
                     <x-shop::form.control-group.label
                         class="!mt-0 max-sm:!mb-2.5"
-                        ::class="{ 'required': Boolean(option.is_required) }"
                     >
-                        @{{ option.label }}
+                      <!--  @{{ option.label }}-->
                     </x-shop::form.control-group.label>
 
                     <template v-if="option.type == 'select'">
@@ -116,30 +115,46 @@
 
                             <!-- Options -->
                             <div
-                                class="flex select-none items-center gap-x-4 max-sm:gap-x-1.5"
+                                class="flex select-none items-center justify-between gap-x-4 max-sm:gap-x-1.5"
                                 v-for="(product, index) in option.products"
                             >
-                                <x-shop::form.control-group.control
-                                    type="radio"
-                                    ::name="'bundle_options[' + option.id + '][]'"
-                                    ::for="'bundle_options[' + option.id + '][' + index + ']'"
-                                    ::id="'bundle_options[' + option.id + '][' + index + ']'"
-                                    ::value="product.id"
-                                    v-model="selectedProduct"
-                                    ::rules="{'required': Boolean(option.is_required)}"
-                                    ::label="option.label"
-                                />
+                                <div class="flex select-none items-center gap-x-4 max-sm:gap-x-1.5">
+                                    <x-shop::form.control-group.control
+                                        type="radio"
+                                        ::name="'bundle_options[' + option.id + '][]'"
+                                        ::for="'bundle_options[' + option.id + '][' + index + ']'"
+                                        ::id="'bundle_options[' + option.id + '][' + index + ']'"
+                                        ::value="product.id"
+                                        v-model="selectedProduct"
+                                        ::rules="{'required': Boolean(option.is_required)}"
+                                        ::label="option.label"
+                                    />
 
-                                <label
-                                    class="cursor-pointer text-zinc-500 max-sm:text-sm"
-                                    :for="'bundle_options[' + option.id + '][' + index + ']'"
+                                    <label
+                                        class="cursor-pointer text-zinc-500 max-sm:text-sm"
+                                        :for="'bundle_options[' + option.id + '][' + index + ']'"
+                                    >
+                                        @{{ 'Format ' +product.format + ' -' }}
+                                        <span v-if="product.format === 'vinyle'"></span>
+
+                                        <span class="text-[#FADA00]">
+                                            @{{ ' ' + product.price.final.formatted_price }}
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <div
+                                    class="flex select-none items-center justify-end"
+                                    style="width: auto; min-height: 2.625rem;"
                                 >
-                                    @{{ product.name }}
-
-                                    <span class="text-black">
-                                        @{{ '+ ' + product.price.final.formatted_price }}
-                                    </span>
-                                </label>
+                                    <x-shop::quantity-changer
+                                        v-show="selectedProduct == product.id && !isProductDownloadable"
+                                        ::name="'bundle_option_qty[' + option?.id + ']'"
+                                        ::value="productQty"
+                                        class="gap-x-4 rounded-xl !border-zinc-200 px-4 py-1.5"
+                                        @change="qtyUpdated($event)"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </template>
@@ -173,45 +188,52 @@
                         <div class="grid gap-2">
                         <!-- Options -->
                             <div
-                                class="flex select-none items-center gap-x-4 max-sm:gap-x-1.5"
+                                class="flex select-none items-center justify-between gap-x-4 max-sm:gap-x-1.5"
                                 v-for="(product, index) in option.products"
                             >
-                                <x-shop::form.control-group.control
-                                    type="checkbox"
-                                    ::name="'bundle_options[' + option.id + '][]'"
-                                    ::for="'bundle_options[' + option.id + '][' + index + ']'"
-                                    ::id="'bundle_options[' + option.id + '][' + index + ']'"
-                                    ::value="product.id"
-                                    v-model="selectedProduct"
-                                    ::rules="{'required': Boolean(option.is_required)}"
-                                    ::label="option.label"
-                                />
+                                <div class="flex select-none items-center gap-x-4 max-sm:gap-x-1.5">
+                                    <x-shop::form.control-group.control
+                                        type="checkbox"
+                                        ::name="'bundle_options[' + option.id + '][]'"
+                                        ::for="'bundle_options[' + option.id + '][' + index + ']'"
+                                        ::id="'bundle_options[' + option.id + '][' + index + ']'"
+                                        ::value="product.id"
+                                        v-model="selectedProduct"
+                                        ::rules="{'required': Boolean(option.is_required)}"
+                                        ::label="option.label"
+                                    />
 
-                                <label
-                                    class="cursor-pointer text-zinc-500 max-sm:text-sm"
-                                    :for="'bundle_options[' + option.id + '][' + index + ']'"
+                                    <label
+                                        class="cursor-pointer text-zinc-500 max-sm:text-sm"
+                                        :for="'bundle_options[' + option.id + '][' + index + ']'"
+                                    >
+                                        @{{ 'Format ' +product.format + ' -' }}
+
+                                        <span class="text-[#FADA00]">
+                                            @{{ ' ' + product.price.final.formatted_price }}
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <div
+                                    class="flex select-none items-center justify-end"
+                                    style="width: auto; min-height: 2.625rem;"
                                 >
-                                    @{{ product.name }}
-
-                                    <span class="text-black">
-                                        @{{ '+ ' + product.price.final.formatted_price }}
-                                    </span>
-                                </label>
+                                    <x-shop::quantity-changer
+                                        v-show="selectedProduct == product.id && ['select', 'checkbox'].includes(option.type) && !isProductDownloadable"
+                                        ::name="'bundle_option_qty[' + option?.id + ']'"
+                                        ::value="productQty"
+                                        class="gap-x-4 rounded-xl !border-zinc-200 px-4 py-1.5"
+                                        @change="qtyUpdated($event)"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </template>
 
                     <x-shop::form.control-group.error ::name="'bundle_options[' + option.id + '][]'" />
                 </x-shop::form.control-group>
-
-                <template v-if="['select', 'radio'].includes(option.type)">
-                    <x-shop::quantity-changer
-                        ::name="'bundle_option_qty[' + option?.id + ']'"
-                        ::value="productQty"
-                        class="mt-5 w-max gap-x-4 rounded-xl !border-zinc-200 px-4 py-1.5 max-sm:my-4"
-                        @change="qtyUpdated($event)"
-                    />
-                </template>
+             
             </div>
         </script>
 
@@ -260,6 +282,20 @@
                         for (var key in option.products) {
                             option.products[key].is_default = selectedProductIds.indexOf(option.products[key].id) > -1 ? 1 : 0;
                         }
+
+                        // Emit event with images of selected products
+                        var selectedImages = [];
+                        selectedProductIds.forEach(selectedId => {
+                            var product = option.products.find(p => p.id == selectedId);
+                            if (product && product.images) {
+                                selectedImages = selectedImages.concat(product.images);
+                            }
+                        });
+
+                        this.$emitter.emit('bundle-product-selected', {
+                            images: selectedImages,
+                            option: option
+                        });
                     }
                 }
             });
@@ -286,6 +322,30 @@
                         });
 
                         return qty;
+                    },
+
+                    isProductDownloadable: function() {
+                        // Check if ALL products in this option are downloadable
+                        const allDownloadable = this.option.products.every(product => product.type === 'downloadable');
+                        if (allDownloadable) {
+                            return true;
+                        }
+
+                        // Handle both single values and arrays
+                        const selectedIds = Array.isArray(this.selectedProduct) ? this.selectedProduct : [this.selectedProduct];
+                        
+                        // Filter out empty values
+                        const validIds = selectedIds.filter(id => id && id !== '0');
+                        
+                        if (validIds.length === 0) {
+                            return false;
+                        }
+                        
+                        // Check if ANY of the selected products are downloadable
+                        return validIds.some(selectedId => {
+                            const product = this.option.products.find(data => data.id == selectedId);
+                            return product && product.type === 'downloadable';
+                        });
                     }
                 },
 

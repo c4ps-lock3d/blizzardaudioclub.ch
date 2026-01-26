@@ -5,6 +5,7 @@ namespace Webkul\Store\Http\Controllers;
 use Illuminate\Support\Facades\Mail;
 use Webkul\Store\Http\Requests\ContactRequest;
 use Webkul\Store\Mail\ContactUs;
+use Webkul\Store\Http\Resources\ProductResource;
 use Webkul\Theme\Repositories\ThemeCustomizationRepository;
 use Illuminate\Http\Request;
 use App\Models\Artiste;
@@ -87,8 +88,12 @@ class HomeController extends Controller
             return to_route('store.artistes.artiste-view', ['slug' => $artistes->slug, 'id' => $artistes->id]);
         }
         
+        // Transformer les produits avec la ProductResource
+        $productsData = ProductResource::collection($artistes->products)->resolve();
+        
         return view('store::artistes.artiste-view',[
             'artistes' => $artistes,
+            'products' => $productsData,
             'count_products' => $artistes->products()->count(),
         ]);
     }

@@ -1,6 +1,7 @@
 <v-product-card
     {{ $attributes }}
     :product="product"
+    :bundle-downloadable-image="product.bundle_downloadable_image"
 >
 </v-product-card>
 
@@ -24,7 +25,7 @@
                 >
                     <x-shop::media.images.lazy
                         class="after:content-[' '] relative transition-all duration-300 after:block after:pb-[calc(100%+9px)] group-hover:scale-105 max-sm:rounded-b-none"
-                        ::src="product.base_image.medium_image_url"
+                        ::src="cardImageUrl"
                         ::key="product.id"
                         ::index="product.id"
                         width="291" 
@@ -117,13 +118,24 @@
                 {!! view_render_event('bagisto.shop.components.products.card.price.before') !!}
 
                 <div
+                    v-if="bundlePriceDisplay"
+                    style="color: #dcdcdc"
+                    class="flex flex-col gap-0.5 text-base font-medium max-sm:text-sm max-sm:ml-2 max-sm:mb-2 max-sm:leading-4"
+                >
+                    <div v-for="(price, format) in bundlePriceDisplay" :key="format">
+                        @{{ format }} : <span class="font-bold">@{{ price }}</span>
+                    </div>
+                </div>
+
+                <div
+                    v-else
                     id="colorTextCommand"
                     class="flex items-center gap-2.5 text-lg font-semibold max-sm:text-sm max-sm:ml-2 max-sm:mb-2 max-sm:leading-6"
                     v-html="product.price_html"
                 >
                 </div>
 
-                {!! view_render_event('bagisto.shop.components.products.card.price.before') !!}
+                {!! view_render_event('bagisto.shop.components.products.card.price.after') !!}
 
                 <!-- Product Actions Section -->
                 <div class="action-items flex items-center justify-between opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 max-md:hidden">
@@ -187,7 +199,7 @@
                 <a :href="`{{ route('shop.product_or_category.index', '') }}/${product.url_key}`">
                     <x-shop::media.images.lazy
                         class="after:content-[' '] relative min-w-[250px] bg-zinc-100 transition-all duration-300 after:block after:pb-[calc(100%+9px)] group-hover:scale-105"
-                        ::src="product.base_image.medium_image_url"
+                        ::src="cardImageUrl"
                         ::key="product.id"
                         ::index="product.id"
                         width="291"
@@ -262,6 +274,17 @@
                 {!! view_render_event('bagisto.shop.components.products.card.price.before') !!}
 
                 <div
+                    v-if="bundlePriceDisplay"
+                    style="color: #dcdcdc"
+                    class="flex flex-col gap-0.5 text-base font-medium"
+                >
+                    <div v-for="(price, format) in bundlePriceDisplay" :key="format">
+                        @{{ format }} : <span class="font-bold">@{{ price }}</span>
+                    </div>
+                </div>
+
+                <div
+                    v-else
                     class="flex gap-2.5 text-lg font-semibold"
                     v-html="product.price_html"
                 >
@@ -323,13 +346,35 @@
         app.component('v-product-card', {
             template: '#v-product-card-template',
 
-            props: ['mode', 'product'],
+            props: ['mode', 'product', 'bundleDownloadableImage'],
 
             data() {
                 return {
                     isCustomer: '{{ auth()->guard('customer')->check() }}',
 
                     isAddingToCart: false,
+                }
+            },
+
+            computed: {
+                cardImageUrl() {
+                    // For bundle products without their own images, use downloadable child image
+                    if (this.product.type === 'bundle' && this.bundleDownloadableImage) {
+                        return this.bundleDownloadableImage.medium_image_url || this.bundleDownloadableImage.large_image_url || this.bundleDownloadableImage.original_image_url;
+                    }
+                    
+                    // For all other cases, use the default base image
+                    return this.product.base_image?.medium_image_url || this.product.base_image?.large_image_url || '';
+                },
+
+                bundlePriceDisplay() {
+                    // For bundle products with format prices, return the object for template iteration
+                    if (this.product.type === 'bundle' && this.product.bundle_format_prices) {
+                        return this.product.bundle_format_prices;
+                    }
+                    
+                    // Return null if not a bundle or no format prices
+                    return null;
                 }
             },
 

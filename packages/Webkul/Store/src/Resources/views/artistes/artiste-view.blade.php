@@ -1,5 +1,7 @@
 <!-- Page Layout -->
 <x-shop::layouts>
+    @include('store::components.artiste-product-card-script')
+    
     <!-- Page Title -->
     <x-slot:title>
         {{ $artistes->name }}
@@ -72,14 +74,12 @@
                 @elseif($count_products >= 3)
                     <div class="grid grid-cols-3 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
                 @endif
-                @foreach($artistes->products as $product)
-                        @foreach ($product->images as $image)
-                            <artiste-view
-                                :image='{{ json_encode($image) }}'
-                                :product='{{ json_encode($product) }}'
-                            ></artiste-view>
-                        @endforeach
-                    @endforeach
+                @foreach($products as $product)
+                    <v-product-card
+                        :product='{{ json_encode($product) }}'
+                        :bundle-downloadable-image='{{ json_encode($product["bundle_downloadable_image"] ?? null) }}'
+                    ></v-product-card>
+                @endforeach
                 </div>
             </div>
 
@@ -93,24 +93,21 @@
             <h1 class ="border-b text-2xl mt-[34px] mb-[18px]">ÉCOUTER</h1>
             <div data-spotify-token="{{ $artistes->spotifyToken }}" id="embed-iframe"></div>
                 @if($count_products <= 2)
-                    <div id="test1" class="mt-4 grid grid-cols-2 gap-6 max-1060:grid-cols-1 max-md:gap-x-4">
-                @elseif($count_products >= 3)
-                    <div class="mt-4 grid grid-cols-1 gap-6 max-1060:grid-cols-1 max-md:gap-x-4">
+                    <div class="mt-4 grid grid-cols-2 gap-6 max-1060:grid-cols-1 max-md:gap-x-4" id="youtube-grid">
+                @else
+                    <div class="mt-4 grid grid-cols-1 gap-6 max-1060:grid-cols-1 max-md:gap-x-4" id="youtube-grid">
                 @endif
                     @php
-                        $arr = array();
-                        foreach($artistes->products as $product){
+                        $videoclips = [];
+                        foreach($artistes->products as $product) {
                             foreach ($product->videoclips as $videoclip) {
-                                $arr[] = $videoclip->youtubetoken;
+                                $videoclips[$videoclip->youtubetoken] = $videoclip->youtubetoken;
                             }
                         }
-                        $unique_data = array_unique($arr);
-                        foreach($unique_data as $key => $val) {
-                            echo "<div class='youtube-container'><iframe class='rounded-lg border border-black' id='test2' src='https://www.youtube-nocookie.com/embed/".$val."?si=DCmthf-j1ajhYQmw' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' referrerpolicy='strict-origin-when-cross-origin' allowfullscreen></iframe></div>";
-                            //echo "<lite-youtube style='--lite-youtube-frame-shadow-visible: no;' id='test2' class='rounded-lg border border-black' autoload videotitle='toto' videoid='".$val."'></lite-youtube>";
-                        }
-                    @endphp        
-                </div>
+                    @endphp
+                    @foreach($videoclips as $token)
+                        <div class='youtube-container' data-youtube-token='{{ $token }}'></div>
+                    @endforeach        
             </div>
         </div>
     </div>
@@ -118,7 +115,30 @@
     @push('scripts')
         {!! Captcha::renderJS() !!}
         <script>document.body.style.overflow ='scroll';</script>
-        <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1/lite-youtube.min.js"></script>
+        <script>
+            function loadYoutubeVideos() {
+                const containers = document.querySelectorAll('[data-youtube-token]');
+                containers.forEach(container => {
+                    const token = container.getAttribute('data-youtube-token');
+                    const iframe = document.createElement('iframe');
+                    iframe.src = `https://www.youtube-nocookie.com/embed/${token}?si=DCmthf-j1ajhYQmw`;
+                    iframe.title = 'YouTube video player';
+                    iframe.frameborder = '0';
+                    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+                    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+                    iframe.allowFullscreen = true;
+                    iframe.className = 'rounded-lg border border-black w-full aspect-video';
+                    iframe.loading = 'lazy';
+                    container.appendChild(iframe);
+                });
+            }
+
+            // Attendre que la page soit COMPLÈTEMENT chargée, puis ajouter un délai pour laisser Vue finir
+            window.addEventListener('load', function() {
+                // Ajouter 500ms de délai pour s'assurer que Vue a fini
+                setTimeout(loadYoutubeVideos, 500);
+            });
+        </script>
     @endpush
 </x-shop::layouts>
 

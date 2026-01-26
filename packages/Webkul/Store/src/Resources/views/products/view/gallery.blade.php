@@ -106,6 +106,19 @@
                             />
                         </video>
                     </div>
+
+                    <!-- Display bundle product info if this is a bundle child image 
+                    <div
+                        v-if="baseFile.productFormat || baseFile.productName"
+                        class="mt-2 text-sm text-zinc-600"
+                    >
+                        <span v-if="baseFile.productFormat" class="font-medium">
+                            @{{ baseFile.productFormat }}
+                        </span>
+                        <span v-else-if="baseFile.productName" class="font-medium">
+                            @{{ baseFile.productName }}
+                        </span>
+                    </div> -->
                 </div>
             </div>
 
@@ -152,15 +165,22 @@
                     isMediaLoading: true,
 
                     media: {
-                        images: @json(product_image()->getGalleryImages($product)),
+                        images: @json($product->type === 'bundle' ? $bundleChildImages : product_image()->getGalleryImages($product)),
 
                         videos: @json(product_video()->getVideos($product)),
                     },
 
+                    // Keep original images for bundle thumbnails
+                    bundleImages: @json($product->type === 'bundle' ? $bundleChildImages : []),
+
                     baseFile: {
                         type: '',
 
-                        path: ''
+                        path: '',
+
+                        productFormat: null,
+
+                        productName: null
                     },
 
                     activeIndex: 0,
@@ -188,13 +208,27 @@
 
                     this.baseFile.type = 'image';
 
-                    this.baseFile.path = this.media.images[0].large_image_url;
+                    this.baseFile.path = this.media.images[0].original_image_url || this.media.images[0].large_image_url;
+                    this.baseFile.productFormat = this.media.images[0].product_format || null;
+                    this.baseFile.productName = this.media.images[0].product_name || null;
                 } else if (this.media.videos.length) {
 
                     this.baseFile.type = 'video';
 
                     this.baseFile.path = this.media.videos[0].video_url;
                 }
+
+                // Listen for bundle product selection
+                this.$emitter.on('bundle-product-selected', (event) => {
+                    if (event.images && event.images.length > 0) {
+                        // Only update the main image, keep thumbnails unchanged
+                        this.activeIndex = 0;
+                        this.baseFile.type = 'image';
+                        this.baseFile.path = event.images[0].original_image_url || event.images[0].large_image_url;
+                        this.baseFile.productFormat = event.images[0].product_format || null;
+                        this.baseFile.productName = event.images[0].product_name || null;
+                    }
+                });
             },
 
             computed: {
@@ -230,11 +264,21 @@
 
                         this.baseFile.path = media.video_url;
 
+                        this.baseFile.productFormat = null;
+
+                        this.baseFile.productName = null;
+
                         this.onMediaLoad();
                     } else {
                         this.baseFile.type = 'image';
 
-                        this.baseFile.path = media.large_image_url;
+                        // Use original image for best quality, fallback to large if not available
+                        this.baseFile.path = media.original_image_url || media.large_image_url;
+
+                        // Set bundle product metadata if available
+                        this.baseFile.productFormat = media.product_format || null;
+
+                        this.baseFile.productName = media.product_name || null;
                     }
 
                     if (index > this.activeIndex) {

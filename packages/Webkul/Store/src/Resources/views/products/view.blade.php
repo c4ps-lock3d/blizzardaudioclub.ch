@@ -9,6 +9,9 @@
     $customAttributeValues = $productViewHelper->getAdditionalData($product);
 
     $attributeData = collect($customAttributeValues)->filter(fn ($item) => ! empty($item['value']));
+
+    // Get bundle child images if product is bundle type
+    $bundleChildImages = $product->type === 'bundle' ? app('Webkul\Product\Helpers\BundleOption')->getBundleChildImages($product) : [];
 @endphp
 
 <!-- SEO Meta Content -->
@@ -138,23 +141,9 @@
                         </x-shop::tabs.item>
                     @endif
                 @endforeach
-               
-                
-
-                <!-- Reviews Tab -->
-                <!-- <x-shop::tabs.item
-                    id="review-tab"
-                    class="container mt-[60px] !p-0"
-                    :title="trans('shop::app.products.view.review')"
-                    :is-selected="false"
-                > -->
-                {{-- @include('shop::products.view.reviews') --}}
-                <!-- </x-shop::tabs.item> -->
             </x-shop::tabs>
         </div>
     </div>
-
-
 
     <!-- Information Section -->
     <div class="container mt-6 grid gap-3 !p-0 max-1180:px-5 1180:hidden">
@@ -300,7 +289,7 @@
                             @include('shop::products.view.gallery')
 
                             <!-- Details -->
-                            <div class="relative max-w-[590px] max-1180:w-full max-1180:max-w-full max-1180:px-5 max-sm:px-4">
+                            <div class="relative flex-1 max-1180:w-full max-1180:px-5 max-sm:px-4">
                                 {!! view_render_event('bagisto.shop.products.name.before', ['product' => $product]) !!}
 
                                 <div class="flex justify-between gap-4">
@@ -349,9 +338,9 @@
                                 <!-- Pricing -->
                                 {!! view_render_event('bagisto.shop.products.price.before', ['product' => $product]) !!}
 
-                                <p class="mt-[22px] flex items-center gap-2.5 text-2xl !font-medium max-sm:mt-2 max-sm:gap-x-2.5 max-sm:gap-y-0 max-sm:text-lg">
+                                <!--<p class="mt-[22px] flex items-center gap-2.5 text-2xl !font-medium max-sm:mt-2 max-sm:gap-x-2.5 max-sm:gap-y-0 max-sm:text-lg">
                                     {!! $product->getTypeInstance()->getPriceHtml() !!}
-                                </p>
+                                </p>-->
 
                                 <!-- @if (\Webkul\Tax\Facades\Tax::isInclusiveTaxProductPrices())
                                     <span class="text-sm font-normal text-zinc-500 max-sm:text-xs">
@@ -426,7 +415,7 @@
 
                                     {!! view_render_event('bagisto.shop.products.view.quantity.before', ['product' => $product]) !!}
 
-                                    @if ($product->getTypeInstance()->showQuantityBox())
+                                    @if ($product->getTypeInstance()->showQuantityBox() && $product->type !== 'bundle')
                                         <x-shop::quantity-changer
                                             name="quantity"
                                             value="1"

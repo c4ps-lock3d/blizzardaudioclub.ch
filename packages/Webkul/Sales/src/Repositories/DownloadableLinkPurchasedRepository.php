@@ -30,31 +30,55 @@ class DownloadableLinkPurchasedRepository extends Repository
 
     /**
      * @param  \Webkul\Sales\Contracts\OrderItem  $orderItem
+     * @param  string  $status
      * @return void
      */
-    public function saveLinks($orderItem)
+    public function saveLinks($orderItem, $status = 'available')
     {
-        if (! $this->isValidDownloadableProduct($orderItem)) {
-            return;
-        }
+        try {
+            $isDownloadable = stristr($orderItem->type, 'downloadable') !== false;
 
-        foreach ($orderItem->additional['links'] as $linkId) {
-            if (! $productDownloadableLink = $this->productDownloadableLinkRepository->find($linkId)) {
-                continue;
+            // Handle direct downloadable products
+            if ($isDownloadable) {
+                // Get links either from additional (for parent downloadables) or from the product (for bundle children)
+                $links = $orderItem->additional['links'] ?? [];
+
+                // If no links in additional, get them from the product itself (for bundle children)
+                if (empty($links) && $orderItem->product) {
+                    $links = $orderItem->product->downloadable_links->pluck('id')->toArray();
+                }
+
+                foreach ($links as $linkId) {
+                    if (! $productDownloadableLink = $this->productDownloadableLinkRepository->find($linkId)) {
+                        continue;
+                    }
+
+                    $this->create([
+                        'name'            => $productDownloadableLink->title,
+                        'product_name'    => $orderItem->name,
+                        'url'             => $productDownloadableLink->url,
+                        'file'            => $productDownloadableLink->file,
+                        'file_name'       => $productDownloadableLink->file_name,
+                        'type'            => $productDownloadableLink->type,
+                        'download_bought' => $productDownloadableLink->downloads * $orderItem->qty_ordered,
+                        'status'          => $status,
+                        'customer_id'     => $orderItem->order->customer_id,
+                        'order_id'        => $orderItem->order_id,
+                        'order_item_id'   => $orderItem->id,
+                    ]);
+                }
             }
 
-            $this->create([
-                'name'            => $productDownloadableLink->title,
-                'product_name'    => $orderItem->name,
-                'url'             => $productDownloadableLink->url,
-                'file'            => $productDownloadableLink->file,
-                'file_name'       => $productDownloadableLink->file_name,
-                'type'            => $productDownloadableLink->type,
-                'download_bought' => $productDownloadableLink->downloads * $orderItem->qty_ordered,
-                'status'          => 'pending',
-                'customer_id'     => $orderItem->order->customer_id,
-                'order_id'        => $orderItem->order_id,
-                'order_item_id'   => $orderItem->id,
+            // Handle downloadable children items (from bundle products)
+            if ($orderItem->children) {
+                foreach ($orderItem->children as $childItem) {
+                    $this->saveLinks($childItem, $status);
+                }
+            }
+        } catch (\Exception $e) {
+            \Log::error('DownloadableLinkPurchasedRepository::saveLinks ERROR', [
+                'orderItem_id' => $orderItem->id,
+                'message' => $e->getMessage(),
             ]);
         }
     }

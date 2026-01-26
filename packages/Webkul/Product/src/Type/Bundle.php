@@ -149,6 +149,51 @@ class Bundle extends AbstractType
     }
 
     /**
+     * Check if the bundle is stockable.
+     * A bundle is only stockable if at least one child product is stockable.
+     * If all children are non-stockable (downloadable, virtual), the bundle is not stockable.
+     *
+     * @return bool
+     */
+    public function isStockable(): bool
+    {
+        if (!$this->product || !$this->product->id) {
+            return parent::isStockable();
+        }
+
+        try {
+            // Get all bundle options (including all available products)
+            $bundleOptions = $this->productBundleOptionRepository->findWhere([
+                'product_id' => $this->product->id,
+            ]);
+
+            if (empty($bundleOptions) || !is_array($bundleOptions) && !is_countable($bundleOptions)) {
+                return parent::isStockable();
+            }
+
+            $nonStockableTypes = ['downloadable', 'virtual'];
+
+            foreach ($bundleOptions as $option) {
+                $optionProducts = $option->products;
+
+                if (empty($optionProducts)) {
+                    continue;
+                }
+
+                foreach ($optionProducts as $product) {
+                    if (!in_array($product->type, $nonStockableTypes)) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        } catch (\Exception $e) {
+            return parent::isStockable();
+        }
+    }
+
+    /**
      * Check if catalog rule can be applied.
      *
      * @return bool
