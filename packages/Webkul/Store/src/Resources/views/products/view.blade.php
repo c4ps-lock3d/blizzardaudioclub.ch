@@ -12,6 +12,25 @@
 
     // Get bundle child images if product is bundle type
     $bundleChildImages = $product->type === 'bundle' ? app('Webkul\Product\Helpers\BundleOption')->getBundleChildImages($product) : [];
+
+    // Check if product or any bundle child is on preorder
+    $isPreorder = $product->preorder;
+    if ($product->type === 'bundle' && !$isPreorder) {
+        $bundleConfig = app('Webkul\Product\Helpers\BundleOption')->getBundleConfig($product);
+        if (!empty($bundleConfig['options'])) {
+            foreach ($bundleConfig['options'] as $option) {
+                if (!empty($option['products'])) {
+                    foreach ($option['products'] as $childProduct) {
+                        // Check if child product has preorder attribute
+                        if (!empty($childProduct['preorder']) || (!empty($childProduct['product_id']) && \Webkul\Product\Models\Product::find($childProduct['product_id'])?->preorder)) {
+                            $isPreorder = true;
+                            break 2;
+                        }
+                    }
+                }
+            }
+        }
+    }
 @endphp
 
 <!-- SEO Meta Content -->
@@ -391,7 +410,7 @@
                                 <p class="mt-2 text-md text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
                                     Date de sortie : {!! date("d.m.Y", strtotime($product->release_date)) !!}
                                 </p>
-                                    @if ($product->preorder)
+                                    @if ($isPreorder)
                                         <p class="mt-6 text-justify text-md p-3 !border-black rounded-lg !text-white bg-[#343A40]">
                                             Il s'agit d'un produit en précommande. Dès qu'il sera disponible en stock, votre commande sera expédiée.
                                             <!--{!! (strtotime($product->release_date) - strtotime(date("Y-m-d")))/86400 !!} jours restants avant la sortie.-->
@@ -426,7 +445,7 @@
                                     {!! view_render_event('bagisto.shop.products.view.quantity.after', ['product' => $product]) !!}
 
                                     @if (core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
-                                        @if ($product->preorder)
+                                        @if ($isPreorder)
                                             <!-- Add To Cart Button -->
                                             {!! view_render_event('bagisto.shop.products.view.add_to_cart.before', ['product' => $product]) !!}
                                             <x-shop::button
