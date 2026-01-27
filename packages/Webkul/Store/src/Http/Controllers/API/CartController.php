@@ -47,11 +47,15 @@ class CartController extends APIController
      */
     public function store()
     {
+        \Log::info('CartController.store() called');
+        
         $this->validate(request(), [
             'product_id' => 'required|integer|exists:products,id',
         ]);
 
         $product = $this->productRepository->with('parent')->findOrFail(request()->input('product_id'));
+        
+        \Log::info('CartController.store() product: ' . $product->name . ' (ID: ' . $product->id . ')');
 
         try {
             if (! $product->status) {

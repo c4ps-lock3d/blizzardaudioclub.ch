@@ -74,16 +74,28 @@
 
 			{{ view_render_event('bagisto.shop.checkout.success.continue-shopping.before', ['order' => $order]) }}
 
-			@foreach ($order->items as $item)
-				@if ($item->type === 'downloadable')
-					<a href="{{ route('shop.customers.account.downloadable_products.index') }}">
-						<div class="m-auto mx-auto block w-max cursor-pointer rounded-2xl bg-[#FADA00] px-11 py-3 text-center text-base font-medium text-black max-md:rounded-lg max-md:px-6 max-md:py-1.5">
-							Aller à la page de téléchargement du produit
-						</div> 
-					</a>
-					@break
-				@endif
-			@endforeach
+			@php
+				$hasDownloadable = false;
+				foreach ($order->items as $item) {
+					if ($item->type === 'downloadable') {
+						$hasDownloadable = true;
+						break;
+					}
+					// Vérifier aussi les enfants du bundle
+					if ($item->children && $item->children->contains(fn($child) => $child->type === 'downloadable')) {
+						$hasDownloadable = true;
+						break;
+					}
+				}
+			@endphp
+
+			@if ($hasDownloadable)
+				<a href="{{ route('shop.customers.account.downloadable_products.index') }}">
+					<div class="m-auto mx-auto block w-max cursor-pointer rounded-2xl bg-[#FADA00] px-11 py-3 text-center text-base font-medium text-black max-md:rounded-lg max-md:px-6 max-md:py-1.5">
+						Aller au téléchargement
+					</div> 
+				</a>
+			@endif
 
 			<a href="{{ route('shop.home.index') }}">
 				<div class="m-auto mx-auto block w-max cursor-pointer rounded-2xl bg-[#FADA00] px-11 py-3 text-center text-base font-medium text-black max-md:rounded-lg max-md:px-6 max-md:py-1.5">
