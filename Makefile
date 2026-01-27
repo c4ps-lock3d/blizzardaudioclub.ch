@@ -20,8 +20,8 @@ install: vendor/autoload.php .env public/storage
 public/storage:
 	php artisan storage:link
 
-vendor/autoload.php: composer.lock
-	# /opt/php8.2/bin/composer install
-	# /opt/php8.2/bin/composer dump-autoload
-	# /opt/php8.2/bin/composer update
-	# touch vendor/autoload.php
+vendor/autoload.php: composer.json
+	/opt/php8.2/bin/composer install
+	/opt/php8.2/bin/composer dump-autoload
+	/opt/php8.2/bin/composer update
+	touch vendor/autoload.php
