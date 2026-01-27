@@ -20,7 +20,7 @@ install: vendor/autoload.php .env public/storage
 public/storage:
 	php artisan storage:link
 
-vendor/autoload.php: composer.json
+vendor/autoload.php:
 	/opt/php8.2/bin/composer install
 	/opt/php8.2/bin/composer dump-autoload
 	/opt/php8.2/bin/composer update
