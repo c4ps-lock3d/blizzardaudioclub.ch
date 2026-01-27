@@ -21,10 +21,17 @@
             foreach ($bundleConfig['options'] as $option) {
                 if (!empty($option['products'])) {
                     foreach ($option['products'] as $childProduct) {
-                        // Check if child product has preorder attribute
-                        if (!empty($childProduct['preorder']) || (!empty($childProduct['product_id']) && \Webkul\Product\Models\Product::find($childProduct['product_id'])?->preorder)) {
-                            $isPreorder = true;
-                            break 2;
+                        // Check if child product (especially simple/vinyle type) has preorder attribute
+                        if (!empty($childProduct['product_id'])) {
+                            $childProductModel = \Webkul\Product\Models\Product::find($childProduct['product_id']);
+                            if ($childProductModel && $childProductModel->type === 'simple') {
+                                // For simple products, check the preorder attribute directly
+                                $preorderAttr = $childProductModel->getAttribute('preorder');
+                                if ($preorderAttr || !empty($childProduct['preorder'])) {
+                                    $isPreorder = true;
+                                    break 2;
+                                }
+                            }
                         }
                     }
                 }
