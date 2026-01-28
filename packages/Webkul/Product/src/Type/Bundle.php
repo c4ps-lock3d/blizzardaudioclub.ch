@@ -6,6 +6,7 @@ use Webkul\Attribute\Repositories\AttributeRepository;
 use Webkul\Checkout\Models\CartItem;
 use Webkul\Customer\Repositories\CustomerRepository;
 use Webkul\Product\DataTypes\CartItemValidationResult;
+use Webkul\Product\Facades\ProductImage;
 use Webkul\Product\Helpers\BundleOption;
 use Webkul\Product\Helpers\Indexers\Price\Bundle as BundleIndexer;
 use Webkul\Product\Repositories\ProductAttributeValueRepository;
@@ -604,5 +605,33 @@ class Bundle extends AbstractType
     public function getPriceIndexer()
     {
         return app(BundleIndexer::class);
+    }
+
+    /**
+     * Get product base image.
+     *
+     * For bundle products, we need to get the image from one of the bundle children
+     * since the bundle itself doesn't have images. We prioritize downloadable products,
+     * then simple products.
+     *
+     * @param  \Webkul\Checkout\Contracts\CartItem  $item
+     * @return array
+     */
+    public function getBaseImage($item)
+    {
+        $product = $item->product;
+
+        // For bundle products, try to get the image from the first child product
+        if (count($item->children)) {
+            // Look for the first child that has images
+            foreach ($item->children as $child) {
+                if ($child->product && count($child->product->images)) {
+                    $product = $child->product;
+                    break;
+                }
+            }
+        }
+
+        return ProductImage::getProductBaseImage($product);
     }
 }
