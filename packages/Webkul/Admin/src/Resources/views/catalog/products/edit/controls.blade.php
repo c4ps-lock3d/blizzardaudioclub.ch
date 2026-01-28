@@ -90,6 +90,12 @@
                 }
             @endphp
 
+            @if ($attribute->code === 'format')
+                <option value="">
+                    @lang('admin::app.catalog.attributes.edit.select-options')
+                </option>
+            @endif
+
             @foreach ($options as $option)
                 <option
                     value="{{ $option->id }}"
