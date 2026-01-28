@@ -64,6 +64,7 @@ class ProductController extends APIController
             ->getModel()
             ->where('type', '<>', 'downloadable')
             ->where('type', '<>', 'configurable')
+            ->where('type', '<>', 'bundle')
             ->paginate($perPage);
         return ProductResource::collection($products);
     }

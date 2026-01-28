@@ -46,6 +46,10 @@ class ProductDataGrid extends DataGrid
                 $leftJoin->on('pc.category_id', '=', 'ct.category_id')
                     ->where('ct.locale', app()->getLocale());
             })
+            ->leftJoin('product_attribute_values as pav', function ($join) {
+                $join->on('product_flat.product_id', '=', 'pav.product_id')
+                    ->on('pav.attribute_id', '=', DB::raw('(SELECT id FROM attributes WHERE code = "preorder" LIMIT 1)'));
+            })
             ->select(
                 'product_flat.locale',
                 'product_flat.channel',
@@ -60,6 +64,7 @@ class ProductDataGrid extends DataGrid
                 'product_flat.price',
                 'product_flat.url_key',
                 'product_flat.visible_individually',
+                DB::raw('CASE WHEN pav.boolean_value = 1 THEN 1 ELSE 0 END as preorder'),
                 'af.name as attribute_family',
             )
             ->addSelect(DB::raw('SUM(DISTINCT '.$tablePrefix.'product_inventories.qty) as quantity'))
@@ -183,6 +188,13 @@ class ProductDataGrid extends DataGrid
                 ->values()
                 ->toArray(),
             'sortable'   => true,
+        ]);
+
+        $this->addColumn([
+            'index'      => 'preorder',
+            'label'      => trans('admin::app.catalog.products.index.datagrid.preorder'),
+            'type'       => 'boolean',
+            'visibility' => false,
         ]);
     }
 
