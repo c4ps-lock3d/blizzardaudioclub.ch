@@ -43,6 +43,32 @@ class Order extends Base
                 return;
             }
 
+            // Récupérer le produit téléchargeable
+            $downloadableProduct = \Webkul\Product\Models\Product::find(96);
+            
+            // CONDITION 1: Vérifier que le téléchargeable est activé
+            if (! $downloadableProduct || ! $downloadableProduct->status) {
+                \Log::info('Order ' . $order->id . ': Produit téléchargeable désactivé ou non trouvé');
+                return;
+            }
+
+            // CONDITION 3: Vérifier que le téléchargeable contient au moins un fichier
+            $linkIds = $downloadableProduct->downloadable_links->pluck('id')->toArray();
+            if (empty($linkIds)) {
+                \Log::info('Order ' . $order->id . ': Produit téléchargeable ne contient pas de fichiers');
+                return;
+            }
+
+            // CONDITION 2: Vérifier que le produit simple (vinyle) n'est pas en précommande
+            $simpleItem = $bundleItem->children->firstWhere('product_id', 93);
+            if ($simpleItem) {
+                $simpleProduct = \Webkul\Product\Models\Product::find(93);
+                if ($simpleProduct && $simpleProduct->preorder) {
+                    \Log::info('Order ' . $order->id . ': Produit simple (vinyle) est en précommande, pas d\'ajout du téléchargeable');
+                    return;
+                }
+            }
+
             // Vérifier que le téléchargeable n'est pas déjà dans les enfants du bundle
             $downloadableChild = $bundleItem->children->firstWhere('product_id', 96);
             
@@ -53,19 +79,8 @@ class Order extends Base
 
             \Log::info('Order ' . $order->id . ': Ajout du téléchargeable gratuit pour le bundle');
 
-            // Récupérer le produit téléchargeable
-            $downloadableProduct = \Webkul\Product\Models\Product::find(96);
-            
-            if (! $downloadableProduct) {
-                \Log::error('Order ' . $order->id . ': Produit téléchargeable (ID 96) non trouvé');
-                return;
-            }
-
             // Récupérer le produit bundle parent
             $bundleProduct = \Webkul\Product\Models\Product::find(343);
-            
-            // Récupérer les IDs des liens téléchargeables
-            $linkIds = $downloadableProduct->downloadable_links->pluck('id')->toArray();
             
             // Préparer les données du produit pour la commande
             $orderItemData = [
@@ -75,7 +90,6 @@ class Order extends Base
                 'type' => 'downloadable',
                 'sku' => $downloadableProduct->sku,
                 'name' => $downloadableProduct->name,
-                'description' => $downloadableProduct->description,
                 'quantity' => 1,
                 'price' => 0,
                 'base_price' => 0,
@@ -98,38 +112,6 @@ class Order extends Base
             // Créer les liens de téléchargement
             $downloadableLinkPurchasedRepo = app(\Webkul\Sales\Repositories\DownloadableLinkPurchasedRepository::class);
             $downloadableLinkPurchasedRepo->saveLinks($orderItem, 'available');
-
-            // Mettre à jour les noms des fichiers téléchargés avec le slug du bundle parent
-            $bundleSlug = $bundleProduct->url_key;
-            $downloadedLinks = \Webkul\Sales\Models\DownloadableLinkPurchased::where('order_item_id', $orderItem->id)->get();
-            
-            foreach ($downloadedLinks as $downloadedLink) {
-                // Récupérer le chemin complet du fichier
-                $oldPath = storage_path('app/private/' . $downloadedLink->file);
-                
-                if (file_exists($oldPath)) {
-                    // Créer le nouveau nom du fichier
-                    $fileExtension = pathinfo($oldPath, PATHINFO_EXTENSION);
-                    $newFileName = $bundleSlug . '.' . $fileExtension;
-                    
-                    // Créer le nouveau chemin (même répertoire)
-                    $directory = dirname($oldPath);
-                    $newPath = $directory . '/' . $newFileName;
-                    
-                    // Renommer le fichier
-                    if (rename($oldPath, $newPath)) {
-                        // Mettre à jour le chemin dans la base de données
-                        $relativePath = 'product_downloadable_links/' . $downloadableProduct->id . '/' . $newFileName;
-                        
-                        $downloadedLink->update([
-                            'file' => $relativePath,
-                            'file_name' => $newFileName,
-                        ]);
-                        
-                        \Log::info('Order ' . $order->id . ': Fichier téléchargé renommé en: ' . $newFileName);
-                    }
-                }
-            }
 
             \Log::info('Order ' . $order->id . ': Téléchargeable gratuit ajouté avec succès');
 

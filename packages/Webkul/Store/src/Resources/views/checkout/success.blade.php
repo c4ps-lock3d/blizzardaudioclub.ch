@@ -68,26 +68,37 @@
 				@if (! empty($order->checkout_message))
 					{!! nl2br($order->checkout_message) !!}
 				@else
-					Nous vous enverrons par e-mail une confirmation et la facture de votre commande. Si vous avez acheté un produit téléchargeable, celui ci est disponible dans votre profil utilisateur dans la section "Téléchargements".
+					@php
+						$hasDownloadable = false;
+						
+						foreach ($order->items as $item) {
+							// Vérifier les téléchargeables directs
+							if ($item->type === 'downloadable') {
+								$hasDownloadable = true;
+								break;
+							}
+							
+							// Vérifier aussi les enfants du bundle
+							if ($item->children) {
+								foreach ($item->children as $child) {
+									if ($child->type === 'downloadable') {
+										$hasDownloadable = true;
+										break 2;
+									}
+								}
+							}
+						}
+					@endphp
+
+					@if ($hasDownloadable)
+						Nous vous enverrons par e-mail une confirmation et la facture de votre commande. Votre produit téléchargeable est disponible dans votre profil utilisateur dans la section "Téléchargements".
+					@else
+						Nous vous enverrons par e-mail une confirmation et la facture de votre commande.
+					@endif
 				@endif
 			</p>
 
 			{{ view_render_event('bagisto.shop.checkout.success.continue-shopping.before', ['order' => $order]) }}
-
-			@php
-				$hasDownloadable = false;
-				foreach ($order->items as $item) {
-					if ($item->type === 'downloadable') {
-						$hasDownloadable = true;
-						break;
-					}
-					// Vérifier aussi les enfants du bundle
-					if ($item->children && $item->children->contains(fn($child) => $child->type === 'downloadable')) {
-						$hasDownloadable = true;
-						break;
-					}
-				}
-			@endphp
 
 			@if ($hasDownloadable)
 				<a href="{{ route('shop.customers.account.downloadable_products.index') }}">
