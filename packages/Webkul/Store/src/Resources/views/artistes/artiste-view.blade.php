@@ -116,6 +116,25 @@
         {!! Captcha::renderJS() !!}
         <script>document.body.style.overflow ='scroll';</script>
         <script>
+            function loadSpotifyPlayer() {
+                const container = document.getElementById('embed-iframe');
+                if (!container) return;
+                
+                const spotifyToken = container.getAttribute('data-spotify-token');
+                if (!spotifyToken) return;
+                
+                const iframe = document.createElement('iframe');
+                iframe.style.borderRadius = '12px';
+                iframe.src = `https://open.spotify.com/embed/artist/${spotifyToken}?utm_source=generator`;
+                iframe.width = '100%';
+                iframe.height = '352';
+                iframe.frameBorder = '0';
+                iframe.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+                iframe.loading = 'lazy';
+                
+                container.appendChild(iframe);
+            }
+
             function loadYoutubeVideos() {
                 const containers = document.querySelectorAll('[data-youtube-token]');
                 containers.forEach(container => {
@@ -136,7 +155,10 @@
             // Attendre que la page soit COMPLÈTEMENT chargée, puis ajouter un délai pour laisser Vue finir
             window.addEventListener('load', function() {
                 // Ajouter 500ms de délai pour s'assurer que Vue a fini
-                setTimeout(loadYoutubeVideos, 500);
+                setTimeout(() => {
+                    loadSpotifyPlayer();
+                    loadYoutubeVideos();
+                }, 500);
             });
         </script>
     @endpush
