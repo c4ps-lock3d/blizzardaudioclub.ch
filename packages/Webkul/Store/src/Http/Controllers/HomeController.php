@@ -88,13 +88,16 @@ class HomeController extends Controller
             return to_route('store.artistes.artiste-view', ['slug' => $artistes->slug, 'id' => $artistes->id]);
         }
         
+        // Récupérer les produits triés par date décroissante (plus récents en premier)
+        $artisteProducts = $artistes->products()->orderBy('created_at', 'desc')->get();
+        
         // Transformer les produits avec la ProductResource
-        $productsData = ProductResource::collection($artistes->products)->resolve();
+        $productsData = ProductResource::collection($artisteProducts)->resolve();
         
         return view('store::artistes.artiste-view',[
             'artistes' => $artistes,
             'products' => $productsData,
-            'count_products' => $artistes->products()->count(),
+            'count_products' => $artisteProducts->count(),
         ]);
     }
 
