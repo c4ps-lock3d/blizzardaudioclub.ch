@@ -131,7 +131,12 @@ class BundleOption
         $products = [];
 
         foreach ($option->bundle_option_products as $index => $bundleOptionProduct) {
-            if (! $bundleOptionProduct->product->getTypeInstance()->isSaleable()) {
+            // For simple products in bundles, always include them as they are options
+            // For other types, skip if not saleable
+            $isSimple = $bundleOptionProduct->product->type === 'simple';
+            $isSaleable = $bundleOptionProduct->product->getTypeInstance()->isSaleable();
+            
+            if (!$isSimple && !$isSaleable) {
                 continue;
             }
 
@@ -199,7 +204,12 @@ class BundleOption
 
         foreach ($this->product->bundle_options as $option) {
             foreach ($option->bundle_option_products as $bundleOptionProduct) {
-                if (! $bundleOptionProduct->product->getTypeInstance()->isSaleable()) {
+                // For simple products in bundles, always include them as they are options
+                // For other types, skip if not saleable
+                $isSimple = $bundleOptionProduct->product->type === 'simple';
+                $isSaleable = $bundleOptionProduct->product->getTypeInstance()->isSaleable();
+                
+                if (!$isSimple && !$isSaleable) {
                     continue;
                 }
 

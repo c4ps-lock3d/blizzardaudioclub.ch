@@ -295,7 +295,12 @@ class Bundle extends AbstractType
                 return trans('product::app.checkout.cart.inventory-warning');
             }
 
-            if (! $product->getTypeInstance()->isSaleable()) {
+            // Simple products in bundles are configuration options, not standalone products
+            // They should always be included regardless of saleable status
+            $isSimple = $product->type === 'simple';
+            $isSaleable = $product->getTypeInstance()->isSaleable();
+            
+            if (!$isSimple && !$isSaleable) {
                 continue;
             }
 
@@ -351,7 +356,12 @@ class Bundle extends AbstractType
                     'product_bundle_option_id' => $optionId,
                 ]);
 
-                if (! $optionProduct?->product->getTypeInstance()->isSaleable()) {
+                // Simple products in bundles are configuration options, not standalone products
+                // They should always be included regardless of saleable status
+                $isSimple = $optionProduct?->product->type === 'simple';
+                $isSaleable = $optionProduct?->product->getTypeInstance()->isSaleable();
+                
+                if (!$isSimple && !$isSaleable) {
                     continue;
                 }
 
