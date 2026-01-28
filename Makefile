@@ -10,8 +10,8 @@ install: vendor/autoload.php .env public/storage
 	# php artisan vendor:publish --provider="Webkul\ZInventaire\Providers\ZInventaireServiceProvider" --force
 	# php artisan migrate
 	/opt/php8.2/bin/php artisan vendor:publish --provider="Webkul\Store\Providers\StoreServiceProvider" --force
-	/opt/php8.2/bin/php artisan cache:clear
-	/opt/php8.2/bin/php artisan config:cache
+	/opt/php8.2/bin/php artisan optimize:clear
+	/opt/php8.2/bin/php artisan optimize
 
 .env:
 	cp .env.example
