@@ -51,6 +51,12 @@ class ProductResource extends JsonResource
             $bundleFormatPrices = $this->getBundleFormatPrices();
         }
 
+        // Get bundle options with products for preorder detection
+        $bundleOptions = null;
+        if ($this->type === 'bundle') {
+            $bundleOptions = $this->getBundleOptions();
+        }
+
         return [
             'id'          => $this->id,
             'sku'         => $this->sku,
@@ -66,6 +72,7 @@ class ProductResource extends JsonResource
             'images'      => product_image()->getGalleryImages($this),
             'is_new'      => (bool) $this->new,
             'is_featured' => (bool) $this->featured,
+            'preorder'    => (bool) $this->preorder,
             'on_sale'     => (bool) $productTypeInstance->haveDiscount(),
             'is_saleable' => (bool) $productTypeInstance->isSaleable(),
             'is_wishlist' => (bool) auth()->guard()->user()?->wishlist_items
@@ -80,6 +87,7 @@ class ProductResource extends JsonResource
             ],
             'bundle_downloadable_image' => $bundleDownloadableImage,
             'bundle_format_prices'      => $bundleFormatPrices,
+            'bundle_options'            => $bundleOptions,
         ];
     }
 
@@ -112,4 +120,39 @@ class ProductResource extends JsonResource
         
         return !empty($formatPrices) ? $formatPrices : null;
     }
+
+    /**
+     * Get bundle options with child products for preorder detection
+     */
+    private function getBundleOptions()
+    {
+        $options = [];
+        
+        $bundleOptions = $this->bundle_options()->with('bundle_option_products.product')->get();
+        
+        foreach ($bundleOptions as $option) {
+            $products = [];
+            
+            foreach ($option->bundle_option_products as $optionProduct) {
+                $product = $optionProduct->product;
+                
+                if (!$product) continue;
+                
+                $products[] = [
+                    'id' => $product->id,
+                    'type' => $product->type,
+                    'preorder' => (bool) $product->preorder,
+                ];
+            }
+            
+            $options[] = [
+                'id' => $option->id,
+                'products' => $products,
+            ];
+        }
+        
+        return !empty($options) ? $options : null;
+    }
 }
+
+
