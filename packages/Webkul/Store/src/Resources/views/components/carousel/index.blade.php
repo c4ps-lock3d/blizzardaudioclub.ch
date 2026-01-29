@@ -2,7 +2,7 @@
 
 <v-carousel :images="{{ json_encode($options['images'] ?? []) }}">
     <div class="overflow-hidden">
-        <div class="shimmer aspect-[2.743/1] max-h-screen w-screen"></div>
+        <div class="shimmer aspect-[3.1/1] max-h-screen w-screen"></div>
     </div>
 </v-carousel>
 
