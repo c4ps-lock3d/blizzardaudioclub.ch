@@ -35,13 +35,15 @@ class ProductResource extends JsonResource
 
         // Get downloadable child image for bundle products only if bundle has no image
         $bundleDownloadableImage = null;
+        $bundleSimpleImage = null;
         if ($this->type === 'bundle') {
             // Check if bundle actually has images
             $hasImages = $this->images()->count() > 0;
             
-            // Only get downloadable image if the bundle doesn't have any images
+            // Only get child images if the bundle doesn't have any images
             if (!$hasImages) {
                 $bundleDownloadableImage = app('Webkul\Product\Helpers\BundleOption')->getBundleDownloadableImage($this);
+                $bundleSimpleImage = app('Webkul\Product\Helpers\BundleOption')->getBundleSimpleImage($this);
             }
         }
 
@@ -86,6 +88,7 @@ class ProductResource extends JsonResource
                 'total'   => $this->reviewHelper->getTotalRating($this),
             ],
             'bundle_downloadable_image' => $bundleDownloadableImage,
+            'bundle_simple_image'       => $bundleSimpleImage,
             'bundle_format_prices'      => $bundleFormatPrices,
             'bundle_options'            => $bundleOptions,
         ];

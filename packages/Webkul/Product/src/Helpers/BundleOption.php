@@ -67,6 +67,46 @@ class BundleOption
     }
 
     /**
+     * Get the image from simple child product (vinyl/physical product)
+     *
+     * @param  \Webkul\Product\Contracts\Product  $product
+     * @return array|null
+     */
+    public function getBundleSimpleImage($product)
+    {
+        $this->product = $product;
+
+        try {
+            // eager load images for bundle products if not already loaded
+            if (! $this->product->relationLoaded('bundle_options')) {
+                $this->product->load('bundle_options.bundle_option_products.product.images');
+            } else {
+                $this->product->bundle_options->load('bundle_option_products.product.images');
+            }
+
+            // Find simple product and return its image
+            foreach ($this->product->bundle_options as $option) {
+                foreach ($option->bundle_option_products as $bundleOptionProduct) {
+                    if ($bundleOptionProduct->product->type === 'simple' && $bundleOptionProduct->product->images->count() > 0) {
+                        $image = $bundleOptionProduct->product->images->first();
+                        return [
+                            'original_image_url' => $image->url,
+                            'large_image_url'    => product_image()->getProductBaseImage($bundleOptionProduct->product)['large_image_url'] ?? $image->url,
+                            'medium_image_url'   => product_image()->getProductBaseImage($bundleOptionProduct->product)['medium_image_url'] ?? $image->url,
+                            'small_image_url'    => product_image()->getProductBaseImage($bundleOptionProduct->product)['small_image_url'] ?? $image->url,
+                        ];
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            // If any error occurs, return null and fall back to product base image
+            return null;
+        }
+
+        return null;
+    }
+
+    /**
      * Returns bundle options
      *
      * @return array
