@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 use Intervention\Image\Filters\FilterInterface;
 use Intervention\Image\Image;
 
-class Large implements FilterInterface
+class ExtraSmall implements FilterInterface
 {
     /**
      * Apply filter.
@@ -19,24 +19,24 @@ class Large implements FilterInterface
          * If the current url is product image
          */
         if (Str::contains(url()->current(), '/product')) {
-            $width = core()->getConfigData('catalog.products.cache_large_image.width') != ''
-                ? core()->getConfigData('catalog.products.cache_large_image.width')
-                : 560;
+            $width = core()->getConfigData('catalog.products.cache_small_image.width')
+                ? core()->getConfigData('catalog.products.cache_small_image.width')
+                : 100;
 
-            $height = core()->getConfigData('catalog.products.cache_large_image.height') != ''
-                ? core()->getConfigData('catalog.products.cache_large_image.height')
-                : 560;
+            $height = core()->getConfigData('catalog.products.cache_small_image.height')
+                ? core()->getConfigData('catalog.products.cache_small_image.height')
+                : 100;
 
             return $image->fit($width, $height);
         } elseif (Str::contains(url()->current(), '/category')) {
-            return $image->fit(165, 165);
+            return $image->fit(80, 80);
         } elseif (Str::contains(url()->current(), '/attribute_option')) {
-            return $image->fit(330, 330);
+            return $image->fit(60, 60);
         }
 
         /**
-         * Slider image dimensions
+         * Slider image dimensions (extra small for mobile < 525px)
          */
-        return $image->fit(1280, 387);
+        return $image->fit(384, 116);
     }
 }

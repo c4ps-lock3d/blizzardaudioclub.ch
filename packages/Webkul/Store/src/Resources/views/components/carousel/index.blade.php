@@ -2,7 +2,7 @@
 
 <v-carousel :images="{{ json_encode($options['images'] ?? []) }}">
     <div class="overflow-hidden">
-        <div class="shimmer aspect-[3.1/1] max-h-screen w-screen"></div>
+        <div class="shimmer aspect-[3.31/1] max-h-screen w-screen"></div>
     </div>
 </v-carousel>
 
@@ -24,11 +24,21 @@
                     ref="slide"
                 >
                     <x-shop::media.images.lazy
-                        class="aspect-[3.1/1] max-h-full w-full max-w-full select-none transition-transform duration-300 ease-in-out"
-                        ::lazy="false"
+                        class="aspect-[3.31/1] max-h-full w-full max-w-full select-none transition-transform duration-300 ease-in-out object-cover object-center will-change-transform"
+                        ::lazy="index === 0 ? false : true"
                         ::src="image.image"
-                        ::srcset="image.image + ' 1920w, ' + image.image.replace('storage', 'cache/large') + ' 1280w,' + image.image.replace('storage', 'cache/medium') + ' 1024w, ' + image.image.replace('storage', 'cache/small') + ' 525w'"
-                        ::alt="image?.title"
+                        ::srcset="image.image + ' 1920w, ' + image.image.replace('storage', 'cache/large') + ' 1280w,' + image.image.replace('storage', 'cache/medium') + ' 1024w, ' + image.image.replace('storage', 'cache/small') + ' 525w, ' + image.image.replace('storage', 'cache/extrasmall') + ' 384w'"
+                        ::sizes="
+                            '(max-width: 320px) 320px, ' +
+                            '(max-width: 525px) 525px, ' +
+                            '(max-width: 1024px) 1024px, ' +
+                            '(max-width: 1600px) 1280px, ' +
+                            '1920px'
+                        "
+                        ::alt="image?.title || 'Carousel Image ' + (index + 1)"
+                        tabindex="0"
+                        ::fetchpriority="index === 0 ? 'high' : 'low'"
+                        ::decoding="index === 0 ? 'sync' : 'async'"
                     />
                 </div>
             </div>

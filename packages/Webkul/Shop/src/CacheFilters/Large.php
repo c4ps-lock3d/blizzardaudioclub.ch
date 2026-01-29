@@ -37,6 +37,6 @@ class Large implements FilterInterface
         /**
          * Slider image dimensions
          */
-        return $image->fit(1280, 467);
+        return $image->fit(1280, 387);
     }
 }
