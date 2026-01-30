@@ -96,7 +96,6 @@
                                 <template v-if="products.length">
                                     <x-shop::products.card
                                         ::mode="'list'"
-                                        :product="product"
                                         v-for="product in products"
                                     />
                                 </template>
@@ -140,7 +139,6 @@
                                     <div class="grid grid-cols-3 gap-8 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
                                         <x-shop::products.card
                                             ::mode="'grid'"
-                                            :product="product"
                                             v-for="product in products"
                                         />
                                     </div>
