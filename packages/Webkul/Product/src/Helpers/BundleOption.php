@@ -37,17 +37,24 @@ class BundleOption
         $this->product = $product;
 
         try {
-            // eager load images for bundle products if not already loaded
+            // eager load bundle options if not already loaded
             if (! $this->product->relationLoaded('bundle_options')) {
-                $this->product->load('bundle_options.bundle_option_products.product.images');
-            } else {
-                $this->product->bundle_options->load('bundle_option_products.product.images');
+                $this->product->load('bundle_options');
             }
 
             // Find downloadable product and return its image
             foreach ($this->product->bundle_options as $option) {
-                foreach ($option->bundle_option_products as $bundleOptionProduct) {
-                    if ($bundleOptionProduct->product->type === 'downloadable' && $bundleOptionProduct->product->images->count() > 0) {
+                // Load bundle_option_products with their related products (no global scopes)
+                $bundleOptionProducts = $option->bundle_option_products()
+                    ->with(['product' => function ($query) {
+                        $query->withoutGlobalScopes()->with('images');
+                    }])
+                    ->get();
+
+                foreach ($bundleOptionProducts as $bundleOptionProduct) {
+                    if ($bundleOptionProduct->product && 
+                        $bundleOptionProduct->product->type === 'downloadable' && 
+                        $bundleOptionProduct->product->images->count() > 0) {
                         $image = $bundleOptionProduct->product->images->first();
                         return [
                             'original_image_url' => $image->url,
@@ -77,17 +84,24 @@ class BundleOption
         $this->product = $product;
 
         try {
-            // eager load images for bundle products if not already loaded
+            // eager load bundle options if not already loaded
             if (! $this->product->relationLoaded('bundle_options')) {
-                $this->product->load('bundle_options.bundle_option_products.product.images');
-            } else {
-                $this->product->bundle_options->load('bundle_option_products.product.images');
+                $this->product->load('bundle_options');
             }
 
             // Find simple product and return its image
             foreach ($this->product->bundle_options as $option) {
-                foreach ($option->bundle_option_products as $bundleOptionProduct) {
-                    if ($bundleOptionProduct->product->type === 'simple' && $bundleOptionProduct->product->images->count() > 0) {
+                // Load bundle_option_products with their related products (no global scopes)
+                $bundleOptionProducts = $option->bundle_option_products()
+                    ->with(['product' => function ($query) {
+                        $query->withoutGlobalScopes()->with('images');
+                    }])
+                    ->get();
+
+                foreach ($bundleOptionProducts as $bundleOptionProduct) {
+                    if ($bundleOptionProduct->product && 
+                        $bundleOptionProduct->product->type === 'simple' && 
+                        $bundleOptionProduct->product->images->count() > 0) {
                         $image = $bundleOptionProduct->product->images->first();
                         return [
                             'original_image_url' => $image->url,
@@ -239,17 +253,28 @@ class BundleOption
         $this->product = $product;
         $images = [];
 
-        // eager load images for all bundle products
-        $this->product->bundle_options->load('bundle_option_products.product.images');
+        // eager load bundle options if not already loaded
+        if (! $this->product->relationLoaded('bundle_options')) {
+            $this->product->load('bundle_options');
+        }
 
+        // Iterate through bundle options and load products with withoutGlobalScopes()
         foreach ($this->product->bundle_options as $option) {
-            foreach ($option->bundle_option_products as $bundleOptionProduct) {
-                // For simple products in bundles, always include them as they are options
+            $bundleOptionProducts = $option->bundle_option_products()
+                ->with(['product' => function ($query) {
+                    $query->withoutGlobalScopes()->with('images');
+                }])
+                ->get();
+
+            foreach ($bundleOptionProducts as $bundleOptionProduct) {
+                // For simple products, always include them
+                // For downloadable products, always include them (even if disabled)
                 // For other types, skip if not saleable
                 $isSimple = $bundleOptionProduct->product->type === 'simple';
+                $isDownloadable = $bundleOptionProduct->product->type === 'downloadable';
                 $isSaleable = $bundleOptionProduct->product->getTypeInstance()->isSaleable();
                 
-                if (!$isSimple && !$isSaleable) {
+                if (!$isSimple && !$isDownloadable && !$isSaleable) {
                     continue;
                 }
 
