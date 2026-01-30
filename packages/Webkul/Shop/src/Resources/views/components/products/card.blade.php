@@ -2,6 +2,7 @@
     {{ $attributes }}
     :product="product"
     :bundle-downloadable-image="product.bundle_downloadable_image"
+    :bundle-simple-image="product.bundle_simple_image"
 >
 </v-product-card>
 
@@ -339,7 +340,7 @@
         app.component('v-product-card', {
             template: '#v-product-card-template',
 
-            props: ['mode', 'product', 'bundleDownloadableImage'],
+            props: ['mode', 'product', 'bundleDownloadableImage', 'bundleSimpleImage'],
 
             data() {
                 return {
@@ -351,9 +352,17 @@
 
             computed: {
                 cardImageUrl() {
-                    // For bundle products without their own images, use downloadable child image
-                    if (this.product.type === 'bundle' && this.bundleDownloadableImage) {
-                        return this.bundleDownloadableImage.medium_image_url || this.bundleDownloadableImage.large_image_url || this.bundleDownloadableImage.original_image_url;
+                    // For bundle products without their own images, use child images as fallback
+                    if (this.product.type === 'bundle') {
+                        // Prefer simple image (vinyl/physical) over downloadable
+                        if (this.bundleSimpleImage) {
+                            return this.bundleSimpleImage.medium_image_url || this.bundleSimpleImage.large_image_url || this.bundleSimpleImage.original_image_url;
+                        }
+                        
+                        // If no simple image, use downloadable image
+                        if (this.bundleDownloadableImage) {
+                            return this.bundleDownloadableImage.medium_image_url || this.bundleDownloadableImage.large_image_url || this.bundleDownloadableImage.original_image_url;
+                        }
                     }
                     
                     // For all other cases, use the default base image

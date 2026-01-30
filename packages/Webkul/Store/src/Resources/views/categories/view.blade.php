@@ -274,6 +274,27 @@
                                 this.products = response.data.data;
 
                                 this.links = response.data.links;
+
+                                // Load bundles with matching children only if there are filters applied
+                                if (Object.keys(this.queryParams).length > 0) {
+                                    this.loadMatchingBundles();
+                                }
+                            }).catch(error => {
+                                console.log(error);
+                            });
+                    },
+
+                    loadMatchingBundles() {
+                        this.$axios.get("{{ route('shop.api.products.bundles-with-matching-children.index', ['category_id' => $category->id]) }}", {
+                            params: this.queryParams 
+                        })
+                            .then(response => {
+                                // Add bundles to the products list (avoiding duplicates)
+                                const bundleIds = new Set(response.data.data.map(b => b.id));
+                                const productIds = new Set(this.products.map(p => p.id));
+                                
+                                const newBundles = response.data.data.filter(b => !productIds.has(b.id));
+                                this.products = [...this.products, ...newBundles];
                             }).catch(error => {
                                 console.log(error);
                             });
