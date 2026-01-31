@@ -69,6 +69,12 @@ class ProductController extends APIController
                     }
                 }
                 
+                // Re-sort the collection by ID in descending order (newest first)
+                if ($addedCount > 0) {
+                    $sorted = $currentCollection->sortByDesc('id');
+                    $products->setCollection($sorted);
+                }
+                
                 // Update pagination total to reflect added products
                 // We need to use reflection to update the private total property
                 if ($addedCount > 0) {
@@ -122,9 +128,9 @@ class ProductController extends APIController
             });
         }
 
-        // If no filters, return all bundles
+        // If no filters, return empty collection (bundles already included in main products query)
         if (empty($filterAttributes)) {
-            return $bundleQuery->get();
+            return collect();
         }
 
         // Convert attribute option IDs to their text values
