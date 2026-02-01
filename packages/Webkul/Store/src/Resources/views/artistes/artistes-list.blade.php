@@ -14,17 +14,17 @@
             <x-shop::dropdown position="bottom-left">
                 <x-slot:toggle>
                     <button class="flex w-full max-w-[200px] cursor-pointer items-center justify-between gap-4 rounded-lg border border-black p-3.5 text-base transition-all hover:border-gray-400 focus:border-gray-400">
-                        A → Z
+                       De A à Z
                         <span class="icon-arrow-down text-2xl" role="presentation"></span>
                     </button>
                 </x-slot>
             
                 <x-slot:menu>
                     <x-shop::dropdown.menu.item onclick="window.artistesSortComponent && window.artistesSortComponent.changeSortOrder('asc')">
-                        A → Z
+                        De A à Z
                     </x-shop::dropdown.menu.item>
                     <x-shop::dropdown.menu.item onclick="window.artistesSortComponent && window.artistesSortComponent.changeSortOrder('desc')">
-                        Z → A
+                        De Z à A
                     </x-shop::dropdown.menu.item>
                 </x-slot:menu>
             </x-shop::dropdown>
