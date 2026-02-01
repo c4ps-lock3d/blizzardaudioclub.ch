@@ -10,7 +10,7 @@
 
     <div class="container px-[60px] max-lg:px-8 max-md:px-4">
         <!-- Sort Dropdown -->
-        <div class="mb-8 flex items-center gap-4 md:mt-10">
+        <div class="mb-8 flex items-center gap-4 mt-6 md:mt-10">
             <x-shop::dropdown position="bottom-left">
                 <x-slot:toggle>
                     <button class="flex w-full max-w-[200px] cursor-pointer items-center justify-between gap-4 rounded-lg border border-black p-3.5 text-base transition-all hover:border-gray-400 focus:border-gray-400">
