@@ -47,11 +47,11 @@
                 >
                     <label 
                         for="file-input"
-                        class="icon-camera text-3xl max-sm:text-lg"
+                        class="icon-camera text-3xl max-sm:text-lg !text-gray-600"
                     >
                     </label>
 
-                    <p class="font-medium max-sm:text-xs">@lang('Add Image')</p>
+                    <p class="font-medium max-sm:text-xs !text-gray-600">Add Image</p>
 
                     <input
                         type="hidden"
