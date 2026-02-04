@@ -368,7 +368,7 @@
                     <template v-if="product.type === 'bundle' || product.type === 'configurable'">
                         <x-shop::button
                             class="primary-button whitespace-nowrap px-8 py-2.5 add-to-cart-card"
-                            :title="trans('shop::app.components.products.card.view-options')"
+                            title="Afficher les options"
                             ::loading="isAddingToCart"
                             ::disabled="! product.is_saleable || isAddingToCart"
                             @click="handleButtonClick()"
