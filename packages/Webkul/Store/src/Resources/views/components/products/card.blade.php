@@ -6,6 +6,22 @@
 >
 </v-product-card>
 
+@pushOnce('styles')
+    <style>
+        .add-to-cart-card.secondary-button,
+        .add-to-cart-card.primary-button {
+            background-color: #FADA00 !important;
+            color: #000000 !important;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart-card.secondary-button:hover,
+        .add-to-cart-card.primary-button:hover {
+            background-color: #E6C200 !important;
+        }
+    </style>
+@endPushOnce
+
 @pushOnce('scripts')
     <script
         type="text/x-template"
@@ -154,11 +170,12 @@
                         {!! view_render_event('bagisto.shop.components.products.card.add_to_cart.before') !!}
 
                         <button
-                            class="secondary-button w-full max-w-full p-2.5 text-sm font-medium max-sm:rounded-xl max-sm:p-2"
+                            class="secondary-button w-full max-w-full p-2.5 text-sm font-medium max-sm:rounded-xl max-sm:p-2 add-to-cart-card"
                             :disabled="! product.is_saleable || isAddingToCart"
-                            @click="addToCart()"
+                            @click="handleButtonClick()"
                         >
-                            @lang('shop::app.components.products.card.add-to-cart')
+                            <span v-if="product.type === 'bundle' || product.type === 'configurable'">Afficher les options</span>
+                            <span v-else>@lang('shop::app.components.products.card.add-to-cart')</span>
                         </button>
 
                         {!! view_render_event('bagisto.shop.components.products.card.add_to_cart.after') !!}
@@ -348,13 +365,24 @@
 
                     {!! view_render_event('bagisto.shop.components.products.card.add_to_cart.before') !!}
 
-                    <x-shop::button
-                        class="primary-button whitespace-nowrap px-8 py-2.5"
-                        :title="trans('shop::app.components.products.card.add-to-cart')"
-                        ::loading="isAddingToCart"
-                        ::disabled="! product.is_saleable || isAddingToCart"
-                        @click="addToCart()"
-                    />
+                    <template v-if="product.type === 'bundle' || product.type === 'configurable'">
+                        <x-shop::button
+                            class="primary-button whitespace-nowrap px-8 py-2.5 add-to-cart-card"
+                            :title="trans('shop::app.components.products.card.view-options')"
+                            ::loading="isAddingToCart"
+                            ::disabled="! product.is_saleable || isAddingToCart"
+                            @click="handleButtonClick()"
+                        />
+                    </template>
+                    <template v-else>
+                        <x-shop::button
+                            class="primary-button whitespace-nowrap px-8 py-2.5 add-to-cart-card"
+                            :title="trans('shop::app.components.products.card.add-to-cart')"
+                            ::loading="isAddingToCart"
+                            ::disabled="! product.is_saleable || isAddingToCart"
+                            @click="handleButtonClick()"
+                        />
+                    </template>
 
                     {!! view_render_event('bagisto.shop.components.products.card.add_to_cart.after') !!}
 
@@ -448,6 +476,16 @@
                         } else {
                             window.location.href = "{{ route('shop.customer.session.index')}}";
                         }
+                },
+
+                handleButtonClick() {
+                    // For bundle and configurable products, redirect to product page
+                    if (this.product.type === 'bundle' || this.product.type === 'configurable') {
+                        window.location.href = `{{ route('shop.product_or_category.index', '') }}/${this.product.url_key}`;
+                    } else {
+                        // For other products, add to cart
+                        this.addToCart();
+                    }
                 },
 
                 addToCompare(productId) {
