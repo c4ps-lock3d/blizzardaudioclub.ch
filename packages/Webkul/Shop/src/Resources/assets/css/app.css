@@ -16,7 +16,8 @@ img.lazy {
 
 @layer components {
     ::selection {
-        background-color: rgba(6, 12, 59, .2);
+        background-color: #40658e;
+        color: #ffffff;
     }
 
     input {

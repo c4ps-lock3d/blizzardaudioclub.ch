@@ -425,6 +425,12 @@
                                     @endif
                                 @endif
 
+                                @if ($product->style)
+                                <p class="mt-2 text-md text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
+                                    Style : {!! $product->style !!}
+                                </p>
+                                @endif
+
                                 {!! view_render_event('bagisto.shop.products.short_description.after', ['product' => $product]) !!}
 
                                 @include('shop::products.view.types.configurable')

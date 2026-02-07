@@ -128,7 +128,7 @@
                 v-show="! isMediaLoading"
             >
                 <x-shop::media.images.lazy
-                    ::src="image.large_image_url"
+                    ::src="image.original_image_url || image.large_image_url"
                     class="w-[490px]"
                     ::class="(media.images.length + media.videos.length) > 1 ? 'max-sm:hidden' : ''"
                     v-for="(image, index) in media.images"

@@ -232,6 +232,39 @@
 
                         <!-- Categories View Blade File -->
                         @include('admin::catalog.products.edit.categories')
+
+                        <!-- Timestamps View Blade File -->
+                        <div class="box-shadow relative rounded bg-white p-4 dark:bg-gray-900">
+                            <p class="mb-4 text-base font-semibold text-gray-800 dark:text-white">
+                                Timestamps
+                            </p>
+
+                            <!-- Created At -->
+                            <div class="mb-4">
+                                <label class="mb-2 block text-sm font-semibold text-gray-800 dark:text-white">
+                                    Created At
+                                </label>
+                                <input
+                                    type="datetime-local"
+                                    name="created_at"
+                                    value="{{ $product->created_at?->format('Y-m-d\TH:i') }}"
+                                    class="w-full rounded-md border border-gray-300 px-3 py-2.5 text-sm text-gray-600 transition-all hover:border-gray-400 focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
+                                />
+                            </div>
+
+                            <!-- Updated At -->
+                            <div class="last:!mb-0">
+                                <label class="mb-2 block text-sm font-semibold text-gray-800 dark:text-white">
+                                    Updated At
+                                </label>
+                                <input
+                                    type="datetime-local"
+                                    name="updated_at"
+                                    value="{{ $product->updated_at?->format('Y-m-d\TH:i') }}"
+                                    class="w-full rounded-md border border-gray-300 px-3 py-2.5 text-sm text-gray-600 transition-all hover:border-gray-400 focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
+                                />
+                            </div>
+                        </div>
                     @endif
                 </div>
 
