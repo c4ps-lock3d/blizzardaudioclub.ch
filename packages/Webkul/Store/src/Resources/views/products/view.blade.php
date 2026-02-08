@@ -413,6 +413,12 @@
                                     @endforeach
                                 </p>
 
+                                @if ($product->style)
+                                    <p class="mt-2 text-md text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
+                                        Style : {!! $product->style !!}
+                                    </p>
+                                @endif
+
                                 @if ($product->release_date)
                                 <p class="mt-2 text-md text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
                                     Date de sortie : {!! date("d.m.Y", strtotime($product->release_date)) !!}
@@ -423,12 +429,6 @@
                                             <!--{!! (strtotime($product->release_date) - strtotime(date("Y-m-d")))/86400 !!} jours restants avant la sortie.-->
                                         </p>
                                     @endif
-                                @endif
-
-                                @if ($product->style)
-                                <p class="mt-2 text-md text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
-                                    Style : {!! $product->style !!}
-                                </p>
                                 @endif
 
                                 {!! view_render_event('bagisto.shop.products.short_description.after', ['product' => $product]) !!}
