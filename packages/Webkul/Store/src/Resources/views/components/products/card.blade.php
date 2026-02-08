@@ -145,7 +145,15 @@
                 {!! view_render_event('bagisto.shop.components.products.card.price.before') !!}
 
                 <div
-                    v-if="bundlePriceDisplay"
+                    v-if="!product.is_saleable"
+                    class="flex items-center gap-2.5 text-lg font-semibold max-sm:text-sm max-sm:ml-2 max-sm:mb-2 max-sm:leading-6"
+                    style="color: #999;"
+                >
+                    En rupture de stock
+                </div>
+
+                <div
+                    v-else-if="bundlePriceDisplay"
                     style="color: #dcdcdc"
                     class="flex flex-col gap-0.5 text-base font-medium max-sm:text-sm max-sm:ml-2 max-sm:mb-2 max-sm:leading-4"
                 >
@@ -312,7 +320,15 @@
                 {!! view_render_event('bagisto.shop.components.products.card.price.before') !!}
 
                 <div
-                    v-if="bundlePriceDisplay"
+                    v-if="!product.is_saleable"
+                    class="flex gap-2.5 text-lg font-semibold"
+                    style="color: #999;"
+                >
+                    En rupture de stock
+                </div>
+
+                <div
+                    v-else-if="bundlePriceDisplay"
                     style="color: #dcdcdc"
                     class="flex flex-col gap-0.5 text-base font-medium"
                 >

@@ -466,7 +466,7 @@
                                                 class="primary-button w-full max-w-full max-md:py-3 max-sm:rounded-lg max-sm:py-1.5"
                                                 button-type="secondary-button"
                                                 :loading="false"
-                                                title="Précommander"
+                                                :title="$product->isSaleable(1) ? 'Précommander' : 'En rupture de stock'"
                                                 :disabled="! $product->isSaleable(1)"
                                                 ::loading="isStoring.addToCart"
                                             />
@@ -479,7 +479,7 @@
                                                 class="primary-button w-full max-w-full max-md:py-3 max-sm:rounded-lg max-sm:py-1.5"
                                                 button-type="secondary-button"
                                                 :loading="false"
-                                                :title="trans('shop::app.products.view.add-to-cart')"
+                                                :title="$product->isSaleable(1) ? trans('shop::app.products.view.add-to-cart') : 'En rupture de stock'"
                                                 :disabled="! $product->isSaleable(1)"
                                                 ::loading="isStoring.addToCart"
                                             />
