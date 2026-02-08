@@ -516,4 +516,47 @@ class ProductController extends APIController
         return ProductResource::collection($matchingBundles);
     }
 
+    /**
+     * Get all products with inventory information.
+     */
+    public function inventaire()
+    {
+        $products = $this->productRepository
+            ->with([
+                'attribute_family',
+                'images',
+                'attribute_values',
+                'inventories',
+            ])
+            ->scopeQuery(function ($query) {
+                return $query->distinct()
+                    ->select('products.*')
+                    ->leftJoin('product_attribute_values', 'products.id', '=', 'product_attribute_values.product_id')
+                    ->whereNotIn('products.type', ['bundle', 'downloadable', 'configurable'])
+                    ->whereHas('product_flats', function ($q) {
+                        $q->where('status', 1);
+                    });
+            })
+            ->get();
+
+        $data = $products->map(function ($product) {
+            $formatName = app('Webkul\Attribute\Repositories\AttributeOptionRepository')
+                ->findOneByField('id', $product->format);
+
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'sku' => $product->sku,
+                'price' => $product->price ?? 0,
+                'format' => $formatName ? $formatName->admin_name : $product->format,
+                'qty' => $product->inventories->sum('qty') ?? 0,
+                'base_image' => product_image()->getProductBaseImage($product),
+            ];
+        });
+
+        return response()->json([
+            'data' => $data,
+        ]);
+    }
+
 }
