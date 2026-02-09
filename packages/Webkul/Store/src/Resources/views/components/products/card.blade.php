@@ -158,15 +158,15 @@
                     class="flex flex-col gap-0.5 text-base font-medium max-sm:text-sm max-sm:ml-2 max-sm:mb-2 max-sm:leading-4"
                 >
                     <div v-for="(price, format) in bundlePriceDisplay" :key="format">
-                        @{{ format }} : <span class="font-bold">@{{ price }}</span>
+                        @{{ format }} : <span class="font-bold text-lg">@{{ price }}</span>
                     </div>
                 </div>
 
                 <div
                     v-else
                     id="colorTextCommand"
-                    class="flex items-center gap-2.5 text-lg font-semibold max-sm:text-sm max-sm:ml-2 max-sm:mb-2 max-sm:leading-6"
-                    v-html="product.price_html"
+                    class="flex items-center gap-0 text-lg font-semibold max-sm:text-sm max-sm:ml-2 max-sm:mb-2 max-sm:leading-6 [&>*]:m-0"
+                    v-html="cleanPriceHtml"
                 >
                 </div>
 
@@ -333,14 +333,14 @@
                     class="flex flex-col gap-0.5 text-base font-medium"
                 >
                     <div v-for="(price, format) in bundlePriceDisplay" :key="format">
-                        @{{ format }} : <span class="font-bold">@{{ price }}</span>
+                        @{{ format }} : <span class="font-bold text-lg">@{{ price }}</span>
                     </div>
                 </div>
 
                 <div
                     v-else
-                    class="flex gap-2.5 text-lg font-semibold"
-                    v-html="product.price_html"
+                    class="flex gap-0 text-lg font-semibold w-full [&>*]:m-0"
+                    v-html="cleanPriceHtml"
                 >
                 </div>
 
@@ -451,6 +451,15 @@
                     
                     // Return null if not a bundle or no format prices
                     return null;
+                },
+
+                cleanPriceHtml() {
+                    // Remove "À partir de" text for configurable products
+                    if (this.product.type === 'configurable' && this.product.price_html) {
+                        return this.product.price_html.replace(/À partir de\s*/gi, '');
+                    }
+                    
+                    return this.product.price_html;
                 },
 
                 hasChildPreorder() {

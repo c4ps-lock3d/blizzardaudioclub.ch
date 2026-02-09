@@ -23,38 +23,39 @@
                     class="mt-5"
                     v-for='(attribute, index) in childAttributes'
                 >
-                    <!-- Dropdown Options Container -->
-                    <template v-if="! attribute.swatch_type || attribute.swatch_type == '' || attribute.swatch_type == 'dropdown'">
-                        <!-- Dropdown Label -->
-                        <h2 class="mb-4 text-xl max-sm:mb-1.5 max-sm:text-base max-sm:font-medium">
-                            @{{ attribute.label }}
-                        </h2>
-                        
-                        <!-- Dropdown Options -->
-                        <v-field
-                            as="select"
-                            :name="'super_attribute[' + attribute.id + ']'"
-                            class="custom-select mb-3 block w-full cursor-pointer rounded-lg border border-zinc-200 bg-white px-5 py-3 text-base text-zinc-500 focus:border-blue-500 focus:ring-blue-500"
-                            :class="[errors['super_attribute[' + attribute.id + ']'] ? 'border border-red-500' : '']"
-                            :id="'attribute_' + attribute.id"
-                            v-model="attribute.selectedValue"
-                            rules="required"
-                            :label="attribute.label"
-                            :aria-label="attribute.label"
-                            :disabled="attribute.disabled"
-                            @change="configure(attribute, $event.target.value)"
-                        >
-                            <option
-                                v-for='(option, index) in attribute.options'
-                                :value="option.id"
+                    <template v-if="isSaleable">
+                        <!-- Dropdown Options Container -->
+                        <template v-if="(! attribute.swatch_type || attribute.swatch_type == '' || attribute.swatch_type == 'dropdown')">
+                            <!-- Dropdown Label -->
+                            <h2 class="mb-4 text-xl max-sm:mb-1.5 max-sm:text-base max-sm:font-medium">
+                                @{{ attribute.label }}
+                            </h2>
+                            
+                            <!-- Dropdown Options -->
+                            <v-field
+                                as="select"
+                                :name="'super_attribute[' + attribute.id + ']'"
+                                class="custom-select mb-3 block w-full cursor-pointer rounded-lg border border-zinc-200 bg-white px-5 py-3 text-base text-zinc-500 focus:border-blue-500 focus:ring-blue-500"
+                                :class="[errors['super_attribute[' + attribute.id + ']'] ? 'border border-red-500' : '']"
+                                :id="'attribute_' + attribute.id"
+                                v-model="attribute.selectedValue"
+                                rules="required"
+                                :label="attribute.label"
+                                :aria-label="attribute.label"
+                                :disabled="attribute.disabled"
+                                @change="configure(attribute, $event.target.value)"
                             >
-                                @{{ option.label }}
-                            </option>
-                        </v-field>
-                    </template>
+                                <option
+                                    v-for='(option, index) in attribute.options'
+                                    :value="option.id"
+                                >
+                                    @{{ option.label }}
+                                </option>
+                            </v-field>
+                        </template>
 
-                    <!-- Swatch Options Container -->
-                    <template v-else>
+                        <!-- Swatch Options Container -->
+                        <template v-else>
                         <!-- Option Label -->
                         <h2 class="mb-4 text-xl max-sm:mb-2 max-sm:text-base">
                             @{{ attribute.label }}
@@ -189,6 +190,7 @@
                             @{{ message }}
                         </p>
                     </v-error-message>
+                    </template>
                 </div>
             </div>
         </script>
@@ -212,6 +214,8 @@
                         selectedOptionVariant: '',
 
                         galleryImages: [],
+
+                        isSaleable: @json($product->getTypeInstance()->isSaleable()),
                     }
                 },
 
@@ -238,6 +242,12 @@
                         });
 
                         this.childAttributes.unshift(attribute);
+                    }
+
+                    // Hide the "À partir de" label for configurable products
+                    let priceLabel = document.querySelector('.price-label');
+                    if (priceLabel) {
+                        priceLabel.style.display = 'none';
                     }
                 },
 

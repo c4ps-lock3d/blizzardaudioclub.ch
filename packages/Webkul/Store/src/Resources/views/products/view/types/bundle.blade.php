@@ -137,7 +137,7 @@
                                         @{{ 'Format ' +product.format + ' -' }}
                                         <span v-if="product.format === 'vinyle'"></span>
 
-                                        <span class="text-[#FADA00]">
+                                        <span class="text-[#DCDCDC] text-xl">
                                             @{{ ' ' + product.price.final.formatted_price }}
                                         </span>
                                     </label>
