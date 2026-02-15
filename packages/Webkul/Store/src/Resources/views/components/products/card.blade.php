@@ -10,7 +10,7 @@
     <style>
         .add-to-cart-card.secondary-button,
         .add-to-cart-card.primary-button {
-            background-color: #FADA00 !important;
+            background-color: #FFD940 !important;
             color: #000000 !important;
             transition: background-color 0.3s ease;
         }

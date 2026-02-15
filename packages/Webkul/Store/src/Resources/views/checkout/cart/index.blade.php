@@ -138,7 +138,7 @@
 
                                 <div v-if="selectedItemsCount">
                                     <span
-                                        class="cursor-pointer text-base text-[#FADA00] max-sm:text-xs" 
+                                        class="cursor-pointer text-base text-[#FFD940] max-sm:text-xs" 
                                         role="button"
                                         tabindex="0"
                                         @click="removeSelectedItems"
@@ -150,7 +150,7 @@
                                         <span class="mx-2.5 border-r-2 border-zinc-200"></span>
 
                                         <span
-                                            class="cursor-pointer text-base text-[#FADA00] max-sm:text-xs"
+                                            class="cursor-pointer text-base text-[#FFD940] max-sm:text-xs"
                                             role="button"
                                             tabindex="0"
                                             @click="moveToWishlistSelectedItems"
@@ -270,7 +270,7 @@
                                                 </p>
                                                 
                                                 <span
-                                                    class="cursor-pointer text-base text-[#FADA00] max-md:hidden"
+                                                    class="cursor-pointer text-base text-[#FFD940] max-md:hidden"
                                                     role="button"
                                                     tabindex="0"
                                                     @click="removeItem(item.id)"
@@ -293,7 +293,7 @@
 
                                                 <!-- For Mobile view Remove Button -->
                                                 <span
-                                                    class="hidden cursor-pointer text-sm text-[#FADA00] max-md:block"
+                                                    class="hidden cursor-pointer text-sm text-[#FFD940] max-md:block"
                                                     role="button"
                                                     tabindex="0"
                                                     @click="removeItem(item.id)"
@@ -339,7 +339,7 @@
                                         
                                         <!-- Cart Item Remove Button -->
                                         <span
-                                            class="cursor-pointer text-base text-[#FADA00]" 
+                                            class="cursor-pointer text-base text-[#FFD940]" 
                                             role="button"
                                             tabindex="0"
                                             @click="removeItem(item.id)"

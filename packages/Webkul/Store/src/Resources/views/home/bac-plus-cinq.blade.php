@@ -23,8 +23,8 @@
         <li class="py-4 flex flex-col md:flex-row md:items-center md:justify-between">
             <div class="flex items-center gap-2">
                 <a href="https://www.fri-son.ch/fr/programme/2025/10/5-ans-blizzard-audio-club" class="ml-2 text-blue-400 hover:text-blue-600" target="_blank" title="Lien externe">
-                                    <span class="font-bold text-[#FADA00]">03.10</span>
-                <span class="text-[#FADA00]"> @ Fri-Son (Fribourg)</span>
+                                    <span class="font-bold text-[#FFD940]">03.10</span>
+                <span class="text-[#FFD940]"> @ Fri-Son (Fribourg)</span>
 
                     <svg xmlns="http://www.w3.org/2000/svg" class="inline w-5 h-5 ml-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 3h7m0 0v7m0-7L10 14m-7 7h7a2 2 0 002-2v-7" />
@@ -35,8 +35,8 @@
         <li class="py-4 flex flex-col md:flex-row md:items-center md:justify-between">
             <div class="flex items-center gap-2">
                 <a href="https://muzak.ch/concert/blizzard-audio-club-remove-osmose-tv" class="ml-2 text-blue-400 hover:text-blue-600" target="_blank" title="Lien externe">
-                                    <span class="font-bold text-[#FADA00]">04.10</span>
-                <span class="text-[#FADA00]"> @ Muzak (Porrentruy)</span>
+                                    <span class="font-bold text-[#FFD940]">04.10</span>
+                <span class="text-[#FFD940]"> @ Muzak (Porrentruy)</span>
 
                     <svg xmlns="http://www.w3.org/2000/svg" class="inline w-5 h-5 ml-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 3h7m0 0v7m0-7L10 14m-7 7h7a2 2 0 002-2v-7" />
@@ -47,8 +47,8 @@
         <li class="py-4 flex flex-col md:flex-row md:items-center md:justify-between">
             <div class="flex items-center gap-2">
                 <a href="https://case-a-chocs.ch/event/blizzard+audio+club+fete+ses+5+ans+aust+jnunn+owelle+2025-10-10/" class="ml-2 text-blue-400 hover:text-blue-600" target="_blank" title="Lien externe">
-                    <span class="font-bold text-[#FADA00]">10.10</span>
-                    <span class="text-[#FADA00]"> @ La Case à Chocs (Neuchâtel)</span>
+                    <span class="font-bold text-[#FFD940]">10.10</span>
+                    <span class="text-[#FFD940]"> @ La Case à Chocs (Neuchâtel)</span>
 
                     <svg xmlns="http://www.w3.org/2000/svg" class="inline w-5 h-5 ml-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 3h7m0 0v7m0-7L10 14m-7 7h7a2 2 0 002-2v-7" />
@@ -60,8 +60,8 @@
             <div class="flex items-center gap-2">
                 <a href="https://www.leboutdumonde.ch/evenements/waldskin-x-eckhart/" class="ml-2 text-blue-400 hover:text-blue-600" target="_blank" title="Lien externe">
 
-                    <span class="font-bold text-[#FADA00]">31.10</span>
-                    <span class="text-[#FADA00]"> @ Le Bout du Monde (Vevey)</span>
+                    <span class="font-bold text-[#FFD940]">31.10</span>
+                    <span class="text-[#FFD940]"> @ Le Bout du Monde (Vevey)</span>
 
                     <svg xmlns="http://www.w3.org/2000/svg" class="inline w-5 h-5 ml-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 3h7m0 0v7m0-7L10 14m-7 7h7a2 2 0 002-2v-7" />
@@ -72,8 +72,8 @@
         <li class="py-4 flex flex-col md:flex-row md:items-center md:justify-between">
             <div class="flex items-center gap-2">
                 <a href="https://www.bikinitest.ch/1200/voir/2025/11/21" class="ml-2 text-blue-400 hover:text-blue-600" target="_blank" title="Lien externe">
-                                    <span class="font-bold text-[#FADA00]">21.11</span>
-                <span class="text-[#FADA00]"> @ Bikini Test (CDF City)</span>
+                                    <span class="font-bold text-[#FFD940]">21.11</span>
+                <span class="text-[#FFD940]"> @ Bikini Test (CDF City)</span>
 
                     <svg xmlns="http://www.w3.org/2000/svg" class="inline w-5 h-5 ml-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 3h7m0 0v7m0-7L10 14m-7 7h7a2 2 0 002-2v-7" />

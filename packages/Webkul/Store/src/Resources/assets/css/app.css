@@ -44,7 +44,7 @@ img.lazy {
     }
 
     .primary-button {
-        background-color: #FADA00 !important;
+        background-color: #FFD940 !important;
         color: #1d2124 !important;
         border-color: #000000!important;
     }
@@ -276,7 +276,7 @@ img.lazy {
 
     .icon-heart-fill:before {
         content: "\e923";
-        color: #FADA00;
+        color: #FFD940;
     }
 
     .icon-heart:before {

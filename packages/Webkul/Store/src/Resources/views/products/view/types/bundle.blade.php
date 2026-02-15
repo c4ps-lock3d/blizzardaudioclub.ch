@@ -209,7 +209,7 @@
                                     >
                                         @{{ 'Format ' +product.format + ' -' }}
 
-                                        <span class="text-[#FADA00]">
+                                        <span class="text-[#FFD940]">
                                             @{{ ' ' + product.price.final.formatted_price }}
                                         </span>
                                     </label>

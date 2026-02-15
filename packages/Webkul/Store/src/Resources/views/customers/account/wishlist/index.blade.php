@@ -197,7 +197,7 @@
                                         </p>
 
                                         <a 
-                                            class="flex cursor-pointer justify-end text-base !text-[#FADA00]" 
+                                            class="flex cursor-pointer justify-end text-base !text-[#FFD940]" 
                                             @click="remove(item.id)"
                                         >
                                             @lang('shop::app.customers.account.wishlist.remove')

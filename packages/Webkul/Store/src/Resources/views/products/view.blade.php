@@ -330,7 +330,7 @@
                                             role="button"
                                             aria-label="@lang('shop::app.products.view.add-to-wishlist')"
                                             tabindex="0"
-                                            :class="isWishlist ? 'icon-heart-fill text-red-600 border-[#FADA00]' : 'icon-heart'"
+                                            :class="isWishlist ? 'icon-heart-fill text-red-600 border-[#FFD940]' : 'icon-heart'"
                                             @click="addToWishlist"
                                         >
                                         </div>
@@ -403,11 +403,11 @@
                                         @if(!is_null($artiste))
                                             @if($loop->first)
                                                 Artiste :
-                                                <a class="!text-[#FADA00]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">
+                                                <a class="!text-[#FFD940]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">
                                                     {!! $artiste->name !!}
                                                 </a>
                                             @else
-                                            | <a class="!text-[#FADA00]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">
+                                            | <a class="!text-[#FFD940]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">
                                                     {!! $artiste->name !!}
                                                 </a>
                                             @endif

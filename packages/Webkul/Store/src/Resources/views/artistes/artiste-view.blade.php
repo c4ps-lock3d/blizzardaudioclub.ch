@@ -10,7 +10,7 @@
     <div class="container mt-[34px] px-[60px] max-lg:px-8 max-md:mt-4 max-md:px-4 max-md:text-sm max-sm:text-xs">
         <div class="mt-[34px] mb-[18px] flex justify-start max-lg:hidden">
             <div id="colorTextCommand">
-                <a class="text-xl !text-[#FADA00]" href="{{ route('shop.home.artisteslist') }}">ARTISTES</a>
+                <a class="text-xl !text-[#FFD940]" href="{{ route('shop.home.artisteslist') }}">ARTISTES</a>
                 <span class="align-top icon-arrow-right text-2xl"></span>
                 <span class="uppercase text-xl">{{ $artistes->name }}</span>
             </div>
@@ -51,7 +51,7 @@
                 <div>
                     <p class="text-justify">{{ $artistes->content }}
                         @if($artistes->website)
-                            <a href="{{ $artistes->website }}" target="_blank" class="!text-[#FADA00] whitespace-nowrap">site officiel de l'artiste <i class="fas fa-external-link-alt"></i></a>
+                            <a href="{{ $artistes->website }}" target="_blank" class="!text-[#FFD940] whitespace-nowrap">site officiel de l'artiste <i class="fas fa-external-link-alt"></i></a>
                         @endif
                     </p>
                 </div>

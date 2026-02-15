@@ -149,7 +149,7 @@
 
                                     <a
                                         href="{{ route('shop.customer.session.create') }}"
-                                        class="m-0 mx-auto block w-max cursor-pointer rounded-2xl bg-[#FADA00] border-black px-7 py-4 text-center text-base font-medium !text-black ltr:ml-0 rtl:mr-0"
+                                        class="m-0 mx-auto block w-max cursor-pointer rounded-2xl bg-[#FFD940] border-black px-7 py-4 text-center text-base font-medium !text-black ltr:ml-0 rtl:mr-0"
                                     >
                                         @lang('shop::app.components.layouts.header.sign-in')
                                     </a>

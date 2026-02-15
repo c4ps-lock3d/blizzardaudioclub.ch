@@ -530,8 +530,8 @@
             column-gap: 0.375rem !important;
             border-radius: 0.375rem !important;
             border-width: 1px !important;
-            border-color: #FADA00 !important;
-            background-color: #FADA00 !important;
+            border-color: #FFD940 !important;
+            background-color: #FFD940 !important;
             padding: 0.625rem !important;
             font-weight: 400 !important;
             color: #000000 !important;

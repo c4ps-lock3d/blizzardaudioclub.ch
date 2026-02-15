@@ -14,9 +14,9 @@
         Blizzard Audio Club est un label indépendant de musique à tendances électroniques créé autour de l'ambition de sortir des disques, cassettes et autres supports sonores en tout genre. Le label loclois a aussi pour vocation d'être une aide pour les artistes dans la production de leurs œuvres ainsi qu'une plateforme de promotion et de visibilité pour ces dernières, au travers d’un travail de communication pointu et de l’organisation d’événements. Riche de bientôt 30 sorties depuis sa création, le label compte dans ses rangs les artistes suivants :
         @foreach($artistes as $artiste)
             @if($loop->last)
-                et <a class="!text-[#FADA00]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">{{ $artiste->name}}</a>.
+                et <a class="!text-[#FFD940]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">{{ $artiste->name}}</a>.
             @else
-                <a class="!text-[#FADA00]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">{{ $artiste->name}}</a>,
+                <a class="!text-[#FFD940]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">{{ $artiste->name}}</a>,
             @endif
         @endforeach
         <br><br>Il est ici important de relever le fait que le label a toujours mis un point d’honneur à défendre la scène musicale suisse et régional, comme le prouve sa liste d'artistes, tout en leur permettant un rayonnement dans leur pays mais aussi à l'international. En effet, le permet aux groupes qu'il soutient de se faire un nom sur la scène suprarégionale mais aussi de toucher un plus large public, hors des frontières, grâce large au tissu professionnel de partenaires qu'il a développé.<br><br>
