@@ -27,7 +27,11 @@ class StripePaypal extends Payment
      */
     public function isAvailable(): bool
     {
-        return Cart::getCart()->grand_total >= 0.5;
+        if (! $this->cart) {
+            $this->setCart();
+        }
+
+        return $this->cart?->grand_total >= 0.5;
     }
 
     /**

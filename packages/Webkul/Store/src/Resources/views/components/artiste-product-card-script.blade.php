@@ -146,11 +146,12 @@
                         {!! view_render_event('bagisto.shop.components.products.card.add_to_cart.before') !!}
 
                         <button
-                            class="secondary-button w-full max-w-full p-2.5 text-sm font-medium max-sm:rounded-xl max-sm:p-2"
+                            class="w-full max-w-full p-2.5 text-sm font-medium max-sm:rounded-xl max-sm:p-2 artiste-add-to-cart"
                             :disabled="! product.is_saleable || isAddingToCart"
+                            :style="{ opacity: (!product.is_saleable || isAddingToCart) ? 0.5 : 1 }"
                             @click="addToCart()"
                         >
-                            @lang('shop::app.components.products.card.add-to-cart')
+                            Afficher les options
                         </button>
 
                         {!! view_render_event('bagisto.shop.components.products.card.add_to_cart.after') !!}
@@ -517,4 +518,37 @@
             },
         });
     </script>
+
+    <style>
+        .artiste-add-to-cart {
+            display: flex !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            cursor: pointer !important;
+            place-content: center !important;
+            align-items: center !important;
+            column-gap: 0.375rem !important;
+            border-radius: 0.375rem !important;
+            border-width: 1px !important;
+            border-color: #FADA00 !important;
+            background-color: #FADA00 !important;
+            padding: 0.625rem !important;
+            font-weight: 400 !important;
+            color: #000000 !important;
+            font-size: 0.875rem !important;
+            transition-property: all !important;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+            transition-duration: 0.15s !important;
+            white-space: nowrap !important;
+        }
+
+        .artiste-add-to-cart:hover:not(:disabled) {
+            background-color: #e5c700 !important;
+            border-color: #e5c700 !important;
+        }
+
+        .artiste-add-to-cart:disabled {
+            cursor: not-allowed !important;
+        }
+    </style>
 @endpushOnce
