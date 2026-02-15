@@ -133,10 +133,47 @@
 
                             <div class="flex justify-between gap-2.5 border-b border-slate-300 px-4 py-6 dark:border-gray-800">
                                 <div class="flex gap-2.5">
-                                    @if($item?->product?->base_image_url)
+                                    @php
+                                        // Pour les bundles, essayer d'afficher l'image du produit enfant (downloadable ou simple)
+                                        $imageUrl = null;
+                                        $childImageUrl = null;
+                                        
+                                        if ($item->type === 'bundle') {
+                                            // Charger les enfants si pas déjà chargés
+                                            if (!$item->relationLoaded('children')) {
+                                                $item->load('children.product');
+                                            }
+                                            
+                                            // Chercher le premier enfant (downloadable en priorité, puis simple)
+                                            if ($item->children && $item->children->count()) {
+                                                // D'abord chercher un produit downloadable
+                                                foreach ($item->children as $child) {
+                                                    if ($child->type === 'downloadable' && $child->product && $child->product->base_image_url) {
+                                                        $childImageUrl = $child->product->base_image_url;
+                                                        break;
+                                                    }
+                                                }
+                                                
+                                                // Si pas de downloadable trouvé, chercher un produit simple
+                                                if (!$childImageUrl) {
+                                                    foreach ($item->children as $child) {
+                                                        if ($child->type === 'simple' && $child->product && $child->product->base_image_url) {
+                                                            $childImageUrl = $child->product->base_image_url;
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        
+                                        // Utiliser l'image de l'enfant si disponible, sinon utiliser l'image du parent
+                                        $imageUrl = $childImageUrl ?? ($item->product?->base_image_url);
+                                    @endphp
+
+                                    @if($imageUrl)
                                         <img
                                             class="relative h-[60px] max-h-[60px] w-full max-w-[60px] rounded"
-                                            src="{{ $item?->product->base_image_url }}"
+                                            src="{{ $imageUrl }}"
                                         >
                                     @else
                                         <div class="relative h-[60px] max-h-[60px] w-full max-w-[60px] rounded border border-dashed border-gray-300 dark:border-gray-800 dark:mix-blend-exclusion dark:invert">
