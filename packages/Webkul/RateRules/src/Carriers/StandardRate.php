@@ -54,11 +54,30 @@ class StandardRate extends AbstractShipping
         /* initialiser le poids à 0 ***/
         $itemweight = 0;
 
-        foreach ($cart->items as $item) {
+        // Get all items including bundle children
+        $allItems = $cart->all_items()->get();
+
+        foreach ($allItems as $item) {
             if ($item->getTypeInstance()->isStockable()) {
                 $cartShippingRate->price += core()->convertPrice($this->getConfigData('default_rate')) * $item->quantity;
                 $cartShippingRate->base_price += $this->getConfigData('default_rate') * $item->quantity;
-                $itemweight += $item->weight * $item->quantity;
+                
+                // Count weight only for items that are NOT bundle parents
+                // - If item has parent_id (is a child), count it
+                // - If item has no parent_id (is parent or standalone):
+                //   - If it's a bundle, don't count it (children have the weight)
+                //   - If it's not a bundle, count it (e.g., simple, configurable products)
+                
+                $shouldCountWeight = true;
+                
+                if ($item->parent_id === null && $item->product && $item->product->type === 'bundle') {
+                    // This is a bundle parent, skip its weight (children will provide it)
+                    $shouldCountWeight = false;
+                }
+                
+                if ($shouldCountWeight) {
+                    $itemweight += $item->weight * $item->quantity;
+                }
             }
         }
         /* conditions de frais de livraison, par rapport au pays de livraison et au poids des articles */
