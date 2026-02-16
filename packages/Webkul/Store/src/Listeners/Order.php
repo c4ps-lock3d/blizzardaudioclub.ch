@@ -31,92 +31,120 @@ class Order extends Base
     }
 
     /**
-     * Ajouter le produit téléchargeable gratuitement si le bundle a été acheté
+     * Ajouter les produits téléchargeables gratuitement si un produit simple est acheté via son bundle parent
      */
     private function addFreeDownloadableFromBundle(OrderContract $order)
     {
         try {
-            // Vérifier si le bundle (ID 343) est dans la commande
-            $bundleItem = $order->items->firstWhere('product_id', 343);
-            
-            if (! $bundleItem) {
-                return;
-            }
+            // Parcourir tous les items de la commande
+            foreach ($order->items as $item) {
+                // Vérifier que c'est un bundle
+                if ($item->type !== 'bundle') {
+                    continue;
+                }
 
-            // Récupérer le produit téléchargeable
-            $downloadableProduct = \Webkul\Product\Models\Product::find(96);
-            
-            // CONDITION 1: Vérifier que le téléchargeable est activé
-            if (! $downloadableProduct || ! $downloadableProduct->status) {
-                \Log::info('Order ' . $order->id . ': Produit téléchargeable désactivé ou non trouvé');
-                return;
-            }
+                // Vérifier qu'il a des enfants (produits achetés)
+                if (!$item->children || $item->children->isEmpty()) {
+                    continue;
+                }
 
-            // CONDITION 3: Vérifier que le téléchargeable contient au moins un fichier
-            $linkIds = $downloadableProduct->downloadable_links->pluck('id')->toArray();
-            if (empty($linkIds)) {
-                \Log::info('Order ' . $order->id . ': Produit téléchargeable ne contient pas de fichiers');
-                return;
-            }
+                // Récupérer le produit bundle
+                $bundleProduct = $item->product;
+                if (!$bundleProduct) {
+                    continue;
+                }
 
-            // CONDITION 2: Vérifier que le produit simple (vinyle) n'est pas en précommande
-            $simpleItem = $bundleItem->children->firstWhere('product_id', 93);
-            if ($simpleItem) {
-                $simpleProduct = \Webkul\Product\Models\Product::find(93);
-                if ($simpleProduct && $simpleProduct->preorder) {
-                    \Log::info('Order ' . $order->id . ': Produit simple (vinyle) est en précommande, pas d\'ajout du téléchargeable');
-                    return;
+                // Vérifier que du moins un produit simple a été acheté
+                $hasSimpleChild = $item->children->contains(function ($child) {
+                    return $child->type === 'simple';
+                });
+
+                if (!$hasSimpleChild) {
+                    continue;
+                }
+
+                // Récupérer les options du bundle pour identifier les produits téléchargeables
+                $bundleOptions = $bundleProduct->bundle_options()
+                    ->with('bundle_option_products.product')
+                    ->get();
+
+                if ($bundleOptions->isEmpty()) {
+                    continue;
+                }
+
+                // Parcourir les options du bundle pour trouver les produits téléchargeables
+                foreach ($bundleOptions as $option) {
+                    foreach ($option->bundle_option_products as $bundleOptionProduct) {
+                        $optionProduct = $bundleOptionProduct->product;
+
+                        // Vérifier que c'est un produit téléchargeable
+                        if (!$optionProduct || $optionProduct->type !== 'downloadable') {
+                            continue;
+                        }
+
+                        // Vérifier que le téléchargeable est activé
+                        if (!$optionProduct->status) {
+                            \Log::info('Order ' . $order->id . ': Produit téléchargeable ' . $optionProduct->id . ' désactivé');
+                            continue;
+                        }
+
+                        // Vérifier qu'il a des fichiers
+                        $linkIds = $optionProduct->downloadable_links->pluck('id')->toArray();
+                        if (empty($linkIds)) {
+                            \Log::info('Order ' . $order->id . ': Produit téléchargeable ' . $optionProduct->id . ' ne contient pas de fichiers');
+                            continue;
+                        }
+
+                        // Vérifier que le téléchargeable n'est pas déjà dans les enfants
+                        $downloadableChild = $item->children->firstWhere('product_id', $optionProduct->id);
+                        if ($downloadableChild) {
+                            \Log::info('Order ' . $order->id . ': Téléchargeable ' . $optionProduct->id . ' déjà dans les enfants du bundle');
+                            continue;
+                        }
+
+                        \Log::info('Order ' . $order->id . ': Ajout du téléchargeable gratuit ' . $optionProduct->id . ' pour le bundle ' . $bundleProduct->id);
+
+                        // Préparer les données du produit pour la commande
+                        $orderItemData = [
+                            'order_id' => $order->id,
+                            'product_id' => $optionProduct->id,
+                            'product_type' => \Webkul\Product\Models\Product::class,
+                            'type' => 'downloadable',
+                            'sku' => $optionProduct->sku,
+                            'name' => $optionProduct->name,
+                            'quantity' => 1,
+                            'price' => 0,
+                            'base_price' => 0,
+                            'total' => 0,
+                            'base_total' => 0,
+                            'weight' => $optionProduct->weight ?? 0,
+                            'parent_id' => $item->id,
+                            'qty_ordered' => 1,
+                            'additional' => [
+                                'links' => $linkIds,
+                            ],
+                        ];
+
+                        // Créer l'OrderItem
+                        $orderItemRepo = app(\Webkul\Sales\Repositories\OrderItemRepository::class);
+                        $orderItem = $orderItemRepo->create($orderItemData);
+
+                        \Log::info('Order ' . $order->id . ': OrderItem créé (ID: ' . $orderItem->id . ')');
+
+                        // Créer les liens de téléchargement
+                        $downloadableLinkPurchasedRepo = app(\Webkul\Sales\Repositories\DownloadableLinkPurchasedRepository::class);
+                        $downloadableLinkPurchasedRepo->saveLinks($orderItem, 'available');
+
+                        \Log::info('Order ' . $order->id . ': Téléchargeable ' . $optionProduct->id . ' gratuit ajouté avec succès');
+                    }
                 }
             }
 
-            // Vérifier que le téléchargeable n'est pas déjà dans les enfants du bundle
-            $downloadableChild = $bundleItem->children->firstWhere('product_id', 96);
-            
-            if ($downloadableChild) {
-                \Log::info('Order ' . $order->id . ': Téléchargeable déjà dans les enfants du bundle');
-                return;
-            }
-
-            \Log::info('Order ' . $order->id . ': Ajout du téléchargeable gratuit pour le bundle');
-
-            // Récupérer le produit bundle parent
-            $bundleProduct = \Webkul\Product\Models\Product::find(343);
-            
-            // Préparer les données du produit pour la commande
-            $orderItemData = [
-                'order_id' => $order->id,
-                'product_id' => $downloadableProduct->id,
-                'product_type' => \Webkul\Product\Models\Product::class,
-                'type' => 'downloadable',
-                'sku' => $downloadableProduct->sku,
-                'name' => $downloadableProduct->name,
-                'quantity' => 1,
-                'price' => 0,
-                'base_price' => 0,
-                'total' => 0,
-                'base_total' => 0,
-                'weight' => $downloadableProduct->weight ?? 0,
-                'parent_id' => $bundleItem->id,
-                'qty_ordered' => 1,
-                'additional' => [
-                    'links' => $linkIds,
-                ],
-            ];
-
-            // Créer l'OrderItem
-            $orderItemRepo = app(\Webkul\Sales\Repositories\OrderItemRepository::class);
-            $orderItem = $orderItemRepo->create($orderItemData);
-
-            \Log::info('Order ' . $order->id . ': OrderItem créé (ID: ' . $orderItem->id . ')');
-
-            // Créer les liens de téléchargement
-            $downloadableLinkPurchasedRepo = app(\Webkul\Sales\Repositories\DownloadableLinkPurchasedRepository::class);
-            $downloadableLinkPurchasedRepo->saveLinks($orderItem, 'available');
-
-            \Log::info('Order ' . $order->id . ': Téléchargeable gratuit ajouté avec succès');
-
         } catch (\Exception $e) {
-            \Log::error('Order ' . $order->id . ': Erreur lors de l\'ajout du téléchargeable gratuit: ' . $e->getMessage());
+            \Log::error('addFreeDownloadableFromBundle ERROR: ' . $e->getMessage(), [
+                'order_id' => $order->id,
+                'exception' => $e,
+            ]);
         }
     }
 

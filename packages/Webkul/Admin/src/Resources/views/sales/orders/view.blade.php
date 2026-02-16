@@ -144,20 +144,20 @@
                                                 $item->load('children.product');
                                             }
                                             
-                                            // Chercher le premier enfant (downloadable en priorité, puis simple)
+                                            // Chercher le premier enfant (simple en priorité, puis downloadable)
                                             if ($item->children && $item->children->count()) {
-                                                // D'abord chercher un produit downloadable
+                                                // D'abord chercher un produit simple
                                                 foreach ($item->children as $child) {
-                                                    if ($child->type === 'downloadable' && $child->product && $child->product->base_image_url) {
+                                                    if ($child->type === 'simple' && $child->product && $child->product->base_image_url) {
                                                         $childImageUrl = $child->product->base_image_url;
                                                         break;
                                                     }
                                                 }
                                                 
-                                                // Si pas de downloadable trouvé, chercher un produit simple
+                                                // Si pas de simple trouvé, chercher un produit downloadable
                                                 if (!$childImageUrl) {
                                                     foreach ($item->children as $child) {
-                                                        if ($child->type === 'simple' && $child->product && $child->product->base_image_url) {
+                                                        if ($child->type === 'downloadable' && $child->product && $child->product->base_image_url) {
                                                             $childImageUrl = $child->product->base_image_url;
                                                             break;
                                                         }

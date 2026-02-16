@@ -18,21 +18,21 @@
                             $item->load('children.product');
                         }
                         
-                        // Chercher le premier enfant (downloadable en priorité, puis simple)
+                        // Chercher le premier enfant (simple en priorité, puis downloadable)
                         if ($item->children && $item->children->count()) {
-                            // D'abord chercher un produit downloadable avec des images
+                            // D'abord chercher un produit simple avec des images
                             foreach ($item->children as $child) {
-                                if ($child->type === 'downloadable' && $child->product && $child->product->images->count() > 0) {
+                                if ($child->type === 'simple' && $child->product && $child->product->images->count() > 0) {
                                     $childImageUrl = $child->product->base_image_url;
                                     $hasImages = true;
                                     break;
                                 }
                             }
                             
-                            // Si pas de downloadable trouvé, chercher un produit simple avec des images
+                            // Si pas de simple trouvé, chercher un produit downloadable avec des images
                             if (!$childImageUrl) {
                                 foreach ($item->children as $child) {
-                                    if ($child->type === 'simple' && $child->product && $child->product->images->count() > 0) {
+                                    if ($child->type === 'downloadable' && $child->product && $child->product->images->count() > 0) {
                                         $childImageUrl = $child->product->base_image_url;
                                         $hasImages = true;
                                         break;
