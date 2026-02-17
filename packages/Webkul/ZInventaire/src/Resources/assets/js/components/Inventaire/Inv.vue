@@ -11,7 +11,8 @@
                     price: 1,
                     format: 1,
                 },
-                newQty: null,
+                modifiedProducts: {}, // Track les produits modifiés avec leurs nouvelles quantités
+                isSaving: false,
             };
         },
         mounted() {
@@ -49,17 +50,51 @@
                 });
             },
             handleQtyChange(event, product) {
-                this.newQty = parseInt(event.target.value);
+                const newQty = parseInt(event.target.value) || 0;
+                if (product && product.id) {
+                    // Vue 3 : assignation directe sans this.$set()
+                    this.modifiedProducts[String(product.id)] = newQty;
+                    console.log('Modified:', this.modifiedProducts);
+                }
             },
-            async saveEdit(product) {
+            async saveAllInventories() {
+                if (Object.keys(this.modifiedProducts).length === 0) {
+                    alert('Aucune modification à enregistrer');
+                    return;
+                }
+
+                this.isSaving = true;
                 try {
-                    await axios.put(`/admin/zinventaire/products/edit/${product.id}`,{
-                        qty: this.newQty,
+                    // Construire le payload avec tous les changements
+                    const updatedInventories = Object.keys(this.modifiedProducts).map(productId => ({
+                        id: parseInt(productId),
+                        qty: this.modifiedProducts[productId],
+                    }));
+
+                    await axios.put('/admin/zinventaire/products/edit', {
+                        inventories: updatedInventories,
                     });
-                    //this.fetchPosts(); // Rafraîchir les données après la mise à jour
+
+                    // Mettre à jour les quantités locales après succès
+                    updatedInventories.forEach(item => {
+                        const product = this.products.find(p => String(p.id) === String(item.id));
+                        if (product) {
+                            product.qty = item.qty;
+                        }
+                    });
+
+                    // Vider le tracker des modifications
+                    this.modifiedProducts = {};
+                    alert('Inventaire enregistré avec succès');
                 } catch (error) {
                     console.error('Erreur:', error);
+                    alert('Erreur lors de l\'enregistrement');
+                } finally {
+                    this.isSaving = false;
                 }
+            },
+            hasChanges() {
+                return Object.keys(this.modifiedProducts).length > 0;
             }
         },
         computed: {
@@ -69,17 +104,36 @@
             totalProducts() {
                 return this.products.length;
             },
+            changedCount() {
+                return Object.keys(this.modifiedProducts).length;
+            },
         }
     };
 </script>
 
 
 <template>
-    <!-- En-tête avec total -->
+    <!-- En-tête avec total et bouton -->
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-xl font-medium">Inventaire</h1>
-        <div class="text-gray-600">
-            Total: {{ totalProducts }} produits
+        <div class="flex items-center gap-4">
+            <div class="text-gray-600">
+                Total: {{ totalProducts }} produits
+                <span v-if="changedCount > 0" class="ml-3 text-blue-600 font-medium">
+                    {{ changedCount }} modifié(s)
+                </span>
+            </div>
+            <button 
+                @click="saveAllInventories"
+                :disabled="!hasChanges() || isSaving"
+                :class="[
+                    'px-4 py-2 rounded font-medium transition',
+                    hasChanges() && !isSaving 
+                        ? 'bg-blue-600 text-white hover:bg-blue-700 cursor-pointer' 
+                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                ]">
+                {{ isSaving ? 'Enregistrement...' : 'Enregistrer tous les changements' }}
+            </button>
         </div>
     </div>
     <!-- Tableau stylisé -->
@@ -128,9 +182,8 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         <input
                             type="number"
-                            @input="(e) => handleQtyChange(e, product)"
-                            :value="product.qty"
-                            @change="saveEdit(product)"
+                            @input="handleQtyChange($event, product)"
+                            :value="modifiedProducts[String(product.id)] !== undefined ? modifiedProducts[String(product.id)] : product.qty"
                             class="border px-2 py-1 rounded w-20"
                             min="0"
                         />

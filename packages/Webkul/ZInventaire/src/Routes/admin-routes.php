@@ -12,7 +12,7 @@ Route::group(['middleware' => ['web', 'admin'], 'prefix' => 'admin/zinventaire']
         Route::get('inv', 'inventaire');
     });
     Route::controller(ZInventaireController::class)->prefix('products')->group(function () {
-        Route::put('edit/{id}', 'updateinventaire')->name('admin.catalog.products.updateinventaire');
+        Route::put('edit', 'updateinventaire')->name('admin.catalog.products.updateinventaire');
     });
 });
 
