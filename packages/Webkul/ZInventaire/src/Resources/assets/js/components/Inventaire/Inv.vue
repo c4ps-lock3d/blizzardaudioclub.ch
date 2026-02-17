@@ -11,13 +11,13 @@
                     price: 1,
                     format: 1,
                 },
-                modifiedProducts: {}, // Track les produits modifiés avec leurs nouvelles quantités
+                modifiedProducts: {},
                 isSaving: false,
             };
         },
         mounted() {
             this.fetchPosts().then(() => {
-            this.sortBy('sku'); // Tri initial par SKU
+            this.sortBy('sku');
         });
         },
         methods: {
@@ -52,7 +52,6 @@
             handleQtyChange(event, product) {
                 const newQty = parseInt(event.target.value) || 0;
                 if (product && product.id) {
-                    // Vue 3 : assignation directe sans this.$set()
                     this.modifiedProducts[String(product.id)] = newQty;
                     console.log('Modified:', this.modifiedProducts);
                 }
@@ -65,7 +64,6 @@
 
                 this.isSaving = true;
                 try {
-                    // Construire le payload avec tous les changements
                     const updatedInventories = Object.keys(this.modifiedProducts).map(productId => ({
                         id: parseInt(productId),
                         qty: this.modifiedProducts[productId],
@@ -75,7 +73,6 @@
                         inventories: updatedInventories,
                     });
 
-                    // Mettre à jour les quantités locales après succès
                     updatedInventories.forEach(item => {
                         const product = this.products.find(p => String(p.id) === String(item.id));
                         if (product) {
@@ -83,7 +80,6 @@
                         }
                     });
 
-                    // Vider le tracker des modifications
                     this.modifiedProducts = {};
                     alert('Inventaire enregistré avec succès');
                 } catch (error) {
@@ -111,62 +107,55 @@
     };
 </script>
 
-
 <template>
-    <!-- En-tête avec total et bouton -->
-    <div class="sticky top-0 z-10 bg-white flex justify-between items-center mb-4 px-6 py-4 shadow-md rounded-t-lg">
-        <h1 class="text-xl font-medium">Inventaire</h1>
-        <div class="flex items-center gap-4">
-            <div class="text-gray-600">
-                Total: {{ totalProducts }} produits
-                <span v-if="changedCount > 0" class="ml-3 text-blue-600 font-medium">
-                    {{ changedCount }} modifié(s)
-                </span>
+    <div>
+        <!-- En-tête FIXE (reste toujours visible) -->
+        <div style="position: sticky; top: 0; z-index: 9999; height: 65px;" class="bg-white shadow-md border-b border-gray-200">
+            <div class="px-6 py-1 flex items-center justify-between gap-4">
+                <h1 class="text-xl font-medium flex-shrink-0">Inventaire</h1>
+                <div class="flex-1"></div>
+                <div class="text-gray-600 flex-shrink-0">
+                    Total: {{ totalProducts }} produits
+                    <span v-if="changedCount > 0" class="ml-3 text-blue-600 font-medium">
+                        {{ changedCount }} modifié(s)
+                    </span>
+                </div>
+                <button 
+                    @click="saveAllInventories"
+                    :disabled="!hasChanges() || isSaving"
+                    class="px-4 py-2 rounded font-medium transition flex-shrink-0 whitespace-nowrap"
+                    :class="[
+                        hasChanges() && !isSaving 
+                            ? 'bg-blue-600 text-white hover:bg-blue-700 cursor-pointer' 
+                            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    ]">
+                    {{ isSaving ? 'Enregistrement...' : 'Enregistrer tous les changements' }}
+                </button>
             </div>
-            <button 
-                @click="saveAllInventories"
-                :disabled="!hasChanges() || isSaving"
-                :class="[
-                    'px-4 py-2 rounded font-medium transition',
-                    hasChanges() && !isSaving 
-                        ? 'bg-blue-600 text-white hover:bg-blue-700 cursor-pointer' 
-                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                ]">
-                {{ isSaving ? 'Enregistrement...' : 'Enregistrer tous les changements' }}
-            </button>
         </div>
-    </div>
-    <!-- Tableau stylisé -->
-    <div class="bg-white rounded-lg shadow overflow-hidden">
+        <!-- Tableau sans margin-top -->
+        <div style="height: calc(100vh - 80px);" class="overflow-y-auto">
         <table class="w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
+            <thead class="bg-gray-50 sticky top-0 z-10">
                 <tr>
-                    <th 
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
-                        Image
-                    </th>
-                    <th @click="sortBy('name')" 
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">Image</th>
+                    <th @click="sortBy('name')" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
                         Nom
                         <span class="arrow ml-2" :class="sortOrders.name > 0 ? 'asc' : 'dsc'"></span>
                     </th>
-                    <th @click="sortBy('sku')" 
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+                    <th @click="sortBy('sku')" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
                         SKU
                         <span class="arrow ml-2" :class="sortOrders.sku > 0 ? 'asc' : 'dsc'"></span>
                     </th>
-                    <th @click="sortBy('qty')"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+                    <th @click="sortBy('qty')" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
                         Quantité
                         <span class="arrow ml-2" :class="sortOrders.qty > 0 ? 'asc' : 'dsc'"></span>
                     </th>
-                    <th @click="sortBy('price')"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+                    <th @click="sortBy('price')" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
                         Prix (CHF)
                         <span class="arrow ml-2" :class="sortOrders.price > 0 ? 'asc' : 'dsc'"></span>
                     </th>
-                    <th @click="sortBy('format')"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+                    <th @click="sortBy('format')" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
                         Format
                         <span class="arrow ml-2" :class="sortOrders.format > 0 ? 'asc' : 'dsc'"></span>
                     </th>
@@ -193,5 +182,6 @@
                 </tr>
             </tbody>
         </table>
+    </div>
     </div>
 </template>
