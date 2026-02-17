@@ -117,9 +117,7 @@
     <div>
         <!-- En-tête FIXE (reste toujours visible) -->
         <div style="position: sticky; top: 0; z-index: 9999; height: 65px;" class="bg-white shadow-md border-b border-gray-200">
-            <div class="px-6 py-1 flex items-center justify-between gap-4">
-                                <h1 class="text-xl font-medium flex-shrink-0">Inventaire</h1>
-            </div>
+        <h1 class="text-xl font-bold flex-shrink-0">Inventaire</h1>
         </div>
         <!-- Tableau sans margin-top -->
         <div style="height: calc(100vh - 130px);" class="overflow-y-auto">
@@ -179,6 +177,16 @@
                 {{ changedCount }} modifié(s)
             </span>
         </div>
+        <button 
+            @click="() => { this.modifiedProducts = {}; window.location.href = '/admin/dashboard'; }"
+            class="px-4 py-2 rounded font-medium transition whitespace-nowrap"
+            :class="[
+                hasChanges()
+                    ? 'bg-blue-600 text-white hover:bg-blue-700 cursor-pointer'
+                    : 'bg-gray-400 text-white hover:bg-gray-500 cursor-pointer'
+            ]">
+            Annuler
+        </button>
         <button 
             @click="saveAllInventories"
             :disabled="!hasChanges() || isSaving"
