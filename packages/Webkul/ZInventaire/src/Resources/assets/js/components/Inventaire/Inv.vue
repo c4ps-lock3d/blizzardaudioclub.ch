@@ -52,7 +52,13 @@
             handleQtyChange(event, product) {
                 const newQty = parseInt(event.target.value) || 0;
                 if (product && product.id) {
-                    this.modifiedProducts[String(product.id)] = newQty;
+                    if (newQty === product.qty) {
+                        // Si la nouvelle quantité est identique à l'originale, on la retire de modifiedProducts
+                        delete this.modifiedProducts[String(product.id)];
+                    } else {
+                        // Sinon on l'enregistre
+                        this.modifiedProducts[String(product.id)] = newQty;
+                    }
                     console.log('Modified:', this.modifiedProducts);
                 }
             },
