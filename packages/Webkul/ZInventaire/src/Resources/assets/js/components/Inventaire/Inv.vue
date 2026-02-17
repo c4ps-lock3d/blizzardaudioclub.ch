@@ -118,29 +118,11 @@
         <!-- En-tête FIXE (reste toujours visible) -->
         <div style="position: sticky; top: 0; z-index: 9999; height: 65px;" class="bg-white shadow-md border-b border-gray-200">
             <div class="px-6 py-1 flex items-center justify-between gap-4">
-                <h1 class="text-xl font-medium flex-shrink-0">Inventaire</h1>
-                <div class="flex-1"></div>
-                <div class="text-gray-600 flex-shrink-0">
-                    Total: {{ totalProducts }} produits
-                    <span v-if="changedCount > 0" class="ml-3 text-blue-600 font-medium">
-                        {{ changedCount }} modifié(s)
-                    </span>
-                </div>
-                <button 
-                    @click="saveAllInventories"
-                    :disabled="!hasChanges() || isSaving"
-                    class="px-4 py-2 rounded font-medium transition flex-shrink-0 whitespace-nowrap"
-                    :class="[
-                        hasChanges() && !isSaving 
-                            ? 'bg-blue-600 text-white hover:bg-blue-700 cursor-pointer' 
-                            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    ]">
-                    {{ isSaving ? 'Enregistrement...' : 'Enregistrer tous les changements' }}
-                </button>
+                                <h1 class="text-xl font-medium flex-shrink-0">Inventaire</h1>
             </div>
         </div>
         <!-- Tableau sans margin-top -->
-        <div style="height: calc(100vh - 80px);" class="overflow-y-auto">
+        <div style="height: calc(100vh - 130px);" class="overflow-y-auto">
         <table class="w-full divide-y divide-gray-200">
             <thead class="bg-gray-50 sticky top-0 z-10">
                 <tr>
@@ -188,6 +170,26 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <!-- Conteneur fixé avec bouton et total -->
+    <div style="position: fixed; top: 85px; right: 20px; z-index: 10000; display: flex; gap: 20px; align-items: center;">
+        <div class="text-gray-600">
+            Total: {{ totalProducts }} produits
+            <span v-if="changedCount > 0" class="ml-3 text-blue-600 font-medium">
+                {{ changedCount }} modifié(s)
+            </span>
+        </div>
+        <button 
+            @click="saveAllInventories"
+            :disabled="!hasChanges() || isSaving"
+            class="px-4 py-2 rounded font-medium transition whitespace-nowrap"
+            :class="[
+                hasChanges() && !isSaving 
+                    ? 'bg-blue-600 text-white hover:bg-blue-700 cursor-pointer' 
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            ]">
+            {{ isSaving ? 'Enregistrement...' : 'Enregistrer tous les changements' }}
+        </button>
     </div>
     </div>
 </template>
