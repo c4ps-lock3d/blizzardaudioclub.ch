@@ -114,7 +114,7 @@
 
 <template>
     <!-- En-tête avec total et bouton -->
-    <div class="flex justify-between items-center mb-4">
+    <div class="sticky top-0 z-10 bg-white flex justify-between items-center mb-4 px-6 py-4 shadow-md rounded-t-lg">
         <h1 class="text-xl font-medium">Inventaire</h1>
         <div class="flex items-center gap-4">
             <div class="text-gray-600">
