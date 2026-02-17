@@ -1,6 +1,6 @@
 deploy:
 	rsync -avz public/themes/shop/store/build infomaniakbac:~/sites/blizzardaudioclub.ch/public/themes/shop/store
-	# rsync -avz public/themes/zinventaire/default/build infomaniakbac:~/sites/blizzardaudioclub.ch/public/themes/zinventaire/default
+	rsync -avz public/themes/zinventaire/default/build infomaniakbac:~/sites/blizzardaudioclub.ch/public/themes/zinventaire/default
 	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && git pull origin master && make install'
 
 install: vendor/autoload.php .env public/storage
