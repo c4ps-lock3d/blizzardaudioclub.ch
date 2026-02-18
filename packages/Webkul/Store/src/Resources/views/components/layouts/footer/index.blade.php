@@ -113,7 +113,6 @@
                     </p>
                     <p class="text-sm mt-2">
                         <b>Blizzard Audio Club</b><br>
-                        C/o Bel <br>
                         Alexis-Marie-Piaget 71<br>
                         2300 La Chaux-de-Fonds<br>
                         Suisse (CH)
