@@ -389,6 +389,15 @@
                  */
                 this.$emitter.on('update-mini-cart', (cart) => {
                     this.cart = cart;
+                    
+                    // Initialiser option_show à true lors des mises à jour
+                    if (this.cart && this.cart.items) {
+                        this.cart.items.forEach(item => {
+                            if (item.options && item.options.length > 0 && item.option_show === undefined) {
+                                item.option_show = true;
+                            }
+                        });
+                    }
                 });
             },
 
@@ -397,6 +406,15 @@
                     this.$axios.get('{{ route('shop.api.checkout.cart.index') }}')
                         .then(response => {
                             this.cart = response.data.data;
+                            
+                            // Initialiser option_show à true pour tous les items avec des options
+                            if (this.cart && this.cart.items) {
+                                this.cart.items.forEach(item => {
+                                    if (item.options && item.options.length > 0) {
+                                        item.option_show = true;
+                                    }
+                                });
+                            }
                         })
                         .catch(error => {});
                 },
