@@ -113,8 +113,9 @@
                     </p>
                     <p class="text-sm mt-2">
                         <b>Blizzard Audio Club</b><br>
-                        Joux-Pélichet 3<br>
-                        2400 Le Locle<br>
+                        C/o Bel <br>
+                        Alexis-Marie-Piaget 71<br>
+                        2300 La Chaux-de-Fonds<br>
                         Suisse (CH)
                     </p>
                 </li>
