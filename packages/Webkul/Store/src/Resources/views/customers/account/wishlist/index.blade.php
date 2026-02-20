@@ -145,7 +145,7 @@
                                             <div class="max-md:block md:hidden">
                                                 <p 
                                                     class="text-lg font-semibold max-md:text-sm" 
-                                                    v-html="item.product.min_price"
+                                                    v-html="'À partir de ' + item.product.min_price"
                                                 >
                                                 </p>
 
@@ -165,25 +165,15 @@
 
                                             {!! view_render_event('bagisto.shop.customers.account.wishlist.perform_actions.before') !!}
 
-                                            <div class="flex gap-5 max-md:mt-2.5">
-                                                <x-shop::quantity-changer
-                                                    name="quantity"
-                                                    ::value="item.options.quantity ?? 1"
-                                                    class="flex max-h-10 items-center gap-x-2.5 rounded-[54px] border border-navyBlue px-3.5 py-1.5 max-md:gap-x-1 max-md:px-1.5 max-md:py-1"
-                                                    @change="setItemQuantity($event, item)"
-                                                />
-
-                                                @if (core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
-                                                    <!--Wishlist Item Move-to-cart-->
-                                                    <x-shop::button
-                                                        class="primary-button max-h-10 w-max rounded-2xl px-6 py-1.5 text-center text-base max-md:px-4 max-md:py-1.5 max-md:text-sm"
-                                                        :title="trans('shop::app.customers.account.wishlist.move-to-cart')"
-                                                        ::loading="isMovingToCart[item.id]"
-                                                        ::disabled="isMovingToCart[item.id]"
-                                                        @click="moveToCart(item.id,index)"
-                                                    />
-                                                @endif
-                                            </div>
+                                            @if (core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
+                                                <!--Wishlist Item View Product-->
+                                                <a 
+                                                    :href="`{{ route('shop.product_or_category.index', '') }}/${item.product.url_key}`"
+                                                    class="primary-button max-h-10 w-max rounded-2xl px-6 py-1.5 text-center text-base max-md:px-4 max-md:py-1.5 max-md:text-sm inline-block"
+                                                >
+                                                    Afficher les options
+                                                </a>
+                                            @endif
 
                                             {!! view_render_event('bagisto.shop.customers.account.wishlist.perform_actions.after') !!}
                                         </div>
@@ -192,7 +182,7 @@
                                     <div class="max-md:hidden">
                                         <p 
                                             class="text-lg font-semibold" 
-                                            v-html="item.product.min_price"
+                                            v-html="'À partir de ' + item.product.min_price"
                                         >
                                         </p>
 
