@@ -9,6 +9,35 @@
     $customAttributeValues = $productViewHelper->getAdditionalData($product);
 
     $attributeData = collect($customAttributeValues)->filter(fn ($item) => ! empty($item['value']));
+
+    // Get bundle child images if product is bundle type
+    $bundleChildImages = $product->type === 'bundle' ? app('Webkul\Product\Helpers\BundleOption')->getBundleChildImages($product) : [];
+
+    // Check if product or any bundle child is on preorder
+    $isPreorder = $product->preorder;
+    if ($product->type === 'bundle' && !$isPreorder) {
+        $bundleConfig = app('Webkul\Product\Helpers\BundleOption')->getBundleConfig($product);
+        if (!empty($bundleConfig['options'])) {
+            foreach ($bundleConfig['options'] as $option) {
+                if (!empty($option['products'])) {
+                    foreach ($option['products'] as $childProduct) {
+                        // Check if child product (especially simple/vinyle type) has preorder attribute
+                        if (!empty($childProduct['product_id'])) {
+                            $childProductModel = \Webkul\Product\Models\Product::find($childProduct['product_id']);
+                            if ($childProductModel && $childProductModel->type === 'simple') {
+                                // For simple products, check the preorder attribute directly
+                                $preorderAttr = $childProductModel->getAttribute('preorder');
+                                if ($preorderAttr || !empty($childProduct['preorder'])) {
+                                    $isPreorder = true;
+                                    break 2;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 @endphp
 
 <!-- SEO Meta Content -->
@@ -138,23 +167,9 @@
                         </x-shop::tabs.item>
                     @endif
                 @endforeach
-               
-                
-
-                <!-- Reviews Tab -->
-                <!-- <x-shop::tabs.item
-                    id="review-tab"
-                    class="container mt-[60px] !p-0"
-                    :title="trans('shop::app.products.view.review')"
-                    :is-selected="false"
-                > -->
-                {{-- @include('shop::products.view.reviews') --}}
-                <!-- </x-shop::tabs.item> -->
             </x-shop::tabs>
         </div>
     </div>
-
-
 
     <!-- Information Section -->
     <div class="container mt-6 grid gap-3 !p-0 max-1180:px-5 1180:hidden">
@@ -300,7 +315,7 @@
                             @include('shop::products.view.gallery')
 
                             <!-- Details -->
-                            <div class="relative max-w-[590px] max-1180:w-full max-1180:max-w-full max-1180:px-5 max-sm:px-4">
+                            <div class="relative flex-1 max-1180:w-full max-1180:px-5 max-sm:px-4">
                                 {!! view_render_event('bagisto.shop.products.name.before', ['product' => $product]) !!}
 
                                 <div class="flex justify-between gap-4">
@@ -315,7 +330,7 @@
                                             role="button"
                                             aria-label="@lang('shop::app.products.view.add-to-wishlist')"
                                             tabindex="0"
-                                            :class="isWishlist ? 'icon-heart-fill text-red-600 border-[#FADA00]' : 'icon-heart'"
+                                            :class="isWishlist ? 'icon-heart-fill text-red-600 border-[#FFD940]' : 'icon-heart'"
                                             @click="addToWishlist"
                                         >
                                         </div>
@@ -349,9 +364,11 @@
                                 <!-- Pricing -->
                                 {!! view_render_event('bagisto.shop.products.price.before', ['product' => $product]) !!}
 
-                                <p class="mt-[22px] flex items-center gap-2.5 text-2xl !font-medium max-sm:mt-2 max-sm:gap-x-2.5 max-sm:gap-y-0 max-sm:text-lg">
-                                    {!! $product->getTypeInstance()->getPriceHtml() !!}
-                                </p>
+                                @if ($product->type !== 'bundle' && $product->getTypeInstance()->isSaleable())
+                                    <p class="mt-[22px] flex items-center gap-2.5 text-2xl !font-medium max-sm:mt-2 max-sm:gap-x-2.5 max-sm:gap-y-0 max-sm:text-lg">
+                                        {!! $product->getTypeInstance()->getPriceHtml() !!}
+                                    </p>
+                                @endif
 
                                 <!-- @if (\Webkul\Tax\Facades\Tax::isInclusiveTaxProductPrices())
                                     <span class="text-sm font-normal text-zinc-500 max-sm:text-xs">
@@ -386,11 +403,11 @@
                                         @if(!is_null($artiste))
                                             @if($loop->first)
                                                 Artiste :
-                                                <a class="!text-[#FADA00]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">
+                                                <a class="!text-[#FFD940]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">
                                                     {!! $artiste->name !!}
                                                 </a>
                                             @else
-                                            | <a class="!text-[#FADA00]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">
+                                            | <a class="!text-[#FFD940]" href="/artistes/{{ $artiste->slug}}-{{ $artiste->id}}">
                                                     {!! $artiste->name !!}
                                                 </a>
                                             @endif
@@ -398,11 +415,17 @@
                                     @endforeach
                                 </p>
 
+                                @if ($product->style)
+                                    <p class="mt-2 text-md text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
+                                        Style : {!! $product->style !!}
+                                    </p>
+                                @endif
+
                                 @if ($product->release_date)
                                 <p class="mt-2 text-md text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
                                     Date de sortie : {!! date("d.m.Y", strtotime($product->release_date)) !!}
                                 </p>
-                                    @if ($product->preorder)
+                                    @if ($isPreorder)
                                         <p class="mt-6 text-justify text-md p-3 !border-black rounded-lg !text-white bg-[#343A40]">
                                             Il s'agit d'un produit en précommande. Dès qu'il sera disponible en stock, votre commande sera expédiée.
                                             <!--{!! (strtotime($product->release_date) - strtotime(date("Y-m-d")))/86400 !!} jours restants avant la sortie.-->
@@ -426,18 +449,18 @@
 
                                     {!! view_render_event('bagisto.shop.products.view.quantity.before', ['product' => $product]) !!}
 
-                                    @if ($product->getTypeInstance()->showQuantityBox())
+                                    @if ($product->getTypeInstance()->showQuantityBox() && $product->type !== 'bundle')
                                         <x-shop::quantity-changer
                                             name="quantity"
                                             value="1"
-                                            class="gap-x-4 rounded-xl px-7 py-4 max-md:py-3 max-sm:gap-x-5 max-sm:rounded-lg max-sm:px-4 max-sm:py-1.5"
+                                            class="{{ 'gap-x-4 rounded-xl px-7 py-4 max-md:py-3 max-sm:gap-x-5 max-sm:rounded-lg max-sm:px-4 max-sm:py-1.5' . (!$product->getTypeInstance()->isSaleable() ? ' opacity-50 pointer-events-none cursor-not-allowed' : '') }}"
                                         />
                                     @endif
 
                                     {!! view_render_event('bagisto.shop.products.view.quantity.after', ['product' => $product]) !!}
 
                                     @if (core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
-                                        @if ($product->preorder)
+                                        @if ($isPreorder)
                                             <!-- Add To Cart Button -->
                                             {!! view_render_event('bagisto.shop.products.view.add_to_cart.before', ['product' => $product]) !!}
                                             <x-shop::button
@@ -445,7 +468,7 @@
                                                 class="primary-button w-full max-w-full max-md:py-3 max-sm:rounded-lg max-sm:py-1.5"
                                                 button-type="secondary-button"
                                                 :loading="false"
-                                                title="Précommander"
+                                                :title="$product->isSaleable(1) ? 'Précommander' : 'En rupture de stock'"
                                                 :disabled="! $product->isSaleable(1)"
                                                 ::loading="isStoring.addToCart"
                                             />
@@ -458,7 +481,7 @@
                                                 class="primary-button w-full max-w-full max-md:py-3 max-sm:rounded-lg max-sm:py-1.5"
                                                 button-type="secondary-button"
                                                 :loading="false"
-                                                :title="trans('shop::app.products.view.add-to-cart')"
+                                                :title="$product->isSaleable(1) ? trans('shop::app.products.view.add-to-cart') : 'En rupture de stock'"
                                                 :disabled="! $product->isSaleable(1)"
                                                 ::loading="isStoring.addToCart"
                                             />

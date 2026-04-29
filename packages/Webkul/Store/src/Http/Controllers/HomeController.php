@@ -5,6 +5,7 @@ namespace Webkul\Store\Http\Controllers;
 use Illuminate\Support\Facades\Mail;
 use Webkul\Store\Http\Requests\ContactRequest;
 use Webkul\Store\Mail\ContactUs;
+use Webkul\Store\Http\Resources\ProductResource;
 use Webkul\Theme\Repositories\ThemeCustomizationRepository;
 use Illuminate\Http\Request;
 use App\Models\Artiste;
@@ -67,11 +68,6 @@ class HomeController extends Controller
         return view('store::home.location-sono');
     }
 
-    public function bacPlusCinq()
-    {
-        return view('store::home.bac-plus-cinq');
-    }
-
     public function aPropos(Artiste $artiste)
     {
         $artiste = $artiste->newQuery();
@@ -92,9 +88,16 @@ class HomeController extends Controller
             return to_route('store.artistes.artiste-view', ['slug' => $artistes->slug, 'id' => $artistes->id]);
         }
         
+        // Récupérer les produits triés par date décroissante (plus récents en premier)
+        $artisteProducts = $artistes->products()->orderBy('created_at', 'desc')->get();
+        
+        // Transformer les produits avec la ProductResource
+        $productsData = ProductResource::collection($artisteProducts)->resolve();
+        
         return view('store::artistes.artiste-view',[
             'artistes' => $artistes,
-            'count_products' => $artistes->products()->count(),
+            'products' => $productsData,
+            'count_products' => $artisteProducts->count(),
         ]);
     }
 

@@ -204,6 +204,8 @@
                         isMobile: window.innerWidth <= 767,
 
                         isLoading: true,
+                        
+                        hasInitialized: false,
 
                         isDrawerActive: {
                             toolbar: false,
@@ -238,8 +240,18 @@
                 },
 
                 watch: {
-                    queryParams() {
-                        this.getProducts();
+                    queryParams: {
+                        handler() {
+                            // Skip first call during initialization to avoid duplicate loading
+                            if (!this.hasInitialized) {
+                                this.hasInitialized = true;
+                                this.getProducts();
+                            } else {
+                                // Always reload when filters change (added or removed)
+                                this.getProducts();
+                            }
+                        },
+                        immediate: true,
                     },
 
                     queryString() {
@@ -274,6 +286,28 @@
                                 this.products = response.data.data;
 
                                 this.links = response.data.links;
+
+                                // Load bundles with matching children only if there are filters applied
+                                if (Object.keys(this.queryParams).length > 0) {
+                                    this.loadMatchingBundles();
+                                }
+                            }).catch(error => {
+                                console.log(error);
+                            });
+                    },
+
+                    loadMatchingBundles() {
+                        this.$axios.get("{{ route('shop.api.products.bundles-with-matching-children.index', ['category_id' => $category->id]) }}", {
+                            params: this.queryParams 
+                        })
+                            .then(response => {
+                                // Add bundles to the products list (avoiding duplicates)
+                                const bundleIds = new Set(response.data.data.map(b => b.id));
+                                const productIds = new Set(this.products.map(p => p.id));
+                                
+                                const newBundles = response.data.data.filter(b => !productIds.has(b.id));
+                                
+                                this.products = [...this.products, ...newBundles];
                             }).catch(error => {
                                 console.log(error);
                             });
@@ -293,6 +327,23 @@
                                 this.products = [...this.products, ...response.data.data];
 
                                 this.links = response.data.links;
+                            }).catch(error => {
+                                console.log(error);
+                            });
+                    },
+
+                    loadMatchingBundlesForNewProducts() {
+                        // Only add bundles that are not already in products list
+                        this.$axios.get("{{ route('shop.api.products.bundles-with-matching-children.index', ['category_id' => $category->id]) }}", {
+                            params: this.queryParams 
+                        })
+                            .then(response => {
+                                const productIds = new Set(this.products.map(p => p.id));
+                                const newBundles = response.data.data.filter(b => !productIds.has(b.id));
+                                
+                                if (newBundles.length > 0) {
+                                    this.products = [...this.products, ...newBundles];
+                                }
                             }).catch(error => {
                                 console.log(error);
                             });

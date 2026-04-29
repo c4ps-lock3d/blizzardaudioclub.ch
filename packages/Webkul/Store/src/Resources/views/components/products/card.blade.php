@@ -1,8 +1,26 @@
 <v-product-card
     {{ $attributes }}
     :product="product"
+    :bundle-downloadable-image="product.bundle_downloadable_image"
+    :bundle-simple-image="product.bundle_simple_image"
 >
 </v-product-card>
+
+@pushOnce('styles')
+    <style>
+        .add-to-cart-card.secondary-button,
+        .add-to-cart-card.primary-button {
+            background-color: #FFD940 !important;
+            color: #000000 !important;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart-card.secondary-button:hover,
+        .add-to-cart-card.primary-button:hover {
+            background-color: #E6C200 !important;
+        }
+    </style>
+@endPushOnce
 
 @pushOnce('scripts')
     <script
@@ -24,7 +42,7 @@
                 >
                     <x-shop::media.images.lazy
                         class="after:content-[' '] relative transition-all duration-300 after:block after:pb-[calc(100%+9px)] group-hover:scale-105 max-sm:rounded-b-none"
-                        ::src="product.base_image.medium_image_url"
+                        ::src="cardImageUrl"
                         ::key="product.id"
                         ::index="product.id"
                         width="291" 
@@ -59,10 +77,20 @@
 
                     <!-- Product New Badge -->
                     <p
-                        class="absolute top-1.5 inline-block rounded-[44px] bg-black px-2.5 text-sm text-white max-sm:rounded-l-none max-sm:rounded-r-xl max-sm:px-2 max-sm:py-0.5 max-sm:text-xs ltr:left-1.5 max-sm:ltr:left-0 rtl:right-1.5 max-sm:rtl:right-0"
+                        class="absolute inline-block rounded-[44px] px-2.5 text-sm text-white max-sm:rounded-l-none max-sm:rounded-r-xl max-sm:px-2 max-sm:py-0.5 max-sm:text-xs ltr:left-1.5 max-sm:ltr:left-0 rtl:right-1.5 max-sm:rtl:right-0"
+                        style="background-color: #000000; top: 6px;"
                         v-else-if="product.is_new"
                     >
                         @lang('shop::app.components.products.card.new')
+                    </p>
+
+                    <!-- Product Preorder Badge (Grid) -->
+                    <p
+                        class="absolute inline-block rounded-[44px] px-2.5 text-sm text-white max-sm:rounded-l-none max-sm:rounded-r-xl max-sm:px-2 max-sm:py-0.5 max-sm:text-xs ltr:left-1.5 max-sm:ltr:left-0 rtl:right-1.5 max-sm:rtl:right-0"
+                        :style="`background-color: #000000; top: ${!product.is_new ? '6px' : '36px'};`"
+                        v-if="hasChildPreorder"
+                    >
+                        @lang('shop::app.components.products.card.preorder')
                     </p>
 
                     <div class="opacity-0 transition-all duration-300 group-hover:bottom-0 group-hover:opacity-100 max-lg:opacity-100 max-sm:opacity-100">
@@ -117,13 +145,32 @@
                 {!! view_render_event('bagisto.shop.components.products.card.price.before') !!}
 
                 <div
-                    id="colorTextCommand"
+                    v-if="!product.is_saleable"
                     class="flex items-center gap-2.5 text-lg font-semibold max-sm:text-sm max-sm:ml-2 max-sm:mb-2 max-sm:leading-6"
-                    v-html="product.price_html"
+                    style="color: #999;"
+                >
+                    En rupture de stock
+                </div>
+
+                <div
+                    v-else-if="bundlePriceDisplay"
+                    style="color: #dcdcdc"
+                    class="flex flex-col gap-0.5 text-base font-medium max-sm:text-sm max-sm:ml-2 max-sm:mb-2 max-sm:leading-4"
+                >
+                    <div v-for="(price, format) in bundlePriceDisplay" :key="format">
+                        @{{ format }} : <span class="font-bold text-lg">@{{ price }}</span>
+                    </div>
+                </div>
+
+                <div
+                    v-else
+                    id="colorTextCommand"
+                    class="flex items-center gap-0 text-lg font-semibold max-sm:text-sm max-sm:ml-2 max-sm:mb-2 max-sm:leading-6 [&>*]:m-0"
+                    v-html="cleanPriceHtml"
                 >
                 </div>
 
-                {!! view_render_event('bagisto.shop.components.products.card.price.before') !!}
+                {!! view_render_event('bagisto.shop.components.products.card.price.after') !!}
 
                 <!-- Product Actions Section -->
                 <div class="action-items flex items-center justify-between opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 max-md:hidden">
@@ -131,11 +178,12 @@
                         {!! view_render_event('bagisto.shop.components.products.card.add_to_cart.before') !!}
 
                         <button
-                            class="secondary-button w-full max-w-full p-2.5 text-sm font-medium max-sm:rounded-xl max-sm:p-2"
+                            class="secondary-button w-full max-w-full p-2.5 text-sm font-medium max-sm:rounded-xl max-sm:p-2 add-to-cart-card"
                             :disabled="! product.is_saleable || isAddingToCart"
-                            @click="addToCart()"
+                            @click="handleButtonClick()"
                         >
-                            @lang('shop::app.components.products.card.add-to-cart')
+                            <span v-if="product.type === 'bundle' || product.type === 'configurable'">Afficher les options</span>
+                            <span v-else>@lang('shop::app.components.products.card.add-to-cart')</span>
                         </button>
 
                         {!! view_render_event('bagisto.shop.components.products.card.add_to_cart.after') !!}
@@ -187,7 +235,7 @@
                 <a :href="`{{ route('shop.product_or_category.index', '') }}/${product.url_key}`">
                     <x-shop::media.images.lazy
                         class="after:content-[' '] relative min-w-[250px] bg-zinc-100 transition-all duration-300 after:block after:pb-[calc(100%+9px)] group-hover:scale-105"
-                        ::src="product.base_image.medium_image_url"
+                        ::src="cardImageUrl"
                         ::key="product.id"
                         ::index="product.id"
                         width="291"
@@ -207,10 +255,20 @@
                     </p>
 
                     <p
-                        class="absolute top-5 inline-block rounded-[44px] !bg-black px-2.5 text-sm text-white ltr:left-5 max-sm:ltr:left-2 rtl:right-5"
+                        class="absolute inline-block rounded-[44px] px-2.5 text-sm text-white ltr:left-5 max-sm:ltr:left-2 rtl:right-5"
+                        style="background-color: #000000; top: 20px;"
                         v-else-if="product.is_new"
                     >
                         @lang('shop::app.components.products.card.new')
+                    </p>
+
+                    <!-- Product Preorder Badge (List) -->
+                    <p
+                        class="absolute inline-block rounded-[44px] px-2.5 text-sm text-white ltr:left-5 max-sm:ltr:left-2 rtl:right-5"
+                        :style="`background-color: #000000; top: ${!product.is_new ? '20px' : '56px'};`"
+                        v-if="hasChildPreorder"
+                    >
+                        @lang('shop::app.components.products.card.preorder')
                     </p>
  
                     <div class="opacity-0 transition-all duration-300 group-hover:bottom-0 group-hover:opacity-100 max-sm:opacity-100">
@@ -262,8 +320,27 @@
                 {!! view_render_event('bagisto.shop.components.products.card.price.before') !!}
 
                 <div
+                    v-if="!product.is_saleable"
                     class="flex gap-2.5 text-lg font-semibold"
-                    v-html="product.price_html"
+                    style="color: #999;"
+                >
+                    En rupture de stock
+                </div>
+
+                <div
+                    v-else-if="bundlePriceDisplay"
+                    style="color: #dcdcdc"
+                    class="flex flex-col gap-0.5 text-base font-medium"
+                >
+                    <div v-for="(price, format) in bundlePriceDisplay" :key="format">
+                        @{{ format }} : <span class="font-bold text-lg">@{{ price }}</span>
+                    </div>
+                </div>
+
+                <div
+                    v-else
+                    class="flex gap-0 text-lg font-semibold w-full [&>*]:m-0"
+                    v-html="cleanPriceHtml"
                 >
                 </div>
 
@@ -304,13 +381,24 @@
 
                     {!! view_render_event('bagisto.shop.components.products.card.add_to_cart.before') !!}
 
-                    <x-shop::button
-                        class="primary-button whitespace-nowrap px-8 py-2.5"
-                        :title="trans('shop::app.components.products.card.add-to-cart')"
-                        ::loading="isAddingToCart"
-                        ::disabled="! product.is_saleable || isAddingToCart"
-                        @click="addToCart()"
-                    />
+                    <template v-if="product.type === 'bundle' || product.type === 'configurable'">
+                        <x-shop::button
+                            class="primary-button whitespace-nowrap px-8 py-2.5 add-to-cart-card"
+                            title="Afficher les options"
+                            ::loading="isAddingToCart"
+                            ::disabled="! product.is_saleable || isAddingToCart"
+                            @click="handleButtonClick()"
+                        />
+                    </template>
+                    <template v-else>
+                        <x-shop::button
+                            class="primary-button whitespace-nowrap px-8 py-2.5 add-to-cart-card"
+                            :title="trans('shop::app.components.products.card.add-to-cart')"
+                            ::loading="isAddingToCart"
+                            ::disabled="! product.is_saleable || isAddingToCart"
+                            @click="handleButtonClick()"
+                        />
+                    </template>
 
                     {!! view_render_event('bagisto.shop.components.products.card.add_to_cart.after') !!}
 
@@ -323,13 +411,78 @@
         app.component('v-product-card', {
             template: '#v-product-card-template',
 
-            props: ['mode', 'product'],
+            props: ['mode', 'product', 'bundleDownloadableImage', 'bundleSimpleImage'],
 
             data() {
                 return {
                     isCustomer: '{{ auth()->guard('customer')->check() }}',
 
                     isAddingToCart: false,
+                }
+            },
+
+            computed: {
+                cardImageUrl() {
+                    // For bundle products without their own images, use appropriate child image
+                    if (this.product.type === 'bundle') {
+                        // Check if we're in the Merchandising category
+                        const isMerchandisingCategory = window.location.pathname.includes('/merchandising');
+                        
+                        // For Merchandising category, prioritize simple (vinyl) image
+                        if (isMerchandisingCategory && this.bundleSimpleImage) {
+                            return this.bundleSimpleImage.medium_image_url || this.bundleSimpleImage.large_image_url || this.bundleSimpleImage.original_image_url;
+                        }
+                        
+                        // Otherwise, use downloadable image (default behavior)
+                        if (this.bundleDownloadableImage) {
+                            return this.bundleDownloadableImage.medium_image_url || this.bundleDownloadableImage.large_image_url || this.bundleDownloadableImage.original_image_url;
+                        }
+                    }
+                    
+                    // For all other cases, use the default base image
+                    return this.product.base_image?.medium_image_url || this.product.base_image?.large_image_url || '';
+                },
+
+                bundlePriceDisplay() {
+                    // For bundle products with format prices, return the object for template iteration
+                    if (this.product.type === 'bundle' && this.product.bundle_format_prices) {
+                        return this.product.bundle_format_prices;
+                    }
+                    
+                    // Return null if not a bundle or no format prices
+                    return null;
+                },
+
+                cleanPriceHtml() {
+                    // Remove "À partir de" text for configurable products
+                    if (this.product.type === 'configurable' && this.product.price_html) {
+                        return this.product.price_html.replace(/À partir de\s*/gi, '');
+                    }
+                    
+                    return this.product.price_html;
+                },
+
+                hasChildPreorder() {
+                    // Check if the product itself is simple and has preorder enabled
+                    if (this.product.type === 'simple' && this.product.preorder === true) {
+                        return true;
+                    }
+                    
+                    // Check if this is a bundle product with children having preorder enabled
+                    if (this.product.type !== 'bundle' || !this.product.bundle_options) {
+                        return false;
+                    }
+                    
+                    // Check each bundle option for simple child products with preorder
+                    return this.product.bundle_options.some(option => {
+                        if (!option.products) {
+                            return false;
+                        }
+                        
+                        return option.products.some(child => {
+                            return child.type === 'simple' && child.preorder === true;
+                        });
+                    });
                 }
             },
 
@@ -348,6 +501,16 @@
                         } else {
                             window.location.href = "{{ route('shop.customer.session.index')}}";
                         }
+                },
+
+                handleButtonClick() {
+                    // For bundle and configurable products, redirect to product page
+                    if (this.product.type === 'bundle' || this.product.type === 'configurable') {
+                        window.location.href = `{{ route('shop.product_or_category.index', '') }}/${this.product.url_key}`;
+                    } else {
+                        // For other products, add to cart
+                        this.addToCart();
+                    }
                 },
 
                 addToCompare(productId) {

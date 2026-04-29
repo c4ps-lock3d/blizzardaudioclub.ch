@@ -70,6 +70,9 @@ class OrderRepository extends Repository
 
                 $this->orderItemRepository->manageInventory($orderItem);
 
+                // Reload the item to get freshly created children
+                $orderItem = $orderItem->fresh();
+
                 $this->downloadableLinkPurchasedRepository->saveLinks($orderItem, 'available');
 
                 Event::dispatch('checkout.order.orderitem.save.after', $orderItem);
@@ -189,7 +192,12 @@ class OrderRepository extends Repository
     {
         $totalQtyOrdered = $totalQtyInvoiced = $totalQtyShipped = $totalQtyRefunded = $totalQtyCanceled = 0;
 
-        foreach ($order->items()->get() as $item) {
+        foreach ($order->all_items()->get() as $item) {
+            // Skip bundle parents - only count their children
+            if ($item->product_type === 'bundle' && ! $item->parent_id) {
+                continue;
+            }
+
             $totalQtyOrdered += $item->qty_ordered;
             $totalQtyInvoiced += $item->qty_invoiced;
 
@@ -235,7 +243,12 @@ class OrderRepository extends Repository
     {
         $totalQtyOrdered = $totalQtyCanceled = 0;
 
-        foreach ($order->items()->get() as $item) {
+        foreach ($order->all_items()->get() as $item) {
+            // Skip bundle parents - only count their children
+            if ($item->product_type === 'bundle' && ! $item->parent_id) {
+                continue;
+            }
+
             $totalQtyOrdered += $item->qty_ordered;
             $totalQtyCanceled += $item->qty_canceled;
         }
@@ -253,7 +266,12 @@ class OrderRepository extends Repository
     {
         $totalQtyOrdered = $totalQtyRefunded = $totalQtyCanceled = 0;
 
-        foreach ($order->items()->get() as $item) {
+        foreach ($order->all_items()->get() as $item) {
+            // Skip bundle parents - only count their children
+            if ($item->product_type === 'bundle' && ! $item->parent_id) {
+                continue;
+            }
+
             $totalQtyOrdered += $item->qty_ordered;
             $totalQtyRefunded += $item->qty_refunded;
             $totalQtyCanceled += $item->qty_canceled;

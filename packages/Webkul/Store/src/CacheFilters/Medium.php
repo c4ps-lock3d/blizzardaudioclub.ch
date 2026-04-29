@@ -37,6 +37,6 @@ class Medium implements FilterInterface
         /**
          * Slider image dimensions
          */
-        return $image->fit(1024, 372);
+        return $image->fit(1024, 309);
     }
 }

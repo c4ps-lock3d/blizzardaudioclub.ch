@@ -6,10 +6,55 @@
     @foreach ($order->items->take(3) as $item)
         <div class="relative">
             <div class="relative h-[60px] max-h-[60px] w-full max-w-[60px] rounded">
-                @if ($item->product?->images->count() > 0)
+                @php
+                    // Pour les bundles, essayer d'afficher l'image du produit enfant (downloadable ou simple)
+                    $imageUrl = null;
+                    $childImageUrl = null;
+                    $hasImages = false;
+                    
+                    if ($item->type === 'bundle') {
+                        // Charger les enfants si pas déjà chargés
+                        if (!$item->relationLoaded('children')) {
+                            $item->load('children.product');
+                        }
+                        
+                        // Chercher le premier enfant (simple en priorité, puis downloadable)
+                        if ($item->children && $item->children->count()) {
+                            // D'abord chercher un produit simple avec des images
+                            foreach ($item->children as $child) {
+                                if ($child->type === 'simple' && $child->product && $child->product->images->count() > 0) {
+                                    $childImageUrl = $child->product->base_image_url;
+                                    $hasImages = true;
+                                    break;
+                                }
+                            }
+                            
+                            // Si pas de simple trouvé, chercher un produit downloadable avec des images
+                            if (!$childImageUrl) {
+                                foreach ($item->children as $child) {
+                                    if ($child->type === 'downloadable' && $child->product && $child->product->images->count() > 0) {
+                                        $childImageUrl = $child->product->base_image_url;
+                                        $hasImages = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Utiliser l'image de l'enfant si disponible, sinon utiliser l'image du parent
+                    if ($childImageUrl) {
+                        $imageUrl = $childImageUrl;
+                    } else {
+                        $imageUrl = $item->product?->base_image_url;
+                        $hasImages = $item->product?->images->count() > 0;
+                    }
+                @endphp
+
+                @if ($hasImages && $imageUrl)
                     <img 
                         class="h-full w-full rounded" 
-                        src="{{ $item->product->base_image_url }}"
+                        src="{{ $imageUrl }}"
                     >
 
                     <span class="absolute bottom-px rounded-full bg-darkPink px-1.5 text-xs font-bold leading-normal text-white ltr:left-px rtl:right-px">

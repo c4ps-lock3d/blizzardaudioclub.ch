@@ -515,7 +515,7 @@ return [
                 'add-to-wishlist'        => 'Ajouter à la liste de souhaits',
                 'already-in-compare'     => 'L\'article est déjà ajouté à la liste de comparaison.',
                 'new'                    => 'Nouveau',
-                'review-description'     => 'Soyez le premier à évaluer ce produit',
+                'review-description'     => ' ',
                 'sale'                   => 'En solde',
             ],
 

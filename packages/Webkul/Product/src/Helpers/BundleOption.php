@@ -27,6 +27,100 @@ class BundleOption
     }
 
     /**
+     * Get the image from downloadable child product
+     *
+     * @param  \Webkul\Product\Contracts\Product  $product
+     * @return array|null
+     */
+    public function getBundleDownloadableImage($product)
+    {
+        $this->product = $product;
+
+        try {
+            // eager load bundle options if not already loaded
+            if (! $this->product->relationLoaded('bundle_options')) {
+                $this->product->load('bundle_options');
+            }
+
+            // Find downloadable product and return its image
+            foreach ($this->product->bundle_options as $option) {
+                // Load bundle_option_products with their related products (no global scopes)
+                $bundleOptionProducts = $option->bundle_option_products()
+                    ->with(['product' => function ($query) {
+                        $query->withoutGlobalScopes()->with('images');
+                    }])
+                    ->get();
+
+                foreach ($bundleOptionProducts as $bundleOptionProduct) {
+                    if ($bundleOptionProduct->product && 
+                        $bundleOptionProduct->product->type === 'downloadable' && 
+                        $bundleOptionProduct->product->images->count() > 0) {
+                        $image = $bundleOptionProduct->product->images->first();
+                        return [
+                            'original_image_url' => $image->url,
+                            'large_image_url'    => product_image()->getProductBaseImage($bundleOptionProduct->product)['large_image_url'] ?? $image->url,
+                            'medium_image_url'   => product_image()->getProductBaseImage($bundleOptionProduct->product)['medium_image_url'] ?? $image->url,
+                            'small_image_url'    => product_image()->getProductBaseImage($bundleOptionProduct->product)['small_image_url'] ?? $image->url,
+                        ];
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            // If any error occurs, return null and fall back to product base image
+            return null;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the image from simple child product (vinyl/physical product)
+     *
+     * @param  \Webkul\Product\Contracts\Product  $product
+     * @return array|null
+     */
+    public function getBundleSimpleImage($product)
+    {
+        $this->product = $product;
+
+        try {
+            // eager load bundle options if not already loaded
+            if (! $this->product->relationLoaded('bundle_options')) {
+                $this->product->load('bundle_options');
+            }
+
+            // Find simple product and return its image
+            foreach ($this->product->bundle_options as $option) {
+                // Load bundle_option_products with their related products (no global scopes)
+                $bundleOptionProducts = $option->bundle_option_products()
+                    ->with(['product' => function ($query) {
+                        $query->withoutGlobalScopes()->with('images');
+                    }])
+                    ->get();
+
+                foreach ($bundleOptionProducts as $bundleOptionProduct) {
+                    if ($bundleOptionProduct->product && 
+                        $bundleOptionProduct->product->type === 'simple' && 
+                        $bundleOptionProduct->product->images->count() > 0) {
+                        $image = $bundleOptionProduct->product->images->first();
+                        return [
+                            'original_image_url' => $image->url,
+                            'large_image_url'    => product_image()->getProductBaseImage($bundleOptionProduct->product)['large_image_url'] ?? $image->url,
+                            'medium_image_url'   => product_image()->getProductBaseImage($bundleOptionProduct->product)['medium_image_url'] ?? $image->url,
+                            'small_image_url'    => product_image()->getProductBaseImage($bundleOptionProduct->product)['small_image_url'] ?? $image->url,
+                        ];
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            // If any error occurs, return null and fall back to product base image
+            return null;
+        }
+
+        return null;
+    }
+
+    /**
      * Returns bundle options
      *
      * @return array
@@ -91,8 +185,34 @@ class BundleOption
         $products = [];
 
         foreach ($option->bundle_option_products as $index => $bundleOptionProduct) {
-            if (! $bundleOptionProduct->product->getTypeInstance()->isSaleable()) {
+            // For simple products in bundles, always include them as they are options
+            // For other types, skip if not saleable
+            $isSimple = $bundleOptionProduct->product->type === 'simple';
+            $isSaleable = $bundleOptionProduct->product->getTypeInstance()->isSaleable();
+            
+            if (!$isSimple && !$isSaleable) {
                 continue;
+            }
+
+            $formatName = null;
+            if ($bundleOptionProduct->product->format) {
+                $formatOption = app('Webkul\Attribute\Repositories\AttributeOptionRepository')
+                    ->findOneByField('id', $bundleOptionProduct->product->format);
+                $formatName = $formatOption ? $formatOption->label : null;
+            }
+
+            // Get product images
+            $images = [];
+            foreach ($bundleOptionProduct->product->images as $image) {
+                $images[] = [
+                    'original_image_url' => $image->url,
+                    'large_image_url'    => product_image()->getProductBaseImage($bundleOptionProduct->product)['large_image_url'] ?? $image->url,
+                    'medium_image_url'   => product_image()->getProductBaseImage($bundleOptionProduct->product)['medium_image_url'] ?? $image->url,
+                    'small_image_url'    => product_image()->getProductBaseImage($bundleOptionProduct->product)['small_image_url'] ?? $image->url,
+                    'type'               => 'images',
+                    'product_format'     => $formatName,
+                    'product_name'       => $bundleOptionProduct->product->name,
+                ];
             }
 
             $products[$bundleOptionProduct->id] = [
@@ -100,11 +220,14 @@ class BundleOption
                 'qty'        => $bundleOptionProduct->qty,
                 'price'      => $bundleOptionProduct->product->getTypeInstance()->getProductPrices(),
                 'name'       => $bundleOptionProduct->product->name,
+                'format'     => $formatName,
                 'product_id' => $bundleOptionProduct->product_id,
+                'type'       => $bundleOptionProduct->product->type,
                 'is_default' => $bundleOptionProduct->is_default,
                 'sort_order' => $bundleOptionProduct->sort_order,
                 'in_stock'   => $bundleOptionProduct->product->inventories->sum('qty') >= $bundleOptionProduct->qty,
                 'inventory'  => $bundleOptionProduct->product->inventories->sum('qty'),
+                'images'     => $images,
             ];
         }
 
@@ -117,5 +240,65 @@ class BundleOption
         });
 
         return $products;
+    }
+
+    /**
+     * Get all images from bundle child products
+     *
+     * @param  \Webkul\Product\Contracts\Product  $product
+     * @return array
+     */
+    public function getBundleChildImages($product)
+    {
+        $this->product = $product;
+        $images = [];
+
+        // eager load bundle options if not already loaded
+        if (! $this->product->relationLoaded('bundle_options')) {
+            $this->product->load('bundle_options');
+        }
+
+        // Iterate through bundle options and load products with withoutGlobalScopes()
+        foreach ($this->product->bundle_options as $option) {
+            $bundleOptionProducts = $option->bundle_option_products()
+                ->with(['product' => function ($query) {
+                    $query->withoutGlobalScopes()->with('images');
+                }])
+                ->get();
+
+            foreach ($bundleOptionProducts as $bundleOptionProduct) {
+                // For simple products, always include them
+                // For downloadable products, always include them (even if disabled)
+                // For other types, skip if not saleable
+                $isSimple = $bundleOptionProduct->product->type === 'simple';
+                $isDownloadable = $bundleOptionProduct->product->type === 'downloadable';
+                $isSaleable = $bundleOptionProduct->product->getTypeInstance()->isSaleable();
+                
+                if (!$isSimple && !$isDownloadable && !$isSaleable) {
+                    continue;
+                }
+
+                $formatName = null;
+                if ($bundleOptionProduct->product->format) {
+                    $formatOption = app('Webkul\Attribute\Repositories\AttributeOptionRepository')
+                        ->findOneByField('id', $bundleOptionProduct->product->format);
+                    $formatName = $formatOption ? $formatOption->label : null;
+                }
+
+                foreach ($bundleOptionProduct->product->images as $image) {
+                    $images[] = [
+                        'original_image_url' => $image->url,
+                        'large_image_url'    => product_image()->getProductBaseImage($bundleOptionProduct->product)['large_image_url'] ?? $image->url,
+                        'medium_image_url'   => product_image()->getProductBaseImage($bundleOptionProduct->product)['medium_image_url'] ?? $image->url,
+                        'small_image_url'    => product_image()->getProductBaseImage($bundleOptionProduct->product)['small_image_url'] ?? $image->url,
+                        'type'               => 'images',
+                        'product_format'     => $formatName,
+                        'product_name'       => $bundleOptionProduct->product->name,
+                    ];
+                }
+            }
+        }
+
+        return $images;
     }
 }

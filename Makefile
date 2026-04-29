@@ -1,7 +1,7 @@
 deploy:
 	rsync -avz public/themes/shop/store/build infomaniakbac:~/sites/blizzardaudioclub.ch/public/themes/shop/store
-	# rsync -avz public/themes/zinventaire/default/build infomaniakbac:~/sites/blizzardaudioclub.ch/public/themes/zinventaire/default
-	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && git pull origin master && make install'
+	rsync -avz public/themes/zinventaire/default/build infomaniakbac:~/sites/blizzardaudioclub.ch/public/themes/zinventaire/default
+	ssh infomaniakbac 'cd ~/sites/blizzardaudioclub.ch && git fetch origin && git reset --hard origin/master && make install'
 
 install: vendor/autoload.php .env public/storage
 	# composer dump-autoload
@@ -10,8 +10,8 @@ install: vendor/autoload.php .env public/storage
 	# php artisan vendor:publish --provider="Webkul\ZInventaire\Providers\ZInventaireServiceProvider" --force
 	# php artisan migrate
 	/opt/php8.2/bin/php artisan vendor:publish --provider="Webkul\Store\Providers\StoreServiceProvider" --force
-	/opt/php8.2/bin/php artisan cache:clear
-	/opt/php8.2/bin/php artisan config:cache
+	/opt/php8.2/bin/php artisan optimize:clear
+	/opt/php8.2/bin/php artisan optimize
 
 .env:
 	cp .env.example
@@ -20,8 +20,8 @@ install: vendor/autoload.php .env public/storage
 public/storage:
 	php artisan storage:link
 
-vendor/autoload.php: composer.lock
-	# /opt/php8.2/bin/composer install
-	# /opt/php8.2/bin/composer dump-autoload
-	# /opt/php8.2/bin/composer update
-	# touch vendor/autoload.php
+vendor/autoload.php:
+	/opt/php8.2/bin/composer install
+	/opt/php8.2/bin/composer dump-autoload
+	/opt/php8.2/bin/composer update
+	touch vendor/autoload.php

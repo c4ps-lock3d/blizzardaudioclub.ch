@@ -68,25 +68,48 @@
 				@if (! empty($order->checkout_message))
 					{!! nl2br($order->checkout_message) !!}
 				@else
-					Nous vous enverrons par e-mail une confirmation et la facture de votre commande. Si vous avez acheté un produit téléchargeable, celui ci est disponible dans votre profil utilisateur dans la section "Téléchargements".
+					@php
+						$hasDownloadable = false;
+						
+						foreach ($order->items as $item) {
+							// Vérifier les téléchargeables directs
+							if ($item->type === 'downloadable') {
+								$hasDownloadable = true;
+								break;
+							}
+							
+							// Vérifier aussi les enfants du bundle
+							if ($item->children) {
+								foreach ($item->children as $child) {
+									if ($child->type === 'downloadable') {
+										$hasDownloadable = true;
+										break 2;
+									}
+								}
+							}
+						}
+					@endphp
+
+					@if ($hasDownloadable)
+						Nous vous enverrons par e-mail une confirmation et la facture de votre commande. Votre produit téléchargeable est disponible dans votre profil utilisateur dans la section "Téléchargements".
+					@else
+						Nous vous enverrons par e-mail une confirmation et la facture de votre commande.
+					@endif
 				@endif
 			</p>
 
 			{{ view_render_event('bagisto.shop.checkout.success.continue-shopping.before', ['order' => $order]) }}
 
-			@foreach ($order->items as $item)
-				@if ($item->type === 'downloadable')
-					<a href="{{ route('shop.customers.account.downloadable_products.index') }}">
-						<div class="m-auto mx-auto block w-max cursor-pointer rounded-2xl bg-[#FADA00] px-11 py-3 text-center text-base font-medium text-black max-md:rounded-lg max-md:px-6 max-md:py-1.5">
-							Aller à la page de téléchargement du produit
-						</div> 
-					</a>
-					@break
-				@endif
-			@endforeach
+			@if ($hasDownloadable)
+				<a href="{{ route('shop.customers.account.downloadable_products.index') }}">
+					<div class="m-auto mx-auto block w-max cursor-pointer rounded-2xl bg-[#FFD940] px-11 py-3 text-center text-base font-medium text-black max-md:rounded-lg max-md:px-6 max-md:py-1.5">
+						Aller au téléchargement
+					</div> 
+				</a>
+			@endif
 
 			<a href="{{ route('shop.home.index') }}">
-				<div class="m-auto mx-auto block w-max cursor-pointer rounded-2xl bg-[#FADA00] px-11 py-3 text-center text-base font-medium text-black max-md:rounded-lg max-md:px-6 max-md:py-1.5">
+				<div class="m-auto mx-auto block w-max cursor-pointer rounded-2xl bg-[#FFD940] px-11 py-3 text-center text-base font-medium text-black max-md:rounded-lg max-md:px-6 max-md:py-1.5">
              		@lang('shop::app.checkout.cart.index.continue-shopping')
 				</div> 
 			</a>

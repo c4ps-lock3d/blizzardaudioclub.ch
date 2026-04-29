@@ -149,7 +149,7 @@
 
                                     <a
                                         href="{{ route('shop.customer.session.create') }}"
-                                        class="m-0 mx-auto block w-max cursor-pointer rounded-2xl bg-[#FADA00] border-black px-7 py-4 text-center text-base font-medium !text-black ltr:ml-0 rtl:mr-0"
+                                        class="m-0 mx-auto block w-max cursor-pointer rounded-2xl bg-[#FFD940] border-black px-7 py-4 text-center text-base font-medium !text-black ltr:ml-0 rtl:mr-0"
                                     >
                                         @lang('shop::app.components.layouts.header.sign-in')
                                     </a>
@@ -443,21 +443,6 @@
                                     class="mt-3 flex items-center justify-between pb-3"
                                 >
                                     LOCATION SONO
-                                </a>
-
-                                <span
-                                    class="cursor-pointer text-2xl"
-                                >
-                                </span>
-                            </div>
-                        </li>
-                                                <li>
-                            <div class="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 border-zinc-100 ltr:ml-3 rtl:mr-3">
-                                <a
-                                    href="{{ route('store.home.bac-plus-cinq') }}"
-                                    class="mt-3 flex items-center justify-between pb-3"
-                                >
-                                    BAC+5
                                 </a>
 
                                 <span

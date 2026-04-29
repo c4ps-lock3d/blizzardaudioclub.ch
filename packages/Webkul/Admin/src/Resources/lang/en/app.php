@@ -757,6 +757,7 @@ return [
                     'mass-update-success'    => 'Selected Products Updated Successfully',
                     'name'                   => 'Name',
                     'out-of-stock'           => 'Out of Stock',
+                    'preorder'               => 'Preorder',
                     'price'                  => 'Price',
                     'product-image'          => 'Product Image',
                     'qty-value'              => ':qty Available',

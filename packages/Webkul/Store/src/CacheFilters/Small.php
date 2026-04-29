@@ -37,6 +37,6 @@ class Small implements FilterInterface
         /**
          * Slider image dimensions
          */
-        return $image->fit(525, 191);
+        return $image->fit(525, 159);
     }
 }

@@ -398,7 +398,7 @@
                                 @if ($order->canReorder())
                                     <a
                                         href="{{ route('shop.customers.account.orders.reorder', $order->id) }}"
-                                        class="mx-auto w-full py-3 text-sm font-medium !text-[#FADA00] max-sm:py-2"
+                                        class="mx-auto w-full py-3 text-sm font-medium !text-[#FFD940] max-sm:py-2"
                                     >
                                         {{-- @lang('shop::app.customers.account.orders.view.reorder-btn-title') --}}
                                     </a>
@@ -781,7 +781,7 @@
                                             @lang('shop::app.customers.account.orders.view.invoices.individual-invoice', ['invoice_id' => $invoice->increment_id ?? $invoice->id])
             
                                             <a href="{{ route('shop.customers.account.orders.print-invoice', $invoice->id) }}">
-                                                <div class="flex items-center gap-1 font-medium text-[#FADA00]">
+                                                <div class="flex items-center gap-1 font-medium text-[#FFD940]">
                                                     <span class="icon-download text-sm font-semibold"></span>
 
                                                     @lang('shop::app.customers.account.orders.view.invoices.print')

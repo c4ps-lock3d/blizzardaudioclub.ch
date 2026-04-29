@@ -140,30 +140,62 @@ class Downloadable extends AbstractType
      * @param  array  $data
      * @return array
      */
+    // public function prepareForCart($data)
+    // {
+    //     if (empty($data['links'])) {
+    //         return trans('product::app.checkout.cart.missing-links');
+    //     }
+
+    //     $products = parent::prepareForCart($data);
+
+    //     foreach ($this->product->downloadable_links as $link) {
+    //         if (! in_array($link->id, $data['links'])) {
+    //             continue;
+    //         }
+
+    //         $products[0]['price'] += ($price = core()->convertPrice($link->price));
+    //         $products[0]['price_incl_tax'] += $price;
+    //         $products[0]['base_price'] += $link->price;
+    //         $products[0]['base_price_incl_tax'] += $link->price;
+    //         $products[0]['total'] += ($total = core()->convertPrice($link->price) * $products[0]['quantity']);
+    //         $products[0]['total_incl_tax'] += $total;
+    //         $products[0]['base_total'] += ($link->price * $products[0]['quantity']);
+    //     }
+
+    //     return $products;
+    // }
+
     public function prepareForCart($data)
-    {
-        if (empty($data['links'])) {
-            return trans('product::app.checkout.cart.missing-links');
-        }
-
-        $products = parent::prepareForCart($data);
-
-        foreach ($this->product->downloadable_links as $link) {
-            if (! in_array($link->id, $data['links'])) {
-                continue;
-            }
-
-            $products[0]['price'] += ($price = core()->convertPrice($link->price));
-            $products[0]['price_incl_tax'] += $price;
-            $products[0]['base_price'] += $link->price;
-            $products[0]['base_price_incl_tax'] += $link->price;
-            $products[0]['total'] += ($total = core()->convertPrice($link->price) * $products[0]['quantity']);
-            $products[0]['total_incl_tax'] += $total;
-            $products[0]['base_total'] += ($link->price * $products[0]['quantity']);
-        }
-
-        return $products;
+{
+    // Si le produit est un enfant d'un bundle, on ne nécessite pas les liens
+    // car le bundle gère le calcul de prix
+    if (isset($data['parent_id'])) {
+        return parent::prepareForCart($data);
     }
+
+    // Pour un produit downloadable standalone, les liens sont obligatoires
+    if (empty($data['links'])) {
+        return trans('product::app.checkout.cart.missing-links');
+    }
+
+    $products = parent::prepareForCart($data);
+
+    foreach ($this->product->downloadable_links as $link) {
+        if (! in_array($link->id, $data['links'])) {
+            continue;
+        }
+
+        $products[0]['price'] += ($price = core()->convertPrice($link->price));
+        $products[0]['price_incl_tax'] += $price;
+        $products[0]['base_price'] += $link->price;
+        $products[0]['base_price_incl_tax'] += $link->price;
+        $products[0]['total'] += ($total = core()->convertPrice($link->price) * $products[0]['quantity']);
+        $products[0]['total_incl_tax'] += $total;
+        $products[0]['base_total'] += ($link->price * $products[0]['quantity']);
+    }
+
+    return $products;
+}
 
     /**
      * Compare options.
@@ -200,40 +232,112 @@ class Downloadable extends AbstractType
      * @param  array  $data
      * @return array
      */
-    public function getAdditionalOptions($data)
-    {
-        $labels = [];
+    // public function getAdditionalOptions($data)
+    // {
+    //     $labels = [];
 
+    //     foreach ($this->product->downloadable_links as $link) {
+    //         if (in_array($link->id, $data['links'])) {
+    //             $labels[] = $link->title;
+    //         }
+    //     }
+
+    //     $data['attributes'][0] = [
+    //         'attribute_name' => 'Downloads',
+    //         'option_id'      => 0,
+    //         'option_label'   => implode(', ', $labels),
+    //     ];
+
+    //     return $data;
+    // }
+    public function getAdditionalOptions($data)
+{
+    $labels = [];
+
+    // Vérifier si 'links' existe dans $data avant d'y accéder
+    if (isset($data['links'])) {
         foreach ($this->product->downloadable_links as $link) {
             if (in_array($link->id, $data['links'])) {
                 $labels[] = $link->title;
             }
         }
-
-        $data['attributes'][0] = [
-            'attribute_name' => 'Downloads',
-            'option_id'      => 0,
-            'option_label'   => implode(', ', $labels),
-        ];
-
-        return $data;
     }
+
+    $data['attributes'][0] = [
+        'attribute_name' => 'Downloads',
+        'option_id'      => 0,
+        'option_label'   => implode(', ', $labels),
+    ];
+
+    return $data;
+}
 
     /**
      * Validate cart item product price
      */
+    // public function validateCartItem(CartItem $item): CartItemValidationResult
+    // {
+    //     $validation = new CartItemValidationResult();
+
+    //     if (parent::isCartItemInactive($item)) {
+    //         $validation->itemIsInactive();
+
+    //         return $validation;
+    //     }
+
+    //     $basePrice = $this->getFinalPrice($item->quantity);
+
+    //     foreach ($item->product->downloadable_links as $link) {
+    //         if (! in_array($link->id, $item->additional['links'])) {
+    //             continue;
+    //         }
+
+    //         $basePrice += $link->price;
+    //     }
+
+    //     $basePrice = round($basePrice, 2);
+
+    //     if (Tax::isInclusiveTaxProductPrices()) {
+    //         $itemBasePrice = $item->base_price_incl_tax;
+    //     } else {
+    //         $itemBasePrice = $item->base_price;
+    //     }
+
+    //     if ($basePrice == $itemBasePrice) {
+    //         return $validation;
+    //     }
+
+    //     $item->base_price = $basePrice;
+    //     $item->base_price_incl_tax = $basePrice;
+
+    //     $item->price = ($price = core()->convertPrice($basePrice));
+    //     $item->price_incl_tax = $price;
+
+    //     $item->base_total = $basePrice * $item->quantity;
+    //     $item->base_total_incl_tax = $basePrice * $item->quantity;
+
+    //     $item->total = ($total = core()->convertPrice($basePrice * $item->quantity));
+    //     $item->total_incl_tax = $total;
+
+    //     $item->save();
+
+    //     return $validation;
+    // }
+
     public function validateCartItem(CartItem $item): CartItemValidationResult
-    {
-        $validation = new CartItemValidationResult();
+{
+    $validation = new CartItemValidationResult();
 
-        if (parent::isCartItemInactive($item)) {
-            $validation->itemIsInactive();
+    if (parent::isCartItemInactive($item)) {
+        $validation->itemIsInactive();
 
-            return $validation;
-        }
+        return $validation;
+    }
 
-        $basePrice = $this->getFinalPrice($item->quantity);
+    $basePrice = $this->getFinalPrice($item->quantity);
 
+    // Vérifier si 'links' existe dans additional avant d'y accéder
+    if (isset($item->additional['links'])) {
         foreach ($item->product->downloadable_links as $link) {
             if (! in_array($link->id, $item->additional['links'])) {
                 continue;
@@ -241,35 +345,36 @@ class Downloadable extends AbstractType
 
             $basePrice += $link->price;
         }
+    }
 
-        $basePrice = round($basePrice, 2);
+    $basePrice = round($basePrice, 2);
 
-        if (Tax::isInclusiveTaxProductPrices()) {
-            $itemBasePrice = $item->base_price_incl_tax;
-        } else {
-            $itemBasePrice = $item->base_price;
-        }
+    if (Tax::isInclusiveTaxProductPrices()) {
+        $itemBasePrice = $item->base_price_incl_tax;
+    } else {
+        $itemBasePrice = $item->base_price;
+    }
 
-        if ($basePrice == $itemBasePrice) {
-            return $validation;
-        }
-
-        $item->base_price = $basePrice;
-        $item->base_price_incl_tax = $basePrice;
-
-        $item->price = ($price = core()->convertPrice($basePrice));
-        $item->price_incl_tax = $price;
-
-        $item->base_total = $basePrice * $item->quantity;
-        $item->base_total_incl_tax = $basePrice * $item->quantity;
-
-        $item->total = ($total = core()->convertPrice($basePrice * $item->quantity));
-        $item->total_incl_tax = $total;
-
-        $item->save();
-
+    if ($basePrice == $itemBasePrice) {
         return $validation;
     }
+
+    $item->base_price = $basePrice;
+    $item->base_price_incl_tax = $basePrice;
+
+    $item->price = ($price = core()->convertPrice($basePrice));
+    $item->price_incl_tax = $price;
+
+    $item->base_total = $basePrice * $item->quantity;
+    $item->base_total_incl_tax = $basePrice * $item->quantity;
+
+    $item->total = ($total = core()->convertPrice($basePrice * $item->quantity));
+    $item->total_incl_tax = $total;
+
+    $item->save();
+
+    return $validation;
+}
 
     /**
      * Get product maximum price

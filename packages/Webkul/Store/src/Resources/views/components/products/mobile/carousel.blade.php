@@ -38,8 +38,8 @@
                         <x-shop::media.images.lazy
                             class="aspect-square max-h-full w-full max-w-full select-none transition-transform duration-300 ease-in-out"
                             ::lazy="true"
-                            ::src="media.medium_image_url"
-                            ::alt="media.medium_image_url"
+                            ::src="media.original_image_url || media.large_image_url"
+                            ::alt="media.original_image_url || media.large_image_url"
                         />
                     </template>
                 </div>

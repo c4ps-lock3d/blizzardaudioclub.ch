@@ -30,7 +30,7 @@
 
                         @if (core()->getConfigData('sales.checkout.my_cart.summary') == 'display_item_quantity')
                             <span
-                                class="absolute -top-4 rounded-[44px] bg-[#FADA00] px-2 py-1.5 text-xs font-semibold leading-[9px] text-black max-md:px-2 max-md:py-1.5 ltr:left-5 max-md:ltr:left-4 rtl:right-5 max-md:rtl:right-4"
+                                class="absolute -top-4 rounded-[44px] bg-[#FFD940] px-2 py-1.5 text-xs font-semibold leading-[9px] text-black max-md:px-2 max-md:py-1.5 ltr:left-5 max-md:ltr:left-4 rtl:right-5 max-md:rtl:right-4"
                                 v-if="cart?.items_count"
                             >
                                 @{{ cart.items_count }}
@@ -38,7 +38,7 @@
 
                         @else
                             <span
-                                class="absolute -top-4 rounded-[44px] bg-[#FADA00] px-2 py-1.5 text-xs font-semibold leading-[9px] text-black ltr:left-5 max-md:ltr:left-4 rtl:right-5 max-md:rtl:right-4"
+                                class="absolute -top-4 rounded-[44px] bg-[#FFD940] px-2 py-1.5 text-xs font-semibold leading-[9px] text-black ltr:left-5 max-md:ltr:left-4 rtl:right-5 max-md:rtl:right-4"
                                 v-if="cart?.items_qty"
                             >
                                 @{{ cart.items_qty }}
@@ -202,7 +202,7 @@
                                 <!-- Cart Item Remove Button -->
                                 <button
                                     type="button"
-                                    class="!text-[#FADA00] !bg-inherit max-md:text-sm"
+                                    class="!text-[#FFD940] !bg-inherit max-md:text-sm"
                                     @click="removeItem(item.id)"
                                 >
                                     @lang('shop::app.checkout.cart.mini-cart.remove')
@@ -389,6 +389,15 @@
                  */
                 this.$emitter.on('update-mini-cart', (cart) => {
                     this.cart = cart;
+                    
+                    // Initialiser option_show à true lors des mises à jour
+                    if (this.cart && this.cart.items) {
+                        this.cart.items.forEach(item => {
+                            if (item.options && item.options.length > 0 && item.option_show === undefined) {
+                                item.option_show = true;
+                            }
+                        });
+                    }
                 });
             },
 
@@ -397,6 +406,15 @@
                     this.$axios.get('{{ route('shop.api.checkout.cart.index') }}')
                         .then(response => {
                             this.cart = response.data.data;
+                            
+                            // Initialiser option_show à true pour tous les items avec des options
+                            if (this.cart && this.cart.items) {
+                                this.cart.items.forEach(item => {
+                                    if (item.options && item.options.length > 0) {
+                                        item.option_show = true;
+                                    }
+                                });
+                            }
                         })
                         .catch(error => {});
                 },

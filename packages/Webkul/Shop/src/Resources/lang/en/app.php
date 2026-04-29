@@ -515,6 +515,7 @@ return [
                 'add-to-wishlist'        => 'Add To Wishlist',
                 'already-in-compare'     => 'Item is already added to compare list.',
                 'new'                    => 'New',
+                'preorder'               => 'Pre-order',
                 'review-description'     => 'Be the first to review this product',
                 'sale'                   => 'Sale',
             ],

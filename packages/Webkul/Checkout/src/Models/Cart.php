@@ -130,7 +130,33 @@ class Cart extends Model implements CartContract
     public function haveStockableItems(): bool
     {
         foreach ($this->items as $item) {
-            if ($item->product->isStockable()) {
+            // For bundle products, check the selected options
+            if ($item->product->type === 'bundle') {
+                $bundleOptions = $item->additional['bundle_options'] ?? [];
+                
+                if (empty($bundleOptions)) {
+                    continue;
+                }
+
+                foreach ($bundleOptions as $optionId => $selectedIds) {
+                    foreach ((array) $selectedIds as $selectedId) {
+                        if ($selectedId == 0) {
+                            continue;
+                        }
+
+                        try {
+                            // Get the ProductBundleOptionProduct to find the actual product
+                            $pbop = app('Webkul\Product\Repositories\ProductBundleOptionProductRepository')->find($selectedId);
+                            
+                            if ($pbop && $pbop->product && $pbop->product->isStockable()) {
+                                return true;
+                            }
+                        } catch (\Exception $e) {
+                            // Silently continue on error
+                        }
+                    }
+                }
+            } else if ($item->product->isStockable()) {
                 return true;
             }
         }

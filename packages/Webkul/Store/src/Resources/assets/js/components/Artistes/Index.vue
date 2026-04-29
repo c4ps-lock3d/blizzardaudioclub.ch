@@ -3,10 +3,28 @@ export default {
     data() {
         return {
             artistes: [],
+            sortOrder: 'asc',
         };
+    },
+    computed: {
+        sortedArtistes() {
+            const sorted = [...this.artistes];
+            sorted.sort((a, b) => {
+                const nameA = (a.name || '').toLowerCase();
+                const nameB = (b.name || '').toLowerCase();
+                
+                if (this.sortOrder === 'asc') {
+                    return nameA.localeCompare(nameB);
+                } else {
+                    return nameB.localeCompare(nameA);
+                }
+            });
+            return sorted;
+        }
     },
     mounted() {
         this.fetchPosts();
+        window.artistesSortComponent = this;
     },
     methods: {
         fetchPosts() {
@@ -15,12 +33,15 @@ export default {
                 .then((response) => (this.artistes = response.data.data))
                 .catch((error) => console.log(error));
         },
+        changeSortOrder(order) {
+            this.sortOrder = order;
+        },
     },
 };
 </script>
 
 <template>
-    <div v-for="artiste in artistes">
+    <div v-for="artiste in sortedArtistes" :key="artiste.id">
         <a v-bind:href="'/artistes/' + artiste.slug + '-' + artiste.id">
             <div
                 class="1180:transtion-all group w-full rounded-lg border border-black 1180:relative 1180:grid 1180:content-start 1180:overflow-hidden 1180:duration-300 1180:hover:shadow-[0_5px_10px_rgba(0,0,0,0.1)]"

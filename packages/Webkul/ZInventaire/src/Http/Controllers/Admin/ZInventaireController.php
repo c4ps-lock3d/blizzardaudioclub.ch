@@ -10,6 +10,8 @@ use Webkul\Product\Repositories\ProductInventoryRepository;
 use Webkul\Product\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\DB;
 
 class ZInventaireController extends Controller
 {
@@ -25,30 +27,43 @@ class ZInventaireController extends Controller
         protected ProductRepository $productRepository,
     ) {}
 
-            /**
-     * Update the specified resource in storage.
+    /**
+     * Update multiple inventories in storage.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function updateinventaire(Request $request, int $id)
+    public function updateinventaire(Request $request)
     {
         $request->validate([
-            'qty' => 'required|numeric|min:0',
+            'inventories' => 'required|array',
+            'inventories.*.id' => 'required|integer|exists:products,id',
+            'inventories.*.qty' => 'required|numeric|min:0',
         ]);
-    
-        $product = $this->productRepository->findOrFail($id);
-        $inventory = $product->inventories()->first();
-    
-        if ($inventory) {
-            $inventory->update(['qty' => $request->qty]);
+
+        try {
+            DB::transaction(function () use ($request) {
+                foreach ($request->input('inventories') as $inventory) {
+                    $product = $this->productRepository->findOrFail($inventory['id']);
+                    $productInventory = $product->inventories()->first();
+
+                    if ($productInventory) {
+                        $productInventory->update(['qty' => $inventory['qty']]);
+                    }
+
+                    // Déclencher l'événement pour mettre à jour les indices
+                    Event::dispatch('catalog.product.update.after', $product);
+                }
+            });
+
+            return response()->json([
+                'message' => 'Inventaire mis à jour avec succès',
+                'count' => count($request->input('inventories')),
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Erreur lors de la mise à jour: ' . $e->getMessage(),
+            ], 500);
         }
-    
-        return response()->json([
-            'message' => 'Quantité mise à jour avec succès',
-            'data' => [
-                'qty' => $request->qty
-            ]
-        ]);
     }
 
     /**

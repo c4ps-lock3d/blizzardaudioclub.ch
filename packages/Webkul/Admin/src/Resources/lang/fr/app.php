@@ -757,6 +757,7 @@ return [
                     'mass-update-success'    => 'Produits sélectionnés mis à jour avec succès',
                     'name'                   => 'Nom',
                     'out-of-stock'           => 'En rupture de stock',
+                    'preorder'               => 'Précommande',
                     'price'                  => 'Prix',
                     'product-image'          => 'Image du produit',
                     'qty'                    => 'Quantité',

@@ -72,6 +72,8 @@ class ProductForm extends FormRequest
             'guest_checkout'       => ['sometimes', 'required', 'in:0,1'],
             'new'                  => ['sometimes', 'required', 'in:0,1'],
             'featured'             => ['sometimes', 'required', 'in:0,1'],
+            'created_at'           => ['nullable', 'date_format:Y-m-d\TH:i'],
+            'updated_at'           => ['nullable', 'date_format:Y-m-d\TH:i'],
         ]);
 
         if (request()->images) {

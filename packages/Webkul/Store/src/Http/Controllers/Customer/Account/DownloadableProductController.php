@@ -38,10 +38,24 @@ class DownloadableProductController extends Controller
      */
     public function download($id)
     {
+        $customerId = auth()->guard('customer')->user()->id;
+        
+        // Chercher le téléchargeable pour ce customer
         $downloadableLinkPurchased = $this->downloadableLinkPurchasedRepository->findOneByField([
             'id'          => $id,
-            'customer_id' => auth()->guard('customer')->user()->id,
+            'customer_id' => $customerId,
         ]);
+
+        // Si pas trouvé avec findOneByField, essayer avec un query direct
+        if (! $downloadableLinkPurchased) {
+            $downloadableLinkPurchased = \Webkul\Sales\Models\DownloadableLinkPurchased::where('id', $id)
+                ->where('customer_id', $customerId)
+                ->first();
+        }
+
+        if (! $downloadableLinkPurchased) {
+            abort(404);
+        }
 
         if ($downloadableLinkPurchased->status == 'pending') {
             abort(403);

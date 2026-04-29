@@ -68,7 +68,6 @@
                     rules="required"
                     :value="old('first_name') ?? $customer->first_name"
                     :label="trans('shop::app.customers.account.profile.edit.first-name')"
-                    :placeholder="trans('shop::app.customers.account.profile.edit.first-name')"
                 />
 
                 <x-shop::form.control-group.error control-name="first_name" />
@@ -88,7 +87,6 @@
                     rules="required"
                     :value="old('last_name') ?? $customer->last_name"
                     :label="trans('shop::app.customers.account.profile.edit.last-name')"
-                    :placeholder="trans('shop::app.customers.account.profile.edit.last-name')"
                 />
 
                 <x-shop::form.control-group.error control-name="last_name" />
@@ -108,7 +106,6 @@
                     rules="required|email"
                     :value="old('email') ?? $customer->email"
                     :label="trans('shop::app.customers.account.profile.edit.email')"
-                    :placeholder="trans('shop::app.customers.account.profile.edit.email')"
                 />
 
                 <x-shop::form.control-group.error control-name="email" />
@@ -128,7 +125,6 @@
                     rules="phone"
                     :value="old('phone') ?? $customer->phone"
                     :label="trans('shop::app.customers.account.profile.edit.phone')"
-                    :placeholder="trans('shop::app.customers.account.profile.edit.phone')"
                 />
 
                 
@@ -138,7 +134,7 @@
 
             <!-- Gender -->
             <x-shop::form.control-group>
-                <x-shop::form.control-group.label class="">
+                <x-shop::form.control-group.label>
                     @lang('shop::app.customers.account.profile.edit.gender')
                 </x-shop::form.control-group.label>
 
@@ -146,7 +142,6 @@
                     type="select"
                     class="mb-3"
                     name="gender"
-                    rules=""
                     :value="old('gender') ?? $customer->gender"
                     :aria-label="trans('shop::app.customers.account.profile.edit.select-gender')"
                     :label="trans('shop::app.customers.account.profile.edit.gender')"
@@ -180,7 +175,6 @@
                     name="date_of_birth"
                     :value="old('date_of_birth') ?? $customer->date_of_birth"
                     :label="trans('shop::app.customers.account.profile.edit.dob')"
-                    :placeholder="trans('shop::app.customers.account.profile.edit.dob')"
                 />
 
                 <x-shop::form.control-group.error control-name="date_of_birth" />
@@ -199,7 +193,6 @@
                     name="current_password"
                     value=""
                     :label="trans('shop::app.customers.account.profile.edit.current-password')"
-                    :placeholder="trans('shop::app.customers.account.profile.edit.current-password')"
                 />
 
                 <x-shop::form.control-group.error control-name="current_password" />
@@ -218,7 +211,6 @@
                     name="new_password"
                     value=""
                     :label="trans('shop::app.customers.account.profile.edit.new-password')"
-                    :placeholder="trans('shop::app.customers.account.profile.edit.new-password')"
                 />
 
                 <x-shop::form.control-group.error control-name="new_password" />
@@ -238,7 +230,6 @@
                     rules="confirmed:@new_password"
                     value=""
                     :label="trans('shop::app.customers.account.profile.edit.confirm-password')"
-                    :placeholder="trans('shop::app.customers.account.profile.edit.confirm-password')"
                 />
 
                 <x-shop::form.control-group.error control-name="new_password_confirmation" />

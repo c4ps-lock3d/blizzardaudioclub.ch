@@ -8,6 +8,7 @@ import.meta.glob(["../images/**", "../fonts/**"]);
  */
 import { createApp } from "vue";
 import ArtistesIndex from './components/Artistes/Index.vue'
+import ArtistesSortDropdown from './components/Artistes/SortDropdown.vue'
 import ArtisteView from './components/Artiste/View.vue' 
 
 /**
@@ -51,6 +52,7 @@ window.app = createApp({
     },
 });
 app.component('ArtistesIndex', ArtistesIndex);
+app.component('ArtistesSortDropdown', ArtistesSortDropdown);
 app.component('ArtisteView', ArtisteView);
 
 /**

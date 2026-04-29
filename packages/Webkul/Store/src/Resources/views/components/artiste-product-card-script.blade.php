@@ -1,11 +1,3 @@
-<v-product-card
-    {{ $attributes }}
-    :product="product"
-    :bundle-downloadable-image="product.bundle_downloadable_image"
-    :bundle-simple-image="product.bundle_simple_image"
->
-</v-product-card>
-
 @pushOnce('scripts')
     <script
         type="text/x-template"
@@ -13,10 +5,10 @@
     >
         <!-- Grid Card -->
         <div
-            class="1180:transtion-all group w-full rounded-md 1180:relative 1180:grid 1180:content-start 1180:overflow-hidden 1180:duration-300 1180:hover:shadow-[0_5px_10px_rgba(0,0,0,0.1)]"
+            class="1180:transtion-all group w-full bg-[#343a40] rounded-md 1180:relative 1180:grid 1180:content-start 1180:overflow-hidden 1180:duration-300 1180:hover:shadow-[0_5px_10px_rgba(0,0,0,0.1)]"
             v-if="mode != 'list'"
         >
-            <div class="relative max-h-[300px] max-w-[291px] overflow-hidden max-md:max-h-60 max-md:max-w-full max-md:rounded-lg max-sm:max-h-[200px] max-sm:max-w-full">
+            <div class="relative max-h-[300px] max-w-[291px] overflow-hidden max-md:max-h-60 max-md:max-w-full max-md:rounded-lg max-sm:rounded-b-none">
                 {!! view_render_event('bagisto.shop.components.products.card.image.before') !!}
 
                 <!-- Product Image -->
@@ -25,11 +17,11 @@
                     :aria-label="product.name + ' '"
                 >
                     <x-shop::media.images.lazy
-                        class="after:content-[' '] relative bg-zinc-100 transition-all duration-300 after:block after:pb-[calc(100%+9px)] group-hover:scale-105"
+                        class="after:content-[' '] relative transition-all duration-300 after:block after:pb-[calc(100%+9px)] group-hover:scale-105 max-sm:rounded-b-none"
                         ::src="cardImageUrl"
                         ::key="product.id"
                         ::index="product.id"
-                        width="291"
+                        width="291" 
                         height="300"
                         ::alt="product.name"
                     />
@@ -61,10 +53,20 @@
 
                     <!-- Product New Badge -->
                     <p
-                        class="absolute top-1.5 inline-block rounded-[44px] bg-navyBlue px-2.5 text-sm text-white max-sm:rounded-l-none max-sm:rounded-r-xl max-sm:px-2 max-sm:py-0.5 max-sm:text-xs ltr:left-1.5 max-sm:ltr:left-0 rtl:right-1.5 max-sm:rtl:right-0"
+                        class="absolute inline-block rounded-[44px] px-2.5 text-sm text-white max-sm:rounded-l-none max-sm:rounded-r-xl max-sm:px-2 max-sm:py-0.5 max-sm:text-xs ltr:left-1.5 max-sm:ltr:left-0 rtl:right-1.5 max-sm:rtl:right-0"
+                        style="background-color: #000000; top: 6px;"
                         v-else-if="product.is_new"
                     >
                         @lang('shop::app.components.products.card.new')
+                    </p>
+
+                    <!-- Product Preorder Badge (Grid) -->
+                    <p
+                        class="absolute inline-block rounded-[44px] px-2.5 text-sm text-white max-sm:rounded-l-none max-sm:rounded-r-xl max-sm:px-2 max-sm:py-0.5 max-sm:text-xs ltr:left-1.5 max-sm:ltr:left-0 rtl:right-1.5 max-sm:rtl:right-0"
+                        :style="`background-color: #000000; top: ${!product.is_new ? '6px' : '36px'};`"
+                        v-if="hasChildPreorder"
+                    >
+                        @lang('shop::app.components.products.card.preorder')
                     </p>
 
                     <div class="opacity-0 transition-all duration-300 group-hover:bottom-0 group-hover:opacity-100 max-lg:opacity-100 max-sm:opacity-100">
@@ -73,7 +75,7 @@
 
                         @if (core()->getConfigData('customer.settings.wishlist.wishlist_option'))
                             <span
-                                class="absolute top-2.5 flex h-6 w-6 items-center justify-center rounded-full border border-zinc-200 bg-white text-lg md:hidden ltr:right-1.5 rtl:left-1.5"
+                                class="absolute top-2.5 flex h-6 w-6 items-center justify-center rounded-full border border-white bg-[#343a40] text-lg md:hidden ltr:right-1.5 rtl:left-1.5"
                                 role="button"
                                 aria-label="@lang('shop::app.components.products.card.add-to-wishlist')"
                                 tabindex="0"
@@ -105,11 +107,11 @@
             </div>
 
             <!-- Product Information Section -->
-            <div class="-mt-9 grid max-w-[291px] translate-y-9 content-start gap-2.5 bg-white p-2.5 transition-transform duration-300 ease-out group-hover:-translate-y-0 group-hover:rounded-t-lg max-md:relative max-md:mt-0 max-md:translate-y-0 max-md:gap-0 max-md:px-0 max-md:py-1.5 max-sm:min-w-[170px] max-sm:max-w-[192px]">
+            <div id="backgroundCard" class="-mt-9 grid max-w-[291px] translate-y-9 content-start gap-2.5 p-2.5 transition-transform duration-300 ease-out group-hover:-translate-y-0 group-hover:rounded-t-lg max-md:relative max-md:mt-0 max-md:translate-y-0 max-md:gap-0 max-md:px-0 max-md:py-1.5 max-sm:rounded-lg">
 
                 {!! view_render_event('bagisto.shop.components.products.card.name.before') !!}
                     
-                <p class="text-base font-medium max-md:mb-1.5 max-md:max-w-56 max-md:whitespace-break-spaces max-md:leading-6 max-sm:max-w-[192px] max-sm:text-sm max-sm:leading-4">
+                <p class="text-base font-medium max-md:mb-1.5 max-md:max-w-56 max-md:whitespace-break-spaces max-md:leading-6 max-sm:max-w-[192px] max-sm:ml-2 max-sm:text-sm max-sm:leading-4">
                     @{{ product.name }}
                 </p>
 
@@ -120,14 +122,18 @@
 
                 <div
                     v-if="bundlePriceDisplay"
-                    class="flex items-center gap-2.5 text-lg font-semibold max-sm:text-sm max-sm:leading-6"
+                    style="color: #dcdcdc"
+                    class="flex flex-col gap-0.5 text-base font-medium max-sm:text-sm max-sm:ml-2 max-sm:mb-2 max-sm:leading-4"
                 >
-                    @{{ bundlePriceDisplay }}
+                    <div v-for="(price, format) in bundlePriceDisplay" :key="format">
+                        @{{ format }} : <span class="font-bold">@{{ price }}</span>
+                    </div>
                 </div>
 
                 <div
                     v-else
-                    class="flex items-center gap-2.5 text-lg font-semibold max-sm:text-sm max-sm:leading-6"
+                    id="colorTextCommand"
+                    class="flex items-center gap-2.5 text-lg font-semibold max-sm:text-sm max-sm:ml-2 max-sm:mb-2 max-sm:leading-6"
                     v-html="product.price_html"
                 >
                 </div>
@@ -140,11 +146,12 @@
                         {!! view_render_event('bagisto.shop.components.products.card.add_to_cart.before') !!}
 
                         <button
-                            class="secondary-button w-full max-w-full p-2.5 text-sm font-medium max-sm:rounded-xl max-sm:p-2"
+                            class="w-full max-w-full p-2.5 text-sm font-medium max-sm:rounded-xl max-sm:p-2 artiste-add-to-cart"
                             :disabled="! product.is_saleable || isAddingToCart"
+                            :style="{ opacity: (!product.is_saleable || isAddingToCart) ? 0.5 : 1 }"
                             @click="addToCart()"
                         >
-                            @lang('shop::app.components.products.card.add-to-cart')
+                            Afficher les options
                         </button>
 
                         {!! view_render_event('bagisto.shop.components.products.card.add_to_cart.after') !!}
@@ -216,12 +223,22 @@
                     </p>
 
                     <p
-                        class="absolute top-5 inline-block rounded-[44px] bg-navyBlue px-2.5 text-sm text-white ltr:left-5 max-sm:ltr:left-2 rtl:right-5"
+                        class="absolute inline-block rounded-[44px] px-2.5 text-sm text-white ltr:left-5 max-sm:ltr:left-2 rtl:right-5"
+                        style="background-color: #000000; top: 20px;"
                         v-else-if="product.is_new"
                     >
                         @lang('shop::app.components.products.card.new')
                     </p>
 
+                    <!-- Product Preorder Badge (List) -->
+                    <p
+                        class="absolute inline-block rounded-[44px] px-2.5 text-sm text-white ltr:left-5 max-sm:ltr:left-2 rtl:right-5"
+                        :style="`background-color: #000000; top: ${!product.is_new ? '20px' : '56px'};`"
+                        v-if="hasChildPreorder"
+                    >
+                        @lang('shop::app.components.products.card.preorder')
+                    </p>
+ 
                     <div class="opacity-0 transition-all duration-300 group-hover:bottom-0 group-hover:opacity-100 max-sm:opacity-100">
 
                         {!! view_render_event('bagisto.shop.components.products.card.wishlist_option.before') !!}
@@ -272,9 +289,12 @@
 
                 <div
                     v-if="bundlePriceDisplay"
-                    class="flex gap-2.5 text-lg font-semibold"
+                    style="color: #dcdcdc"
+                    class="flex flex-col gap-0.5 text-base font-medium"
                 >
-                    @{{ bundlePriceDisplay }}
+                    <div v-for="(price, format) in bundlePriceDisplay" :key="format">
+                        @{{ format }} : <span class="font-bold">@{{ price }}</span>
+                    </div>
                 </div>
 
                 <div
@@ -287,7 +307,7 @@
                 {!! view_render_event('bagisto.shop.components.products.card.price.after') !!}
 
                 <!-- Needs to implement that in future -->
-                <div class="flex hidden gap-4">
+                <div class="hidden gap-4">
                     <span class="block h-[30px] w-[30px] rounded-full bg-[#B5DCB4]">
                     </span>
 
@@ -340,7 +360,7 @@
         app.component('v-product-card', {
             template: '#v-product-card-template',
 
-            props: ['mode', 'product', 'bundleDownloadableImage', 'bundleSimpleImage'],
+            props: ['mode', 'product', 'bundleDownloadableImage'],
 
             data() {
                 return {
@@ -352,17 +372,9 @@
 
             computed: {
                 cardImageUrl() {
-                    // For bundle products without their own images, use child images as fallback
-                    if (this.product.type === 'bundle') {
-                        // Prefer simple image (vinyl/physical) over downloadable
-                        if (this.bundleSimpleImage) {
-                            return this.bundleSimpleImage.medium_image_url || this.bundleSimpleImage.large_image_url || this.bundleSimpleImage.original_image_url;
-                        }
-                        
-                        // If no simple image, use downloadable image
-                        if (this.bundleDownloadableImage) {
-                            return this.bundleDownloadableImage.medium_image_url || this.bundleDownloadableImage.large_image_url || this.bundleDownloadableImage.original_image_url;
-                        }
+                    // For bundle products without their own images, use downloadable child image
+                    if (this.product.type === 'bundle' && this.bundleDownloadableImage) {
+                        return this.bundleDownloadableImage.medium_image_url || this.bundleDownloadableImage.large_image_url || this.bundleDownloadableImage.original_image_url;
                     }
                     
                     // For all other cases, use the default base image
@@ -370,16 +382,36 @@
                 },
 
                 bundlePriceDisplay() {
-                    // For bundle products with format prices, display them
+                    // For bundle products with format prices, return the object for template iteration
                     if (this.product.type === 'bundle' && this.product.bundle_format_prices) {
-                        const prices = this.product.bundle_format_prices;
-                        return Object.entries(prices)
-                            .map(([format, price]) => `${format} : ${price}`)
-                            .join(', ');
+                        return this.product.bundle_format_prices;
                     }
                     
                     // Return null if not a bundle or no format prices
                     return null;
+                },
+
+                hasChildPreorder() {
+                    // Check if the product itself is simple and has preorder enabled
+                    if (this.product.type === 'simple' && this.product.preorder === true) {
+                        return true;
+                    }
+                    
+                    // Check if this is a bundle product with children having preorder enabled
+                    if (this.product.type !== 'bundle' || !this.product.bundle_options) {
+                        return false;
+                    }
+                    
+                    // Check each bundle option for simple child products with preorder
+                    return this.product.bundle_options.some(option => {
+                        if (!option.products) {
+                            return false;
+                        }
+                        
+                        return option.products.some(child => {
+                            return child.type === 'simple' && child.preorder === true;
+                        });
+                    });
                 }
             },
 
@@ -476,8 +508,6 @@
                             this.isAddingToCart = false;
                         })
                         .catch(error => {
-                            this.$emitter.emit('add-flash', { type: 'error', message: error.response.data.message });
-
                             if (error.response.data.redirect_uri) {
                                 window.location.href = error.response.data.redirect_uri;
                             }
@@ -488,4 +518,37 @@
             },
         });
     </script>
+
+    <style>
+        .artiste-add-to-cart {
+            display: flex !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            cursor: pointer !important;
+            place-content: center !important;
+            align-items: center !important;
+            column-gap: 0.375rem !important;
+            border-radius: 0.375rem !important;
+            border-width: 1px !important;
+            border-color: #FFD940 !important;
+            background-color: #FFD940 !important;
+            padding: 0.625rem !important;
+            font-weight: 400 !important;
+            color: #000000 !important;
+            font-size: 0.875rem !important;
+            transition-property: all !important;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+            transition-duration: 0.15s !important;
+            white-space: nowrap !important;
+        }
+
+        .artiste-add-to-cart:hover:not(:disabled) {
+            background-color: #e5c700 !important;
+            border-color: #e5c700 !important;
+        }
+
+        .artiste-add-to-cart:disabled {
+            cursor: not-allowed !important;
+        }
+    </style>
 @endpushOnce

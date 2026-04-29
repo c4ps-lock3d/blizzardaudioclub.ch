@@ -97,6 +97,7 @@
                                     <x-shop::products.card
                                         ::mode="'list'"
                                         v-for="product in products"
+                                        :key="product.id"
                                     />
                                 </template>
 
@@ -204,6 +205,8 @@
                         isMobile: window.innerWidth <= 767,
 
                         isLoading: true,
+                        
+                        hasInitialized: false,
 
                         isDrawerActive: {
                             toolbar: false,
@@ -238,8 +241,17 @@
                 },
 
                 watch: {
-                    queryParams() {
-                        this.getProducts();
+                    queryParams: {
+                        handler() {
+                            if (!this.hasInitialized) {
+                                this.hasInitialized = true;
+                                this.getProducts();
+                            } else {
+                                // Always reload when filters change (added or removed)
+                                this.getProducts();
+                            }
+                        },
+                        immediate: true,
                     },
 
                     queryString() {
