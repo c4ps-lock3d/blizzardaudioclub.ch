@@ -375,10 +375,10 @@
                                 </a>
                             </div>
                             <div class="hover:bg-[#1d2124] pl-9 pr-9 pt-2 pb-4">
-                                <a href="{{ route('store.home.location-sono') }}"
+                                <a href="{{ route('store.home.location-sono-ecrans-geants-beamers') }}"
                                 class="inline-block px-5 uppercase"
                                 >
-                                    LOCATION SONO
+                                    LOCATION SONO + ÉCRANS GÉANTS + BEAMERS
                                 </a>
                             </div>
                         </div>

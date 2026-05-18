@@ -439,10 +439,10 @@
                         <li>
                             <div class="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 border-zinc-100 ltr:ml-3 rtl:mr-3">
                                 <a
-                                    href="{{ route('store.home.location-sono') }}"
+                                    href="{{ route('store.home.location-sono-ecrans-geants-beamers') }}"
                                     class="mt-3 flex items-center justify-between pb-3"
                                 >
-                                    LOCATION SONO
+                                    LOCATION SONO + ÉCRANS GÉANTS + BEAMERS
                                 </a>
 
                                 <span

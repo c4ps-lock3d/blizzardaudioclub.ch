@@ -65,7 +65,7 @@ class HomeController extends Controller
 
     public function locationSono()
     {
-        return view('store::home.location-sono');
+        return view('store::home.location-sono-ecrans-geants-beamers');
     }
 
     public function aPropos(Artiste $artiste)
