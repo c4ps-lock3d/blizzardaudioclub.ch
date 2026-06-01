@@ -98,6 +98,10 @@
             <img class="rounded-lg border border-black" src="{{url('/images/sono/sono2.webp')}}" alt="">
             <img class="rounded-lg border border-black" src="{{url('/images/sono/sono3.webp')}}" alt="">
             <img class="rounded-lg border border-black" src="{{url('/images/sono/sono4.webp')}}" alt="">
+            <img class="rounded-lg border border-black" src="{{url('/images/sono/sono5.webp')}}" alt="">
+            <img class="rounded-lg border border-black" src="{{url('/images/sono/sono6.webp')}}" alt="">
+            <img class="rounded-lg border border-black" src="{{url('/images/sono/sono7.webp')}}" alt="">
+            <img class="rounded-lg border border-black" src="{{url('/images/sono/sono8.webp')}}" alt="">
         </div>
     </div>
 </x-shop::layouts>
