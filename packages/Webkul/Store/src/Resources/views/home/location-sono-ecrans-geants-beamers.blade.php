@@ -37,10 +37,10 @@
         <div class="mt-8">
             <h2 class="text-lg font-semibold">Conditions de location</h2>
             <p class="mt-3 text-justify">
-                Le matériel est loué sur une base journalière. Des arrangements peuvent néanmoins être convenus. Pour des locations de longue durée, un tarif préférentiel peut être discuté. La location à l'heure n'est pas proposée.
-            <p class="mt-8">Intéressé(e) ? <a style="color: #FFD940 !important" href="{{ route('shop.home.contact_us') }}">contactez-nous via notre formulaire</a>.</p>
-
+                Le matériel est loué sur une base journalière. Des arrangements peuvent néanmoins être convenus. Pour des locations de longue durée, un tarif préférentiel peut être discuté. La location à l'heure n'est pas proposée. Matériel à venir récupérer et ramener à La Chaux-de-Fonds.
+                Option livraison et reprise possible, modalités à discuter.
             </p>
+            <p class="mt-8">Intéressé(e) ? <a style="color: #FFD940 !important" href="{{ route('shop.home.contact_us') }}">contactez-nous via notre formulaire</a>.</p>
         </div>
 
         <!-- Tarification -->
