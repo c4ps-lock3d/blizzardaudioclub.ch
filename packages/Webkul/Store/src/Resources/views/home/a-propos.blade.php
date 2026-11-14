@@ -56,6 +56,12 @@
                     <b>Nathan</b>, la folie pétillante alliée à la précision de son art en font le profil parfait pour s’occuper de l’identité visuelle graphique du label.
                 </p>
             </div>
+            <div id="backgroundCard" class="p-4 rounded-lg border border-black">
+                <img src="{{url('/images/label-members/chris.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
+                <p class="mt-2">
+                    <b>Chris</b> est ce qu'on appelle dans le jargon "un bon gros hyperactif assoiffé de musique". DJ, organisateur d'events, producteur, manager et musicien dans un band de rock, il n'est pas prêt de s'ennuyer.
+                </p>
+            </div>
         </div>
         <h1 class="mb-6 mt-6 text-xl">ILS ONT PARTICIPÉ À NOTRE HISTOIRE</h1>
         <div class="grid grid-cols-5 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
