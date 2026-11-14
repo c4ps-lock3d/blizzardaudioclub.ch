@@ -25,7 +25,7 @@
         
         <h1 class="mb-6 text-xl">LE COMITÉ</h1>
         <p class="text-justify mb-6">Nous sommes issus de milieux très différents, pas forcément lié au monde de la musique. C'est ce qui fait la richesse de notre label : chacun d'entre nous apporte son expérience et des points de vue différents qui permettent de trouver des solutions innovantes.</p>
-        <div class="grid grid-cols-5 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
+        <div class="grid grid-cols-3 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
             <div id="backgroundCard" class="p-4 rounded-lg border border-black">
                 <img src="{{url('/images/label-members/etienne.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
                 <p class="mt-2">
