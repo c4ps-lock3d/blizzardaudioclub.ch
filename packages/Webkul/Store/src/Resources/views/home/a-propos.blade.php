@@ -64,7 +64,7 @@
             </div>
         </div>
         <h1 class="mb-6 mt-6 text-xl">ILS ONT PARTICIPÉ À NOTRE HISTOIRE</h1>
-        <div class="grid grid-cols-5 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
+        <div class="grid grid-cols-4 gap-6 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
             <div id="backgroundCard" class="p-4 rounded-lg border border-black">
                 <img src="{{url('/images/label-members/michael.webp')}}" alt="..." style="border-radius:50% 50%;border:0.15em solid black">
                 <p class="mt-2">
